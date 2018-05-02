@@ -1,4 +1,5 @@
 #!/bin/sh
 
-cp tmux/tmux.conf ~/.tmux.conf
-cp bash/bashrc ~/.bashrc
+ln -iv tmux.conf ~/.tmux.conf
+ln -iv bashrc ~/.bashrc
+ln -iv vim/vimrc ~/.vimrc
