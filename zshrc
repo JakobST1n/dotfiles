@@ -1,0 +1,60 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+export ZSH="/home/jakob/.oh-my-zsh"
+
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+export UPDATE_ZSH_DAYS=30
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+DEFAULT_USER="jakob"
+
+# POWERLINE9K
+POWERLEVEL9K_MODE="nerdfont-complete"
+
+POWERLINE9K_PROMPT_ADD_NEWLINE=true
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
+
+POWERLEVEL9K_SHORTEN_STRATERGY="truncate_to_last"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_DIR_SHOW_WRITABLE=true
+
+# Powerline color config
+POWERLEVEL9K_STATUS_OK_BACKGROUND='004'
+POWERLEVEL9K_STATUS_OK_FOREGROUND='015'
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND='001'
+POWERLEVEL9K_STATUS_ERROR_FOREGROUND='015'
+
+# Powerline icon config
+POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\UE0B8'
+POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BE'
+
+POWERLEVEL9K_HOME_ICON='\UF7DB'
+POWERLEVEL9K_HOME_SUB_ICON='\UF07C'
+POWERLEVEL9K_FOLDER_ICON='\UF07B'
+POWERLEVEL9K_ETC_ICON='\UE5FC'
+POWERLEVEL9K_LOCK_ICON='\UF023'
+
+POWERLEVEL9K_VCS_UNSTAGED_ICON='\UF421'
+POWERLEVEL9K_VCS_STAGED='\UF055'
+POWERLEVEL9K_VCS_UNTRACKED_ICON='\UF059'
+POWERLEVEL9K_VCS_BRANCH_ICON='\UE725 '

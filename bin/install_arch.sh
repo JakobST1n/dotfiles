@@ -6,3 +6,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 echo "Install powerlevel9k"
 sudo pacman -S zsh-theme-powerlevel9k
+
+sudo pacman -S highlight atool w3m mediainfo
+
+ln -i zshrc ~/.zshrc
+
+
+echo "Please install the font Roboto mono nerd, and enable it in your terminal."
