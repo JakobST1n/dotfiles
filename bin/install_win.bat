@@ -7,4 +7,4 @@ echo Are you an administrator on your system? (Y/n)
 echo I don't care...
 echo
 echo this key should point to your env.cmd
-echo REG Add "HKCU\SOFTWARE\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d pathToFile 
+echo REG Add "HKCU\SOFTWARE\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d <pathToFile>
