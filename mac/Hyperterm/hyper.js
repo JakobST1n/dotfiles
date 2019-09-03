@@ -1,3 +1,7 @@
+// Future versions of Hyper may add additional config options,
+// which will not automatically be merged into this file.
+// See https://hyper.is#cfg for all currently supported options.
+
 module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
@@ -8,13 +12,19 @@ module.exports = {
     fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: '"Roboto Mono", "Fira Code", Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+    fontFamily: '"RobotoMono Nerd Font Mono", "Meslo LG S for Powerline", Menlo',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
 
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: 'bold',
+
+    // line height as a relative unit
+    lineHeight: 1,
+
+    // letter spacing as a relative unit
+    letterSpacing: 1,
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: '#2C85F7',
@@ -42,7 +52,7 @@ module.exports = {
     borderColor: '#323E4D',
 
     // custom CSS to embed in the main window
-    css: "",
+    css: '',
 
     // custom CSS to embed in the terminal window
     termCSS: '',
@@ -57,29 +67,29 @@ module.exports = {
     showWindowControls: false,
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '12px 14px 0 14px',
+    padding: '10px 0 0 10px',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
-    colors: {
-      black             : '#293340',
-      red               : '#E17E85',
-      green             : '#61BA86',
-      yellow            : '#FFEC8E',
-      blue              : '#4CB2FF',
-      magenta           : '#BE86E3',
-      cyan              : '#2DCED0',
-      white             : '#CDD2E9',
-      lightBlack        : '#546386',
-      lightRed          : '#E17E85',
-      lightGreen        : '#61BA86',
-      lightYellow       : '#FFB68E',
-      lightBlue         : '#4CB2FF',
-      lightMagenta      : '#BE86E3',
-      lightCyan         : '#2DCED0',
-      lightWhite        : '#CDD2E9'
-    },
+      colors: {
+        black             : '#293340',
+        red               : '#E17E85',
+        green             : '#61BA86',
+        yellow            : '#FFEC8E',
+        blue              : '#4CB2FF',
+        magenta           : '#BE86E3',
+        cyan              : '#2DCED0',
+        white             : '#CDD2E9',
+        lightBlack        : '#546386',
+        lightRed          : '#E17E85',
+        lightGreen        : '#61BA86',
+        lightYellow       : '#FFB68E',
+        lightBlue         : '#4CB2FF',
+        lightMagenta      : '#BE86E3',
+        lightCyan         : '#2DCED0',
+        lightWhite        : '#CDD2E9'
+      },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
@@ -93,7 +103,8 @@ module.exports = {
     //
     // PowerShell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-    shell: '',
+	shell: '/usr/local/bin/zsh',
+	//shell: "bash",
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
@@ -113,21 +124,40 @@ module.exports = {
 
     // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
     // selection is present (`true` by default on Windows and disables the context menu feature)
-    // quickEdit: true,
+    quickEdit: false,
+
+    // choose either `'vertical'`, if you want the column mode when Option key is hold during selection (Default)
+    // or `'force'`, if you want to force selection regardless of whether the terminal is in mouse events mode
+    // (inside tmux or vim with mouse mode enabled for example).
+    macOptionSelectionMode: 'vertical',
 
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
+    // Whether to use the WebGL renderer. Set it to false to use canvas-based
+    // rendering (slower, but supports transparent backgrounds)
+    webGLRenderer: true,
+
     // for advanced config flags please refer to https://hyper.is/#cfg
-    commands: [ "tmux && exit" ],
+
+	commands: [ "tmux && exit" ],
   },
 
-  plugins: [ "hyper-startup",  "hyper-dark-scrollbar", "hyperlinks", "gitrocket", "space-pull", "hyper-blink" ],
+  // a list of plugins to fetch and install from npm
+  // format: [@org/]project[#version]
+  // examples:
+  //   `hyperpower`
+  //   `@company/project`
+  //   `project#1.0.1`
+  plugins: ["hyper-startup",  "hyper-dark-scrollbar", "hyperlinks", "gitrocket", "space-pull", "hyper-blink" ],
 
-  localPlugins: [ "hideTitle" ],
+  // in development, you can create a directory under
+  // `~/.hyper_plugins/local/` and include it here
+  // to load it and avoid it being `npm install`ed
+  localPlugins: ["hideTitle"],
 
   keymaps: {
+    // Example
     // 'window:devtools': 'cmd+alt+o',
   },
-
 };

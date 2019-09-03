@@ -1,6 +1,8 @@
 #!/bin/sh
 
-sudo apt-get install git zsh
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 
 
 ln -i tmux.conf ~/.tmux.conf
