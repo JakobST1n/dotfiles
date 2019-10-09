@@ -149,7 +149,15 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyper-startup",  "hyper-dark-scrollbar", "hyperlinks", "gitrocket", "space-pull", "hyper-blink" ],
+  plugins: [
+	  "hyper-startup",
+	  "hyperminimal",
+	  "hyper-dark-scrollbar",
+	  "hyperlinks",
+	  "gitrocket",
+	  "space-pull", 
+	  "hyper-blink"
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

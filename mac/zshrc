@@ -1,7 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export ZSH=/Users/jakobstendahl/.oh-my-zsh
+if [ ! -f /usr/local/etc/zsh_env_setup ]; then
+	echo "export ZSH=$HOME/.oh-my-zsh" > /usr/local/etc/zsh_env_setup
+	echo "DEFAULT_USER=$USER" >> /usr/local/etc/zsh_env_setup
+fi
+
+source /usr/local/etc/zsh_env_setup
 
 source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
 
@@ -19,7 +24,6 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-DEFAULT_USER="jakobstendahl"
 
 # POWERLINE9K
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -60,5 +64,7 @@ export LANG=en_US.UTF-8
 path+=("/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands")
 export PATH
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/local/bin:/opt/local/sbin
+
+
 alias lamp='/Users/jakobstendahl/.lamp.sh'
 alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
