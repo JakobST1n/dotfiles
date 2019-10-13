@@ -151,7 +151,7 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
 	  "hyper-startup",
-	  "hyperminimal",
+	  
 	  "hyper-dark-scrollbar",
 	  "hyperlinks",
 	  "gitrocket",

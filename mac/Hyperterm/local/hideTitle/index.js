@@ -16,6 +16,7 @@ exports.decorateConfig = config => {
       .tabs_list { display: none; }
       //.header_header { display: none; }
       .terms_terms { margin-top: 0px; }
+	  .tabs_title { display: none; }
     `
   })
 }

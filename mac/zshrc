@@ -68,3 +68,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbi
 
 alias lamp='/Users/jakobstendahl/.lamp.sh'
 alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
+alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
+
+
+clear

@@ -1,0 +1,13 @@
+{
+    "scripts": {
+        "build": "themer -c theme.js -t themer-terminal -t themer-vim -t themer-atom-ui -t themer-atom-syntax -t themer-wallpaper-octagon -o gen"
+    },
+    "devDependencies": {
+        "themer": "^3.1.6",
+        "themer-atom-syntax": "^2.0.2",
+        "themer-atom-ui": "^1.0.5",
+        "themer-terminal": "^2.0.3",
+        "themer-vim": "^3.0.2",
+        "themer-wallpaper-octagon": "^3.0.3"
+    }
+}
