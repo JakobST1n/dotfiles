@@ -42,4 +42,4 @@ Which someone else would have to change anyway, because the don't have the same 
 ### bash
 I use zsh now, so yeah.
 ### Hyper js
-## bash
+### bash
