@@ -53,6 +53,7 @@ fi
 dlgYN "> Install Powerline" res
 if [ $res -eq 1 ]; then
     tput sc
+	pip3 install pygments
     pip3 install powerline-status
     tput rc; tput ed
 fi
@@ -73,10 +74,12 @@ if [ $res -eq 1 ]; then
 	ln -isf "$CWD/mac/tmux.conf" ~/.tmux.conf
 	ln -isf "$CWD/mac/Hyperterm/hyper.js" ~/.hyper.js
 	ln -isf "$CWD/mac/Hyperterm/local" ~/.hyper_plugins/local
-	ln -isf "$CWD/Common/vim/vimrc" ~/.vimrc
+	ln -isf "$CWD/Common/vimrc" ~/.vimrc
+	ln -isf "$CWD/Common/vim" ~/.vim
     tput rc; tput ed
 fi
 
 tput setaf 3
 echo "\nPlease install the font Roboto mono nerd, and enable it in your terminal."
+echo "\nPlease run ':PlugInstall' in vim"
 tput sgr0

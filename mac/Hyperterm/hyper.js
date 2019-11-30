@@ -9,7 +9,7 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 12,
+    fontSize: 11,
 
     // font family with optional fallbacks
     fontFamily: '"RobotoMono Nerd Font Mono", "Meslo LG S for Powerline", Menlo',
@@ -27,7 +27,7 @@ module.exports = {
     letterSpacing: 1,
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: '#2C85F7',
+    cursorColor: 'rgba(80, 115, 184, 0.5)',
 
     // terminal text color under BLOCK cursor
     cursorAccentColor: '#000',
@@ -39,17 +39,17 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#00ff00',
+    foregroundColor: '#dedfdf',
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#293340',
+    backgroundColor: '#23292d',
 
     // terminal selection color
     selectionColor: 'rgba(248,28,229,0.3)',
 
     // border color (window, tabs)
-    borderColor: '#323E4D',
+    borderColor: '#23292d',
 
     // custom CSS to embed in the main window
     css: '',
@@ -73,22 +73,22 @@ module.exports = {
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
       colors: {
-        black             : '#293340',
-        red               : '#E17E85',
-        green             : '#61BA86',
-        yellow            : '#FFEC8E',
-        blue              : '#4CB2FF',
-        magenta           : '#BE86E3',
-        cyan              : '#2DCED0',
-        white             : '#CDD2E9',
-        lightBlack        : '#546386',
-        lightRed          : '#E17E85',
-        lightGreen        : '#61BA86',
-        lightYellow       : '#FFB68E',
-        lightBlue         : '#4CB2FF',
-        lightMagenta      : '#BE86E3',
-        lightCyan         : '#2DCED0',
-        lightWhite        : '#CDD2E9'
+        black             : '#23292d',
+        red               : '#ef4e7c',
+        green             : '#6ebb82',
+        yellow            : '#f79532',
+        blue              : '#1299ad',
+        magenta           : '#a067ab',
+        cyan              : '#09b399',
+        white             : '#dedfdf',
+        lightBlack        : '#42474b',
+        lightRed          : '#f37055',
+        lightGreen        : '#6ebb82',
+        lightYellow       : '#f79532',
+        lightBlue         : '#1299ad',
+        lightMagenta      : '#a067ab',
+        lightCyan         : '#09b399',
+        lightWhite        : '#fdfdfd'
       },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -114,7 +114,7 @@ module.exports = {
     env: {},
 
     // set to `false` for no bell
-    bell: 'SOUND',
+    bell: '/System/Library/Sounds/Pop.aiff',
 
     // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
     copyOnSelect: false,
@@ -151,7 +151,6 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
 	  "hyper-startup",
-	  
 	  "hyper-dark-scrollbar",
 	  "hyperlinks",
 	  "gitrocket",

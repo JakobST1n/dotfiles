@@ -68,7 +68,21 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbi
 
 alias lamp='/Users/jakobstendahl/.lamp.sh'
 alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
+alias uio-send='scp $1 jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/Downloads/'
+alias uio-get='scp jakonste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/$1 .'
 alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
+alias lsp="ps -ax | grep"
+alias lsa="ls -la"
 
+# man pages in colors
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
 
 clear
