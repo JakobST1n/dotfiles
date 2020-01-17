@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    tput setaf 1
+    echo "Server not provided."
+    tput sgr0
+    exit 1
+fi
+
+if [ -z $2 ]; then
+    tput setaf 1
+    echo "File not provided."
+    tput sgr0
+    exit 1
+fi
+
+if [[ -d $2 ]]; then
+    tput setaf 1
+    echo "Cannot move directories..."
+    tput sgr0
+    exit 1
+fi
+
+SERVER="$1"
+FILE="$2"
+SERVERFILE="$(basename $FILE)"
+
+scp "$FILE" "$SERVER":"$SERVERFILE"

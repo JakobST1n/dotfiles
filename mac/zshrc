@@ -64,12 +64,13 @@ export LANG=en_US.UTF-8
 path+=("/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands")
 export PATH
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/local/bin:/opt/local/sbin
-
+path+=("$(readlink /Users/$DEFAULT_USER/bin)")
+export path
 
 alias lamp='/Users/jakobstendahl/.lamp.sh'
 alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
 alias uio-send='scp $1 jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/Downloads/'
-alias uio-get='scp jakonste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/$1 .'
+alias uio-get='scp jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/$1 .'
 alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
 alias lsp="ps -ax | grep"
 alias lsa="ls -la"
@@ -86,3 +87,7 @@ man() {
 }
 
 clear
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
+[[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"

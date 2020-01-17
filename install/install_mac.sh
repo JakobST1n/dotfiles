@@ -70,6 +70,7 @@ dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
 	CWD=$(PWD)
     tput sc
+    ln -isf "$CWD/bin" ~/bin
     ln -isf "$CWD/mac/zshrc" ~/.zshrc
 	ln -isf "$CWD/mac/tmux.conf" ~/.tmux.conf
 	ln -isf "$CWD/mac/Hyperterm/hyper.js" ~/.hyper.js
