@@ -69,11 +69,13 @@ export path
 
 alias lamp='/Users/jakobstendahl/.lamp.sh'
 alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
-alias uio-send='scp $1 jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/Downloads/'
-alias uio-get='scp jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/$1 .'
 alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
 alias lsp="ps -ax | grep"
 alias lsa="ls -la"
+alias lsg="ls | grep"
+alias lsag="ls -la | grep"
+
+alias ls="tput setaf 3 && echo \"'lsa' for 'ls -la', \n'lsg' for 'ls | grep',\n'lsag' for 'ls -la | grep',\n'lsp' for 'ps -ax |grep'\" && tput sgr0 && ls"
 
 # man pages in colors
 man() {

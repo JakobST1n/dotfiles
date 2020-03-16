@@ -1,0 +1,2 @@
+#!/bin/sh
+scp $1 jakobste@login.ifi.uio.no:/uio/hume/student-u27/jakobste/Downloads/
