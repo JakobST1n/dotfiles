@@ -60,7 +60,7 @@ fi
 
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
-	CWD=$(PWD)
+	CWD=$(pwd)
     tput sc
     ln -isf "$CWD/bin" ~/bin
     ln -isf "$CWD/linux/zshrc" ~/.zshrc
