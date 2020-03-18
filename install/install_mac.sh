@@ -32,7 +32,7 @@ fi
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo\"" res
 if [ $res -eq 1 ]; then
     tput sc
-	bew install highlight atool w3m mediainfo
+	brew install highlight atool w3m mediainfo
     tput rc; tput ed
 fi
 
