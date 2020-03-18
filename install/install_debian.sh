@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function dlgYN() {
     tput sc
