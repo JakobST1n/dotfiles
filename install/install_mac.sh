@@ -77,6 +77,7 @@ if [ $res -eq 1 ]; then
 	ln -isf "$CWD/mac/Hyperterm/local" ~/.hyper_plugins/local
 	ln -isf "$CWD/Common/vimrc" ~/.vimrc
 	ln -isf "$CWD/Common/vim" ~/.vim
+	rm -r ~/Library/texmf/tex && ln -isf "$CWD/Common/tex" ~/Library/texmf/tex
     tput rc; tput ed
 fi
 

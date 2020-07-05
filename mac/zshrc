@@ -68,7 +68,6 @@ path+=("$(readlink /Users/$DEFAULT_USER/bin)")
 export path
 
 alias lamp='/Users/jakobstendahl/.lamp.sh'
-alias uio-linux='ssh -YC jakobste@login.ifi.uio.no'
 alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
 alias lsp="ps -ax | grep"
 alias lsa="ls -la"
@@ -88,7 +87,7 @@ man() {
     command man "$@"
 }
 
-clear
+#clear
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
