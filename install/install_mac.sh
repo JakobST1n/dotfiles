@@ -58,11 +58,10 @@ if [ $res -eq 1 ]; then
     tput rc; tput ed
 fi
 
-dlgYN "> Install powerlevel9k" res
+dlgYN "> Install Powerlevel10k" res
 if [ $res -eq 1 ]; then
     tput sc
-	brew tap sambadevi/powerlevel9k
-	brew install powerlevel9k
+        brew install romkatv/powerlevel10k/powerlevel10k
     tput rc; tput ed
 fi
 
