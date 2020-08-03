@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo "usage: jsonGen <path> <library> <orig-extemsion>"
+
+echo "[" > "content.json"
+
+for file in $1; do
+    filename=$(basename -- "$file")
+    extension="${filename##*.}"
+    originalFile="$2$(echo "$filename" | cut -d "." -f 1).$3"
+    
+    echo "  {" >> "content.json"
+    #if [ -f "$originalFile" ]; then
+        COORDS=$(exiftool -c "%.6f" "$originalFile" | grep "GPS" | grep Position | cut -d ':' -f 2)
+        NORTH=$(echo "$COORDS" | cut -d "," -f 1 | tr "N" "" | tr " " "")
+        EAST=$(echo "$COORDS" | cut -d "," -f 2 | tr "E" "" | tr " " "")
+        echo "    \"fileName\": \"$filename\"," >> "content.json"
+        echo "    \"time\": \"2020-07-23T$(echo "$filename" | cut -d "." -f 1 | tr "-" ":") UTC+2\"" >> "content.json"
+
+       echo "FILE: '$filename', NORTH: '$NORTH', EAST: '$EAST'"
+     #   if [ -z "$COORDS" ]; then
+            #echo "FILE: '$filename', NORTH: '$NORTH', EAST: '$EAST'"
+                   
+    #    fi
+        
+    #fi
+    echo "  }," >> "content.json"
+
+    echo "Not in library: '$filename'."
+done
+
+echo "]" >> "content.json"

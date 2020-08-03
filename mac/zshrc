@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -8,7 +15,7 @@ fi
 
 source /usr/local/etc/zsh_env_setup
 
-source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 COMPLETION_WAITING_DOTS="true"
 
@@ -19,45 +26,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# POWERLINE9K
-POWERLEVEL9K_MODE="nerdfont-complete"
-
-POWERLINE9K_PROMPT_ADD_NEWLINE=true
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
-
-POWERLEVEL9K_SHORTEN_STRATERGY="truncate_to_last"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_DIR_SHOW_WRITABLE=true
-
-# Powerline color config
-POWERLEVEL9K_STATUS_OK_BACKGROUND='004'
-POWERLEVEL9K_STATUS_OK_FOREGROUND='015'
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND='001'
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND='015'
-
-# Powerline icon config
-POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\UE0B8'
-POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BE'
-
-POWERLEVEL9K_HOME_ICON='\UF7DB'
-POWERLEVEL9K_HOME_SUB_ICON='\UF07C'
-POWERLEVEL9K_FOLDER_ICON='\UF07B'
-POWERLEVEL9K_ETC_ICON='\UE5FC'
-POWERLEVEL9K_LOCK_ICON='\UF023'
-
-POWERLEVEL9K_VCS_UNSTAGED_ICON='\UF421'
-POWERLEVEL9K_VCS_STAGED='\UF055'
-POWERLEVEL9K_VCS_UNTRACKED_ICON='\UF059'
-POWERLEVEL9K_VCS_BRANCH_ICON='\UE725 '
-
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -89,6 +57,10 @@ man() {
 
 #clear
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
 [[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
+

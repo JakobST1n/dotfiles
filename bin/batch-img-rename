@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo "usage: rename <path> <extension> outputDirectory"
+
+for file in $1; do
+    filename=$(basename -- "$file")
+    extension="${filename##*.}"
+
+    if [ "$extension" == "$2" ]; then
+    #if [[ $(file -b "$file") =~ "$2" ]]; then
+        #echo "Changing '$file'."
+        NEWNAME="$3/$(sips -g creation "$file" | awk '/creation:/{print $3}' | tr ":" "-")"
+        NEWFILE="$NEWNAME.$2"
+        i=2
+        while [ -f "$NEWFILE" ]; do
+            NEWFILE="$NEWNAME""_$i.$2"
+            i=$((i+1))
+        done
+
+        echo "- '$file' -> '$NEWFILE'."
+        cp -p "$file" "$NEWFILE"
+        continue
+    fi
+    echo "Skipping '$file'."
+
+
+done
