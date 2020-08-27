@@ -25,7 +25,7 @@ function dlgYN() {
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim, git\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    sudo apt -y install highlight atool w3m mediainfo curl zsh, vim, git
+    sudo apt -y install highlight atool w3m mediainfo curl zsh vim git python3-pip
     tput rc; tput ed
 fi
 
@@ -48,6 +48,13 @@ if [ $res -eq 1 ]; then
 	  pip3 install pygments
     pip3 install powerline-status
 		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    tput rc; tput ed
+fi
+
+dlgYN "> Install powerlevel9k" res
+if [ $res -eq 1 ]; then
+    tput sc
+	  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     tput rc; tput ed
 fi
 
