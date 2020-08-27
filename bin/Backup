@@ -1,0 +1,91 @@
+#!/bin/bash
+destination="jmbp@192.168.32.102::jmbp"
+backupPaths=("Desktop" "Movies" "Music" "Documents" "Pictures" "_code" "Google Drive")
+
+spinner() {
+	tput sc; tput setaf 3
+	i=1
+	sp="/-\|"
+	echo -n ' '
+	while kill -0 $1 2> /dev/null
+	do
+		sleep 0.1
+	  printf "\b${sp:i++%${#sp}:1}"
+	done
+	tput sgr0; tput rc; tput el
+}
+clearLines() {
+	tput sc
+	for i in 1 2 3 4
+	do
+		printf "\n"
+		tput ed
+		tput el
+	done
+	tput rc
+}
+
+tput civis
+
+mtmpdir=$(mktemp -d)
+printf "Directory for log files: '$mtmpdir'.\n"
+
+# Run rsync on all the directories
+error=false
+for path in "${backupPaths[@]}"; do
+	# Just print the status-text
+	tput setaf 4
+	printf "\n%-22s" "$main$path..."
+	tput sc; tput setaf 8
+	printf "\n(tail -f \"$mtmpdir/$path.log\")"
+	tput sgr0; tput rc; tput el
+	
+	# Actually start rsync for the directory
+  rsync -az --info=all --log-file="$mtmpdir/$path.log" "$path" "$destination" &> /dev/null &
+	rsyncPID=$!
+	trap "kill $rsyncPID 2> /dev/null" EXIT
+	spinner $rsyncPID
+	
+	# Catch rsync's exit code by using wait on a dead PID and hope for the best
+	wait $rsyncPID
+	rsyncExitCode=$?
+	
+	# Clear a few lines to get rid of the temporary tail command string
+	clearLines
+	
+	# Print final status of the rsync command
+	if [ "$rsyncExitCode" -eq "0" ]
+	then
+		tput setaf 2
+		printf "OK"
+	else
+		tput setaf 1
+		printf "Err\n"
+		tput setaf 8
+		printf "($mtmpdir/$path.log)"
+		error=true
+	fi
+	tput sgr0
+done
+
+# Show result
+printf "$reset\n\n"
+if [ "$error" = true ]; then
+	tput setaf 1
+	printf "Some part of the backup-process failed, please take a look at the logs\n"
+	tput sgr0
+	printf "Press any key to exit..."
+	read -n1
+else
+	tput setaf 2
+	printf "Backup successfull\n"
+	tput sgr0
+	printf "Exiting in 5"
+	for i in 4 3 2 1 0
+	do
+		sleep 1
+		tput cub1
+	  printf "$i"
+	done
+fi
+tput cnorm

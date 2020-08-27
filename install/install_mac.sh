@@ -29,10 +29,10 @@ if [ $res -eq 1 ]; then
     tput rc; tput ed
 fi
 
-dlgYN "> Install \"Highlight, atool, w3m, mediainfo\"" res
+dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim\"" res
 if [ $res -eq 1 ]; then
     tput sc
-	brew install highlight atool w3m mediainfo
+	  brew install highlight atool w3m mediainfo vim
     tput rc; tput ed
 fi
 
@@ -40,44 +40,38 @@ dlgYN "> Install Oh-My-Zsh" res
 if [ $res -eq 1 ]; then
     tput sc
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    tput rc; tput ed
-fi
-
-dlgYN "> Install zsh-autosuggestions" res
-if [ $res -eq 1 ]; then
-    tput sc
+		
+		# Zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		# Zsh-syntax-highlighting
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		
     tput rc; tput ed
 fi
 
-dlgYN "> Install Powerline" res
+dlgYN "> Install Powerline && powerlevel10k" res
 if [ $res -eq 1 ]; then
     tput sc
-	pip3 install pygments
+	  pip3 install pygments
     pip3 install powerline-status
-    tput rc; tput ed
-fi
-
-dlgYN "> Install Powerlevel10k" res
-if [ $res -eq 1 ]; then
-    tput sc
-        brew install romkatv/powerlevel10k/powerlevel10k
+		brew install romkatv/powerlevel10k/powerlevel10k
     tput rc; tput ed
 fi
 
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
 	CWD=$(PWD)
-    tput sc
-    ln -isf "$CWD/bin" ~/bin
-    ln -isf "$CWD/mac/zshrc" ~/.zshrc
+  tput sc
+  ln -isf "$CWD/bin" ~/bin
+  ln -isf "$CWD/mac/zshrc" ~/.zshrc
 	ln -isf "$CWD/mac/tmux.conf" ~/.tmux.conf
 	ln -isf "$CWD/mac/Hyperterm/hyper.js" ~/.hyper.js
 	ln -isf "$CWD/mac/Hyperterm/local" ~/.hyper_plugins/local
 	ln -isf "$CWD/Common/vimrc" ~/.vimrc
 	ln -isf "$CWD/Common/vim" ~/.vim
+	ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
 	rm -r ~/Library/texmf/tex && ln -isf "$CWD/Common/tex" ~/Library/texmf/tex
-    tput rc; tput ed
+  tput rc; tput ed
 fi
 
 tput setaf 3

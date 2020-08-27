@@ -1,0 +1,15 @@
+#!/bin/bash
+ip="192.168.11.201"                # Change this,
+URL="http://"$ip"/j?lamp=toggle"   # Not this!
+
+HTTP_RESPONSE=$(curl --silent --write-out "HTTPSTATUS:%{http_code}" -X POST $URL)
+HTTP_BODY=$(echo $HTTP_RESPONSE | sed -e 's/HTTPSTATUS\:.*//g')
+HTTP_STATUS=$(echo $HTTP_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+
+if [ ! $HTTP_STATUS -eq 200  ]; then
+  echo -e '\033[0;31m'"Error [HTTP status: $HTTP_STATUS]"'\033[0m'
+  exit 1
+fi
+
+#echo -e "\033[0;32m $HTTP_BODY \033[0m"
+echo -e "\033[0;32mLAMP SHOULD NOW BE TOGGELED :)\033[0m"
