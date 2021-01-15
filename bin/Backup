@@ -1,5 +1,5 @@
 #!/bin/bash
-destination="jmbp@192.168.32.102::jmbp"
+destination="jmbp@openmediavault.dmz::jmbp"
 backupPaths=("Desktop" "Movies" "Music" "Documents" "Pictures" "_code" "Google Drive")
 
 spinner() {
@@ -28,7 +28,9 @@ clearLines() {
 tput civis
 
 mtmpdir=$(mktemp -d)
-printf "Directory for log files: '$mtmpdir'.\n"
+mtempfile=$(mktemp)
+#printf "Directory for log files: '$mtmpdir'.\n"
+printf "\nLogfile: '$mtempfile'.\n"
 
 # Run rsync on all the directories
 error=false
@@ -36,12 +38,11 @@ for path in "${backupPaths[@]}"; do
 	# Just print the status-text
 	tput setaf 4
 	printf "\n%-22s" "$main$path..."
-	tput sc; tput setaf 8
-	printf "\n(tail -f \"$mtmpdir/$path.log\")"
-	tput sgr0; tput rc; tput el
+	tput sgr0
+	printf "\n\n*********************\nSyncing directory '$path'.\n*********************\n" >> "$mtempfile"
 	
 	# Actually start rsync for the directory
-  rsync -az --info=all --log-file="$mtmpdir/$path.log" "$path" "$destination" &> /dev/null &
+  rsync -az --info=all --log-file="$mtempfile" "$path" "$destination" &> /dev/null &
 	rsyncPID=$!
 	trap "kill $rsyncPID 2> /dev/null" EXIT
 	spinner $rsyncPID

@@ -40,6 +40,7 @@ export PATH
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/local/bin:/opt/local/sbin
 path+=("$(readlink /Users/$DEFAULT_USER/bin)")
 export path
+eval "$(pyenv init -)"
 
 # Add aliases
 alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'

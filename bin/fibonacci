@@ -1,0 +1,2 @@
+#!/bin/bash
+c=0;p=1;for i in $(seq $1); do t=$c;c=$(expr $c + $p); p=$t; done; echo $c
