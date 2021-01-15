@@ -403,6 +403,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+Plug 'ARM9/arm-syntax-vim'
 call plug#end()
 
 " Setup AirLine
