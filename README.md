@@ -3,7 +3,11 @@ This is just all my dotfiles, do what you want with them.
 Personally i use to pull this repo and install them all, but you can use them for inspiration or whatever you want.
 
 I only use mac and fedora atm (arch is still pretty much the same), and i haven't fiddled with windows files for the past few years.
-Run `./install.sh` and type what os you are running.
+
+
+Run `./install.sh` as your main user (__NOT AS ROOT__, sudo has to be installed and is used for privilege escalation).
+You will then be asked for which os/distro you are using, and then it will ask you for each install-step if you want
+to install that part or not.
 
 ## Installer
 This should be the steps for all os', but it might not be updated for all the installers.
