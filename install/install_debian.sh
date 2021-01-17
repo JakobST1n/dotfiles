@@ -25,7 +25,7 @@ function dlgYN() {
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim, git\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    sudo apt -y install highlight atool w3m mediainfo curl zsh vim git python3-pip
+    sudo apt -y install highlight atool w3m mediainfo curl zsh vim git python3-pip tmux
     tput rc; tput ed
 fi
 
@@ -34,10 +34,10 @@ if [ $res -eq 1 ]; then
     tput sc
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-		# Zsh-autosuggestions
+    # Zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		# Zsh-syntax-highlighting
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # Zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
     tput rc; tput ed
 fi
@@ -45,29 +45,22 @@ fi
 dlgYN "> Install Powerline and Powerlevel10k" res
 if [ $res -eq 1 ]; then
     tput sc
-	  pip3 install pygments
+    pip3 install pygments
     pip3 install powerline-status
-		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    tput rc; tput ed
-fi
-
-dlgYN "> Install powerlevel9k" res
-if [ $res -eq 1 ]; then
-    tput sc
-	  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     tput rc; tput ed
 fi
 
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
-	CWD=$(pwd)
+    CWD=$(pwd)
     tput sc
     ln -isf "$CWD/bin" ~/bin
-    ln -isf "$CWD/Common/zshrc" ~/.zshrc
     ln -isf "$CWD/linux/tmux.conf" ~/.tmux.conf
-  	ln -isf "$CWD/Common/vimrc" ~/.vimrc
-	  ln -isf "$CWD/Common/vim" ~/.vim
-		ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
+    ln -isf "$CWD/Common/zshrc" ~/.zshrc
+    ln -isf "$CWD/Common/vimrc" ~/.vimrc
+    ln -isf "$CWD/Common/vim" ~/.vim
+    ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
     tput rc; tput ed
 fi
 
