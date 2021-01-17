@@ -9,16 +9,21 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Check if env setup file exists
-if [ ! -f /usr/local/etc/zsh_env_setup ]; then
-	echo "export ZSH=$HOME/.oh-my-zsh" > /usr/local/etc/zsh_env_setup
-	echo "DEFAULT_USER=$USER" >> /usr/local/etc/zsh_env_setup
+if [ ! -f ~/.zsh_env_setup ]; then
+	echo "export ZSH=$HOME/.oh-my-zsh" > ~/.zsh_env_setup
+	echo "DEFAULT_USER=$USER" >> ~/.zsh_env_setup
 fi
 
 # Source env setup file
-source /usr/local/etc/zsh_env_setup
+source ~/.zsh_env_setup
 
 # Source powerlevel10k theme
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+case "$OSTYPE" in
+    darwin*)
+        source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme;;
+    linux*)
+        ZSH_THEME="powerlevel10k/powerlevel10k";;
+esac
 
 COMPLETION_WAITING_DOTS="true"
 
@@ -35,15 +40,8 @@ source $ZSH/oh-my-zsh.sh
 # Modify locale and path
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-path+=("/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands")
-export PATH
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/local/bin:/opt/local/sbin
-path+=("$(readlink /Users/$DEFAULT_USER/bin)")
-export path
-eval "$(pyenv init -)"
 
 # Add aliases
-alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
 alias lsp="ps -ax | grep"
 alias lsa="ls -la"
 alias lsg="ls | grep"
@@ -63,7 +61,21 @@ man() {
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
-[[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
+case "$OSTYPE" in
+    darwin*)
+        path+=("$(readlink /Users/$DEFAULT_USER/bin)")
+        path+=("/Library/TeX/texbin")
+        path+=("/usr/local/share/dotnet")
+        export PATH
 
+        alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
+        
+        #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+        export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
+        [[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
+    ;;
+    linux*)
+        alias pbcopy='xsel --clipboard --input'
+        alias pbpaste='xsel --clipboard --output'
+    ;;
+esac

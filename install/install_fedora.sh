@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function dlgYN() {
     tput sc
@@ -22,17 +22,10 @@ function dlgYN() {
     done
 }
 
-dlgYN "> Install Homebrew" res
+dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim, git\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    tput rc; tput ed
-fi
-
-dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim\"" res
-if [ $res -eq 1 ]; then
-    tput sc
-	brew install highlight atool w3m mediainfo vim
+    sudo dnf -qy install highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux
     tput rc; tput ed
 fi
 
@@ -49,29 +42,26 @@ if [ $res -eq 1 ]; then
     tput rc; tput ed
 fi
 
-dlgYN "> Install Powerline && powerlevel10k" res
+dlgYN "> Install Powerline and Powerlevel10k" res
 if [ $res -eq 1 ]; then
     tput sc
 	pip3 install pygments
     pip3 install powerline-status
-	brew install romkatv/powerlevel10k/powerlevel10k
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     tput rc; tput ed
 fi
 
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
-	CWD=$(PWD)
+	CWD=$(pwd)
     tput sc
     ln -isf "$CWD/bin" ~/bin
-	ln -isf "$CWD/mac/tmux.conf" ~/.tmux.conf
-	ln -isf "$CWD/mac/Hyperterm/hyper.js" ~/.hyper.js
-	ln -isf "$CWD/mac/Hyperterm/local" ~/.hyper_plugins/local
+    ln -isf "$CWD/linux/tmux.conf" ~/.tmux.conf
     ln -isf "$CWD/Common/zshrc" ~/.zshrc
-	ln -isf "$CWD/Common/vimrc" ~/.vimrc
+  	ln -isf "$CWD/Common/vimrc" ~/.vimrc
 	ln -isf "$CWD/Common/vim" ~/.vim
 	ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
-	rm -r ~/Library/texmf/tex && ln -isf "$CWD/Common/tex" ~/Library/texmf/tex
-  tput rc; tput ed
+    tput rc; tput ed
 fi
 
 tput setaf 3

@@ -2,7 +2,7 @@
 
 echo "Install the dependencies and symlink the dotfiles"
 tput setaf 4
-echo "Install on wich system? Enter either \"mac\", \"debian\", \"arch\":"
+echo "Install on wich system? Enter either \"mac\", \"debian\", \"arch\", \"fedora\":"
 tput setaf 3
 printf "> "
 read platform
@@ -19,4 +19,8 @@ fi
 
 if [ $platform == "debian" ]; then
 	./install/install_debian.sh
+fi
+
+if [ $platform == "fedora" ]; then
+	./install/install_fedora.sh
 fi
