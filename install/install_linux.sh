@@ -25,7 +25,7 @@ function dlgYN() {
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim, git\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    sudo apt -y install highlight atool w3m mediainfo curl zsh vim git python3-pip tmux
+    $INST_PM highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux
     tput rc; tput ed
 fi
 
