@@ -415,17 +415,17 @@ Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
-Plug 'voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
-Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
-Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'voldikss/coc-cmake', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " Setup AirLine
