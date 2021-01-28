@@ -26,7 +26,6 @@
 \usepackage{float}
 \usepackage{multicol}
 \usepackage{colortbl}
-\usepackage{xcolor}
 \usepackage{svg}
 \usepackage{tabularx}
 \usepackage{listofitems}
