@@ -66,6 +66,7 @@ case "$OSTYPE" in
         path+=("$(readlink /Users/$DEFAULT_USER/bin)")
         path+=("/Library/TeX/texbin")
         path+=("/usr/local/share/dotnet")
+        path+=("/usr/local/sbin")
         export PATH
 
         alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
