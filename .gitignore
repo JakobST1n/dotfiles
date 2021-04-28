@@ -67,5 +67,5 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/linux,macos,windows
 node_modules
-/Common/vim/plugged/*
-/Common/vim/autoload/*
+Common/vim/plugged/*
+Common/vim/autoload/*

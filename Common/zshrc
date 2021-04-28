@@ -41,12 +41,17 @@ source $ZSH/oh-my-zsh.sh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# Set vim as default editor
+# export EDITOR=$(which vim)
+
 # Add aliases
 alias lsp="ps -ax | grep"
 alias lsa="ls -la"
 alias lsg="ls | grep"
 alias lsag="ls -la | grep"
 alias ls="tput setaf 3 && echo \"'lsa' for 'ls -la', \n'lsg' for 'ls | grep',\n'lsag' for 'ls -la | grep',\n'lsp' for 'ps -ax |grep'\" && tput sgr0 && ls"
+alias notes="vim ~/Documents/notes.txt"
+alias todo="vim ~/Documents/todo.txt"
 
 # man pages in colors
 man() {
