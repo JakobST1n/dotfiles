@@ -32,7 +32,7 @@ fi
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    brew install highlight atool w3m mediainfo vim
+    brew install highlight atool w3m mediainfo vim nodejs
     tput rc; tput ed
 fi
 
