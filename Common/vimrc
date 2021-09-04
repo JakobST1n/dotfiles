@@ -128,6 +128,9 @@ set foldcolumn=1
 " Show leader commands
 set showcmd
 
+" Show color column
+set colorcolumn=80
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -417,6 +420,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}

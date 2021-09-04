@@ -1,5 +1,18 @@
 # Cheatsheet 
-Cheatsheets for different terminal things. 
+Cheatsheets for different things in this repo.
+
+## ZSH 
+
+These are things that are in my zshrc file and such.
+
+#### Aliases
+
+- `lsp` `ps -ax | grep `
+- `lsa` `ls -la`
+- `lsg` `ls | grep`
+- `lsag` `ls -la | grep `
+
+On linux `pbcopy` and `pbpase` behaves the same as they do on MacOS (given that `xsel` is installed).
 
 ## Vim
 
