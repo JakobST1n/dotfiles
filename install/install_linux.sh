@@ -61,6 +61,11 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/vimrc" ~/.vimrc
     ln -isf "$CWD/Common/vim" ~/.vim
     ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
+    ln -isf "$CWD"/Common/i3/config/* ~/.config/
+    ln -isf "$CWD/Common/i3/urxvt" ~/.urxvt
+    ln -isf "$CWD/Common/i3/Xresources" ~/.Xresources
+    ln -isf "$CWD/Common/i3/xsettingsd" ~/.xsettingsd
+    ln -isf "$CWD/Common/rofi" ~/.config/rofi
     tput rc; tput ed
 fi
 

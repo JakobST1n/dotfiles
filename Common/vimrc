@@ -421,6 +421,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'preservim/tagbar'
 
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
@@ -452,6 +453,9 @@ let g:airline#extensions#branch#enabled=1
 " Setup NerdTree
 let NERDTreeShowHidden=1
 map <F3> :NERDTreeToggle<CR>
+
+" Setup tagbar
+map <F2> :TagbarToggle<CR>
 
 " Map FuzzyFinder key to ;
 map ; :Files<CR>
