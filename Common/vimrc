@@ -418,6 +418,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'preservim/tagbar'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}

@@ -51,6 +51,13 @@ if [ $res -eq 1 ]; then
     tput rc; tput ed
 fi
 
+dlgYN "> autorandr" res
+if [ $res -eq 1 ]; then
+    tput sc
+    pip install autorandr
+    tput rc; tput ed
+fi
+
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
     CWD=$(pwd)
@@ -66,6 +73,7 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/i3/Xresources" ~/.Xresources
     ln -isf "$CWD/Common/i3/xsettingsd" ~/.xsettingsd
     ln -isf "$CWD/Common/rofi" ~/.config/rofi
+    ln -isf "$CWD/Common/deadd" ~/.config/deadd
     tput rc; tput ed
 fi
 
