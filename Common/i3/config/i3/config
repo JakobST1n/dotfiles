@@ -28,7 +28,7 @@ exec --no-startup-id i3-battery-popup -n
 exec --no-startup-id deadd-notification-center
 
 # start a terminal
-bindsym $super+Return exec i3-sensible-terminal
+bindsym $super+Return exec urxvt
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
@@ -47,7 +47,6 @@ bindsym XF86AudioMicMute exec amixer set Capture toggle
 #bindsym XF86AudioStop exec mpc stop
 
 # kill focused window
-bindsym $super+c kill
 bindsym $alt+F4 kill
 
 # change focus
@@ -90,6 +89,9 @@ bindsym $super+3 workspace 3
 bindsym $super+4 workspace 4
 bindsym $super+5 workspace 5
 bindsym $super+6 workspace 6
+bindsym $super+7 workspace 7
+bindsym $super+8 workspace 8
+bindsym $super+9 workspace 9
 
 # move focused container to workspace
 bindsym $super+Shift+1 move container to workspace 1
@@ -98,12 +100,15 @@ bindsym $super+Shift+3 move container to workspace 3
 bindsym $super+Shift+4 move container to workspace 4
 bindsym $super+Shift+5 move container to workspace 5
 bindsym $super+Shift+6 move container to workspace 6
+bindsym $super+Shift+7 move container to workspace 7
+bindsym $super+Shift+8 move container to workspace 8
+bindsym $super+Shift+9 move container to workspace 9
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $super+Shift+r restart
 
 # exit i3
-bindsym $super+l exec i3lock -i /home/jakob/.lockscreen.png
+bindsym $super+l exec i3lock -f -c 63bfb6 #-i /home/jakob/.lockscreen.png
 bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
 bindsym $super+p exec --no-startup-id ~/.config/rofi/bin/applet_powermenu
 
@@ -149,8 +154,8 @@ bar {
 
 # window rules, you can find the window class using xprop
 for_window [class="^.*"] border pixel 2
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|Arandr|Nitrogen|Files] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|Arandr|Nitrogen|Nautilus|Eog|Gnome-calculator|Thunar] floating enable
+for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity|Nautilus|Eog|Gnome-calculator|Thunar] focus
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr|Nitrogen] focus
 
 # colour of border, background, text, indicator, and child_border

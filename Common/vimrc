@@ -267,6 +267,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Make mouse work nice with tmux
 set mouse=a
 
+" Fix widescreen mouse support
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -423,6 +429,8 @@ Plug 'dense-analysis/ale'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'preservim/tagbar'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'tpope/vim-dadbod'
+Plug 'christoomey/vim-tmux-navigator'
 
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
@@ -529,3 +537,9 @@ let g:multi_cursor_next_key            = '<C-d>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
+" vim-tmux-naviagtor
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "Unmounting /media/$1"
+sudo umount -l "/media/$1"
+sudo rm -r "/media/$1"
+echo "Unmounting /usr/local/Development/$1"
+sudo umount -l "/usr/local/Development/$1"
+echo "EOF"

@@ -82,7 +82,7 @@ URxvt*externalBorder:	0
 URxvt.geometry:			84x22
 
 ! perl extensions
-URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common:	default,clipboard,url-select,resize-font,keyboard-select
 
 ! macros for clipboard and selection
 URxvt.copyCommand:		xclip -i -selection clipboard

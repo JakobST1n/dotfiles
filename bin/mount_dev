@@ -1,0 +1,50 @@
+#!/bin/sh
+
+DIR="/usr/local/Development/$2"
+tput setaf 4
+echo "Mounting \"$1:$DIR\" to \"$DIR\"."
+tput sgr0
+
+if [ ! -d "$DIR" ]; then
+  tput setaf 3
+  echo "Directory does not exist, creating now."
+  tput sgr0
+  sudo mkdir -p "$DIR"
+  sudo chown "$USER":"$USER" "$DIR"
+fi
+
+# Check if there is an existing mount of the mountpoint
+EMOUNT=$(findmnt -l | grep "$DIR")
+if [ "$EMOUNT" ]; then
+  source="$(awk '{split($0, a); print a[2]}' <<< $EMOUNT)"
+  fs="$(awk '{split($0, a); print a[3]}' <<< $EMOUNT)"
+  tput setaf 1
+  echo "\"$source\" mounted on mountpoint using \"$fs\" already."
+  tput sgr0
+  exit 1
+fi
+
+if [ "$(ls -A $DIR)" ]; then
+  tput setaf 1
+  echo "Mountpoint is not empty, exiting..."
+  tput sgr0
+  exit 1
+fi
+
+sshfs "$1":"$DIR" "$DIR"
+
+if [ ! -f "/media/$2" ]; then
+  sudo mkdir -p /media/$2
+  sudo chown "$USER":"$USER" "/media/$2"
+fi
+if [ "$(ls -A /media/$2)" ]; then
+  tput setaf 1
+  echo "\"/media/$2\" exists, will not create symlink to mountpoint"
+  tput sgr0
+else
+  sudo mount --bind --verbose "$DIR" "/media/$2"
+fi
+
+tput setaf 2
+echo "Done"
+tput sgr0
