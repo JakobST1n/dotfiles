@@ -1,5 +1,5 @@
 #!/bin/bash
-destination="jmbp@openmediavault.dmz::jmbp"
+destination="jmbp@omv.jakobstendahl.no::jmbp"
 backupPaths=("Desktop" "Movies" "Music" "Documents" "Pictures" "_code" "Google Drive")
 
 spinner() {
