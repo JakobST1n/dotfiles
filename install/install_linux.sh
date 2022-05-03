@@ -74,6 +74,8 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/i3/xsettingsd" ~/.xsettingsd
     ln -isf "$CWD/Common/rofi" ~/.config/rofi
     ln -isf "$CWD/Common/deadd" ~/.config/deadd
+    ln -isf "$CWD/Common/nvim" ~/.config/nvim
+    ln -isf "$CWD/Common/powerline_config" ~/.config/powerline
     tput rc; tput ed
 fi
 

@@ -1,6 +1,11 @@
 #!/bin/sh
 
 echo "Unmounting /media/$1"
+
+if [ "$(pwd)" = "/media/$1" ]; then
+    cd ~/
+fi
+
 sudo umount -l "/media/$1"
 sudo rm -r "/media/$1"
 echo "Unmounting /usr/local/Development/$1"
