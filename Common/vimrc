@@ -591,3 +591,7 @@ endif
 
 " git-blame
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+" Disable annoying svelte indenting
+let g:svelte_indent_script = 0
+let g:svelte_indent_style = 0
