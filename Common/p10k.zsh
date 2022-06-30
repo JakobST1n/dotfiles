@@ -163,17 +163,17 @@
   # Separator between same-color segments on the right.
   typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='%242F\u2571'
   # Separator between different-color segments on the left.
-  typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0BC'
+  typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
   # Separator between different-color segments on the right.
-  typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0BA'
+  typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
   # The right end of left prompt.
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0BC'
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='▓▒░'
   # The left end of right prompt.
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0BA'
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='░▒▓'
   # The left end of left prompt.
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL='░▒▓'
   # The right end of right prompt.
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL='▓▒░'
   # Left prompt terminator for lines without any segments.
   typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
@@ -408,17 +408,12 @@
 
     # Display the current Git commit if there is no branch and no tag.
     # Tip: To always display the current Git commit, delete the next line.
-    [[ -z $VCS_STATUS_LOCAL_BRANCH && -z $VCS_STATUS_TAG ]] &&  # <-- this line
+    [[ -z $VCS_STATUS_LOCAL_BRANCH && -z $VCS_STATUS_LOCAL_BRANCH ]] &&  # <-- this line
       res+="${meta}@${clean}${VCS_STATUS_COMMIT[1,8]}"
 
     # Show tracking branch name if it differs from local branch.
     if [[ -n ${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH} ]]; then
       res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"
-    fi
-
-    # Display "wip" if the latest commit's summary contains "wip" or "WIP".
-    if [[ $VCS_STATUS_COMMIT_SUMMARY == (|*[^[:alnum:]])(wip|WIP)(|[^[:alnum:]]*) ]]; then
-      res+=" ${modified}wip"
     fi
 
     # ⇣42 if behind the remote.
@@ -1216,7 +1211,7 @@
   #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
   # Show kubecontext only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show kubecontext.
-  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
 
   # Kubernetes context classes for the purpose of using different colors, icons and expansions with
   # different contexts.

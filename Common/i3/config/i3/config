@@ -13,6 +13,9 @@ floating_modifier $super
 #exec --no-startup-id feh --bg-scale ~/.wallpaper.png
 exec --no-startup-id wallpaper.sh
 exec --no-startup-id compton --xrender-sync-fence --xrender-sync -b
+exec --no-startup-id /usr/lib/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
+exec --no-startup-id gnome-flashback
 
 exec --no-startup-id "~/.config/umon/wallpaper.sh"
 
@@ -108,7 +111,8 @@ bindsym $super+Shift+9 move container to workspace 9
 bindsym $super+Shift+r restart
 
 # exit i3
-bindsym $super+l exec i3lock -f -c 63bfb6 #-i /home/jakob/.lockscreen.png
+#bindsym $super+l exec i3lock -f -c 63bfb6 #-i /home/jakob/.lockscreen.png
+bindsym $super+l exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
 bindsym $super+p exec --no-startup-id ~/.config/rofi/bin/applet_powermenu
 
@@ -176,8 +180,8 @@ client.background        $blue
 gaps inner 7
 
 # Keybinds for lenovo x1 carbon
-bindsym XF86MonBrightnessUp exec --no-startup-id "brightness-popup.sh inc"
-bindsym XF86MonBrightnessDown exec --no-startup-id "brightness-popup.sh dec"
+bindsym XF86MonBrightnessUp exec --no-startup-id "/home/jakob/bin/brightness-popup.sh inc"
+bindsym XF86MonBrightnessDown exec --no-startup-id "/home/jakob/bin/brightness-popup.sh dec"
 
 bindsym XF86Display exec --no-startup-id "arandr"
 bindsym Print exec --no-startup-id "gnome-screenshot --interactive"

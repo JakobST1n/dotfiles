@@ -184,7 +184,7 @@ set noswapfile
 set expandtab
 
 " Be smart when using tabs ;)
-set smarttab
+" set smarttab
 
 " 1 tab == 4 spaces
 set shiftwidth=4
@@ -243,7 +243,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>t<leader> :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -451,7 +451,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'preservim/tagbar'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
@@ -460,6 +459,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dotenv'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'zivyangll/git-blame.vim'
+Plug 'smithbm2316/centerpad.nvim'
 
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
@@ -472,6 +472,7 @@ Plug 'zivyangll/git-blame.vim'
 "Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'fannheyward/coc-texlab', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'dense-analysis/ale'
 call plug#end()
 
 " Setup AirLine
@@ -542,6 +543,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Attempt to make pyright don't care about git root
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')

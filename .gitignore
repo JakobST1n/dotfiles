@@ -70,3 +70,5 @@ node_modules
 Common/vim/plugged/
 Common/vim/autoload/
 Common/vim/vim
+
+Common/nvim/plugin/
