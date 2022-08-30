@@ -32,6 +32,7 @@ exec --no-startup-id deadd-notification-center
 
 # start a terminal
 bindsym $super+Return exec urxvt
+bindsym $super+$alt+Return exec urxvt --name floating -e noemutt
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
@@ -158,9 +159,10 @@ bar {
 
 # window rules, you can find the window class using xprop
 for_window [class="^.*"] border pixel 2
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|Arandr|Nitrogen|Nautilus|Eog|Gnome-calculator|Thunar] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity|Nautilus|Eog|Gnome-calculator|Thunar] focus
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol|Arandr|Nitrogen|Nautilus|Eog|gnome-calculator|Thunar|gnome-system-monitor] floating enable
+for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity|Nautilus|Eog|gnome-calculator|Thunar] focus
 for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr|Nitrogen] focus
+for_window [ instance="floating" ] floating enable
 
 # colour of border, background, text, indicator, and child_border
 #client.focused              #bf616a #2f343f3 #d8dee8 #bf616a #d8dee8

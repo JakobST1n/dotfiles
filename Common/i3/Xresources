@@ -10,7 +10,9 @@
 *.cursorColor:  #b48ead
 
 ! black
-*.color0  : #4b5262
+*.color0  : #121212
+!*.color0  : #4b5262
+!*.color8  : #000000
 *.color8  : #434a5a
 
 ! red
@@ -45,10 +47,14 @@
 ! Font configuration
 ! ------------------------------------------------------------------------------
 
-URxvt*font:				xft:RobotoMono\ Nerd\ Font\ Mono:size=10
-URxvt*boldFont:			xft:RobotoMono\ Nerd\ Font\ Mono:size=10
-URxvt*italicFont:		xft:RobotoMono\ Nerd\ Font\ Mono:size=10
-URxvt*boldItalicFont:	xft:RobotoMono\ Nerd\ Font\ Mono:size=10
+!URxvt*font:				xft:RobotoMono\ Nerd\ Font\ Mono:size=10
+!URxvt*boldFont:			xft:RobotoMono\ Nerd\ Font\ Mono:size=10
+!URxvt*italicFont:		xft:RobotoMono\ Nerd\ Font\ Mono:size=10
+!URxvt*boldItalicFont:	xft:RobotoMono\ Nerd\ Font\ Mono:size=10
+URxvt*font:				xft:Sauce\ Code\ Pro\ Nerd\ Font\ Mono:size=10,xft:Source Code Pro Semibold:size=10,xft:Noto Mono:size=10,xft:Symbola:size=10
+URxvt*boldFont:			xft:Sauce\ Code\ Pro\ Nerd\ Font\ Mono:size=10,xft:Source Code Pro Semibold:size=10,xft:Noto Mono:size=10,xft:Symbola:size=10
+URxvt*italicFont:		xft:Sauce\ Code\ Pro\ Nerd\ Font\ Mono:size=10,xft:Source Code Pro Semibold:size=10,xft:Noto Mono:size=10,xft:Symbola:size=10
+URxvt*boldItalicFont:	xft:Sauce\ Code\ Pro\ Nerd\ Font\ Mono:size=10,xft:Source Code Pro Semibold:size=10,xft:Noto Mono:size=10,xft:Symbola:size=10
 
 ! ------------------------------------------------------------------------------
 ! Xft Font Configuration
@@ -97,7 +103,7 @@ URxvt.keysym.M-s:		perl:keyboard-select:search
 URxvt.keysym.M-u:		perl:url-select:select_next
 URxvt.urlLauncher:		firefox
 URxvt.underlineURLs:	true
-URxvt.urlButton:		1     
+URxvt.urlButton:		1
 
 ! scroll one line
 URxvt.keysym.Shift-Up:		command:\033]720;1\007
@@ -129,4 +135,4 @@ dmenu.selforeground:	    #d8dee9
 dmenu.background:	        #2e3440
 dmenu.selbackground:	    #bf616a
 dmenu.foreground:	        #d8dee9
-                                                           
+
