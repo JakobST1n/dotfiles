@@ -44,7 +44,7 @@ vim.opt.wildignore = '*.o,*~,*.pyc'
 vim.opt.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store')
 
 -- Always show current position
-vim.opt.ruler = true
+--vim.opt.ruler = true
 
 -- Hide buffers when they are abandoned
 vim.opt.hid = true
@@ -87,11 +87,27 @@ vim.opt.showcmd = true
 
 -- Show colour column
 vim.opt.colorcolumn = '80,120'
+vim.cmd [[ highlight ColorColumn ctermbg=16 ]]
 
 -- => Colors and Fonts
 
 -- Enable syntac highlighting
-vim.opt.syntax = 'enable'
+--vim.opt.syntax = 'enable'
+
+-- Colorscheme
+-- default
+
+-- Workaround for gutter color
+vim.cmd [[
+highlight! link SignColumn LineNr
+autocmd ColorScheme * highlight! link SignColumn LineNr
+]]
+
+-- Change git colors
+--vim.api.nvim_set_hl(0, "DiffAdd", {fg = "#bada9f", bg = "None"})
+--vim.api.nvim_set_hl(0, "DiffChange", {fg = "Purple", bg = "None"})
+--vim.api.nvim_set_hl(0, "DiffDelete", {fg = "Red", bg = "None"})
+--vim.api.nvim_set_hl(0, "DiffText", {fg = "Yellow", bg = "None"})
 
 -- Set utf8 as standard encoding
 vim.opt.encoding = 'utf8'
@@ -143,10 +159,10 @@ Moving around, tabs, windows and buffers
 map('n', '<leader><cr>', ':noh<cr>', silentnoremap)
 
 -- Smart way to move between windows
-map('n', '<C-j>', '<C-W>j', silentnoremap)
-map('n', '<C-k>', '<C-W>k', silentnoremap)
-map('n', '<C-h>', '<C-W>h', silentnoremap)
-map('n', '<C-l>', '<C-W>l', silentnoremap)
+map('', '<C-j>', '<C-W>j', silentnoremap)
+map('', '<C-k>', '<C-W>k', silentnoremap)
+map('', '<C-h>', '<C-W>h', silentnoremap)
+map('', '<C-l>', '<C-W>l', silentnoremap)
 
 -- Close current buffer
 map('n', '<leader>bd', ':Bclose<cr>:tabclose<cr>gT', silentnoremap)
@@ -206,10 +222,10 @@ if vim.fn.has("mac") or vim.fn.has("macunix") then
 end
 
 -- Delete trailing whitespace on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*" },
-  command = [[%s/\s\+$//e]]
-})
+--vim.api.nvim_create_autocmd("BufWritePre", {
+--  pattern = { "*" },
+--  command = [[%s/\s\+$//e]]
+--})
 
 --[[
 Misc
@@ -233,7 +249,7 @@ map('n', '<leader>sm', ':mksession! vim_session.vim<cr>', silentnoremap)
 map('n', '<leader>sl', ':source vim_session.vim<cr>', silentnoremap)
 
 -- Dont't close window when deleting buffer
---vim.api.nvim_create_user_command("Bclose", 
+--vim.api.nvim_create_user_command("Bclose",
 --  "<SID>BufcloseCloseIt()",
 --  {bang = true}
 --)

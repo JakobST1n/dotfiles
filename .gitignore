@@ -72,3 +72,4 @@ Common/vim/autoload/
 Common/vim/vim
 
 Common/nvim/plugin/
+Common/nvim/lsp/jdt-language-server/workspace/folder/
