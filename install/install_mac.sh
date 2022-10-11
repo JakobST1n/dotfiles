@@ -69,6 +69,7 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/zshrc" ~/.zshrc
     ln -isf "$CWD/Common/vimrc" ~/.vimrc
     ln -isf "$CWD/Common/vim" ~/.vim
+    ln -isf "$CWD/Common/nvim" ~/.config/nvim
     ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
     rm -r ~/Library/texmf/tex && ln -isf "$CWD/Common/tex" ~/Library/texmf/tex
   tput rc; tput ed
