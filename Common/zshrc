@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Check if env setup file exists
 if [ ! -f ~/.zsh_env_setup ]; then
@@ -32,7 +32,18 @@ plugins=(
   git
   zsh-autosuggestions
   zsh-syntax-highlighting
+  zsh-vi-mode
 )
+
+# zsh-vi-mode-setup
+#ZVM_CURSOR_STYLE_ENABLED=false
+zvm_config() {
+    ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+    ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+    ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+    ZVM_VISUAL_LINE_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+    ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
+}
 
 # Setup oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -43,6 +54,9 @@ export LANG=en_US.UTF-8
 
 # Set vim as default editor
 # export EDITOR=$(which vim)
+
+# Enable vim keybindings (This is enabled using zsh-vi-mode now.
+# bindkey -v
 
 # Add aliases
 alias lsp="ps -ax | grep"
@@ -115,7 +129,7 @@ case "$OSTYPE" in
         export PATH
 
         alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
-        
+
         #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
         export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
         [[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
