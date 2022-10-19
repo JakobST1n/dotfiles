@@ -14,10 +14,75 @@ vim.cmd([[
 ]])
 
 return require('packer').startup(function(use)
+  -- Packer itself :)
   use 'wbthomason/packer.nvim'
-  use 'lewis6991/gitsigns.nvim'
-  --use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
-  use 'preservim/tagbar'
+
+  -- GitSigns
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+      map("n", "<leader>s", ":Gitsigns toggle_current_line_blame<cr>", silentnoremap)
+    end,
+  }
+
+  -- Lualine (Pretty statusbar and titlebar)
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require('lualine').setup {
+        options = { theme = 'onedark' },
+        sections = {
+          lualine_x = {'filetype'},
+          lualine_y = {}
+        },
+        tabline = {
+          lualine_a = {'buffers'},
+          lualine_b = {'branch'},
+          lualine_z = {'tabs'}
+        }
+      }
+    end,
+  }
+
+  -- nvim-tree
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    tag = 'nightly', -- optional, updated every week. (see issue #1193)
+    config = function()
+        require("nvim-tree").setup()
+        map("n", "<F3>", ":NvimTreeToggle<cr>", silentnoremap)
+    end,
+  }
+
+  -- TagBar
+  use {
+    'preservim/tagbar',
+    config = function()
+      map("n", "<F2>", ":TagbarToggle<cr>", silentnoremap)
+    end,
+  }
+
+  -- Vim tmux navigator
+  use 'christoomey/vim-tmux-navigator'
+
+  -- fzf (Fuzzy finder for various things)
+  use {
+      'junegunn/fzf.vim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = function()
+        vim.cmd [[
+        let g:fzf_layout = { 'down': '40%' }
+        ]]
+        map("n", ";", ":Files<cr>", silentnoremap)
+        map("n", "<leader>;", ":Rg<cr>", silentnoremap)
+      end,
+  }
+
+  -- Tpope plugins :)
+  -- vim-dadbob (run sql directly)
   use {
       'tpope/vim-dadbod',
       config = function()
@@ -39,22 +104,13 @@ return require('packer').startup(function(use)
         ]]
       end,
   }
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
-  use 'christoomey/vim-tmux-navigator'
-  use {
-      'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' }
-  }
+  -- Surround
+  use { 'tpope/vim-surround' }
+
   -- terryma/vim-multiple-cursors
   -- preservim/nerdcommenter
 
+  -- Lsp things
   use 'neovim/nvim-lsp'
   use 'neovim/nvim-lspconfig'
   --use 'kabouzeid/nvim-lspinstall'

@@ -33,11 +33,11 @@ vim.api.nvim_create_user_command(
 VIM User interface
 --]]
 
--- Set 7 lines to the cursor - when moving vertically using j/k
-vim.opt.so = 7
+-- Set 3 lines to the cursor - when moving vertically using j/k
+vim.opt.so = 3
 
 -- set WildMenu
-vim.opt.wildmenu = true
+--vim.opt.wildmenu = true
 
 -- Ignore compiled files
 vim.opt.wildignore = '*.o,*~,*.pyc'
