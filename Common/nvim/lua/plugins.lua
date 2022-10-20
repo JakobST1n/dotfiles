@@ -104,17 +104,58 @@ return require('packer').startup(function(use)
         ]]
       end,
   }
+  -- vim-fugitive (Git commands)
+  use { 'tpope/vim-fugitive' }
   -- Surround
   use { 'tpope/vim-surround' }
+
+  -- Tree-sitter-mysql
+  use { 'PatrickFeiring/tree-sitter-sql' }
 
   -- terryma/vim-multiple-cursors
   -- preservim/nerdcommenter
 
   -- Lsp things
   use 'neovim/nvim-lsp'
-  use 'neovim/nvim-lspconfig'
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      local lsp_flags = {
+        -- This is the default in Nvim 0.7+
+        debounce_text_changes = 150,
+      }
+      local lspconfig = require('lspconfig')
+      lspconfig['pyright'].setup{
+          on_attach = on_attach,
+          flags = lsp_flags,
+      }
+      lspconfig.ccls.setup {
+        single_file_support = true;
+        init_options = {
+          compilationDatabaseDirectory = "build";
+          index = {
+            threads = 0;
+          };
+          clang = {
+            excludeArgs = { "-frounding-math"} ;
+          };
+        }
+      }
+      
+      lspconfig.ccls.setup{}
+      lspconfig.intelephense.setup{}
+      lspconfig.cssls.setup{}
+      lspconfig.html.setup{}
+      lspconfig.bashls.setup{}
+    end,
+  }
   --use 'kabouzeid/nvim-lspinstall'
-  use 'williamboman/nvim-lsp-installer'
+  use {
+    'williamboman/nvim-lsp-installer',
+    config = function()
+
+    end,
+  }
   use 'ms-jpq/coq_nvim'
 
   use 'mfussenegger/nvim-jdtls'
