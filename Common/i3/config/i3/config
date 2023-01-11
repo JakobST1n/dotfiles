@@ -115,7 +115,7 @@ bindsym $super+Shift+r restart
 #bindsym $super+l exec i3lock -f -c 63bfb6 #-i /home/jakob/.lockscreen.png
 bindsym $super+l exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
-bindsym $super+p exec --no-startup-id ~/.config/rofi/bin/applet_powermenu
+bindsym $super+p exec --no-startup-id /home/jakob/.config/rofi/bin/applet_powermenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -188,3 +188,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "/home/jakob/bin/brightness-p
 bindsym XF86Display exec --no-startup-id "arandr"
 bindsym Print exec --no-startup-id "gnome-screenshot --interactive"
 bindsym XF86Favorites exec --no-startup-id "kill -s USR1 $(pidof deadd-notification-center)"
+
+# Keybinds for switching keyboard layout
+#bindsym $super+Shift+F1 exec setxkbmap -layout no; notify-send.py "Keyboard layout NO"
+#bindsym $super+Shift+F2 exec setxkbmap -layout gb; notify-send.py "Keyboard layout EN"
+bindsym $super+Shift+F1 exec "/home/jakob/bin/kblayout.sh no"
+bindsym $super+Shift+F2 exec "/home/jakob/bin/kblayout.sh us"

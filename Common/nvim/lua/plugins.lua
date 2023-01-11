@@ -16,6 +16,8 @@ vim.cmd([[
 return require('packer').startup(function(use)
   -- Packer itself :)
   use 'wbthomason/packer.nvim'
+  -- targets (extends vim's targets, allowing things like multiline select inside backticks)
+  use 'wellle/targets.vim';
 
   -- GitSigns
   use {
@@ -160,6 +162,13 @@ return require('packer').startup(function(use)
 
   use 'mfussenegger/nvim-jdtls'
 
+  -- Goyo :)
+  use {
+      'junegunn/goyo.vim'
+  }
+  use { 'smithbm2316/centerpad.nvim' }
+
+  -- packer.nvim
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

@@ -21,6 +21,26 @@ function ToggleListChars()
   vim.opt.listchars = list_chars_enabled and list_chars_when_enabled or 'eol:$'
 end
 
+-- Command to join lines in buffer as list
+function JoinLines(args, quotes)
+    r = args.args
+    o = ""
+    for k, v in pairs(vim.fn.getreg(r, 1, 1)) do
+        if k > 1 then o = o .. ", " end
+        if quotes ~= nil then o = o .. quotes end
+        o = o .. v:match( "^%s*(.-)%s*$" )  -- Strip leading and trailing
+        if quotes ~= nil then o = o .. quotes end
+    end
+    vim.fn.setreg(r, o)
+end
+function JoinLinesSQ(args) JoinLines(args, "'") end
+function JoinLinesDQ(args) JoinLines(args, '"') end
+function JoinLinesBT(args) JoinLines(args, "`") end
+vim.api.nvim_create_user_command('JoinLines', JoinLines, {bang=false, desc='Joins all lines in a register', nargs='?'})
+vim.api.nvim_create_user_command('JoinLinesSQ', JoinLinesSQ, {bang=false, desc='Joins all lines in a register', nargs='?'})
+vim.api.nvim_create_user_command('JoinLinesDQ', JoinLinesDQ, {bang=false, desc='Joins all lines in a register', nargs='?'})
+vim.api.nvim_create_user_command('JoinLinesBT', JoinLinesBT, {bang=false, desc='Joins all lines in a register', nargs='?'})
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[
