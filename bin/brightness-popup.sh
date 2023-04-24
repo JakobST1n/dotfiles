@@ -17,4 +17,5 @@ BRIGHTNESS=${brightnessperc%.*}
 #                         --hint string:image-path:video-display boolean:transient:true \
 #                                int:has-percentage:$BRIGHTNESS \
 #                         --replaces-process "brightness-popup")
-notify-send.py "Brightness" "$BRIGHTNESS%" --hint boolean:transient:true int:value:$BRIGHTNESS --replaces-process "brightness-popup"
+#notify-send.py "Brightness" "$BRIGHTNESS%" --hint boolean:transient:true int:value:$BRIGHTNESS --replaces-process "brightness-popup"
+echo $BRIGHTNESS > $2

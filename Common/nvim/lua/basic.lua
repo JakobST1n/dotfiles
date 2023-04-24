@@ -253,3 +253,9 @@ map('n', '<leader>sl', ':source vim_session.vim<cr>', silentnoremap)
 --  "<SID>BufcloseCloseIt()",
 --  {bang = true}
 --)
+
+
+
+
+-- This is to get rid of weird artifacts with text showing up inside buffer.
+vim.opt.title = false

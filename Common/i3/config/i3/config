@@ -27,12 +27,16 @@ exec --no-startup-id xrandr --auto
 
 # Start nm-applet for network things :)
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id i3-battery-popup -n
 exec --no-startup-id deadd-notification-center
 
 # start a terminal
 bindsym $super+Return exec urxvt
-bindsym $super+$alt+Return exec urxvt --name floating -e noemutt
+bindsym $super+Alt+Return exec urxvt --name floating -e noemutt
+
+# Shortcut to tt gui
+bindsym $super+Shift+Return exec /home/jakob/.local/bin/tt-g
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
