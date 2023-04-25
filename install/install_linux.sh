@@ -77,6 +77,9 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/rofi" ~/.config/rofi
     ln -isf "$CWD/Common/deadd" ~/.config/deadd
     ln -isf "$CWD/Common/nvim" ~/.config/nvim
+    ln -isf "$CWD/Common/sway" ~/.config/sway
+    ln -isf "$CWD/Common/waybar" ~/.config/waybar
+    ln -isf "$CWD/Common/foot" ~/.config/foot
     ln -isf "$CWD/Common/powerline_config" ~/.config/powerline
     tput rc; tput ed
 fi
