@@ -96,6 +96,7 @@ vim.cmd [[ highlight ColorColumn ctermbg=16 ]]
 
 -- Colorscheme
 -- default
+vim.cmd [[ colorscheme morning ]]
 
 -- Workaround for gutter color
 vim.cmd [[
@@ -175,7 +176,7 @@ map('n', '<leader>h', ':bprevious<cr>', silentnoremap)
 -- Tab commands
 map('n', '<leader>tn',  ':tabnew<cr>', silentnoremap)
 map('n', '<leader>to',  ':tabonly<cr>', silentnoremap)
-map('n', '<leader>tc',  ':tabclose<cr>', silentnoremap)
+--map('n', '<leader>tc',  ':tabclose<cr>', silentnoremap)
 map('n', '<leader>tm',  ':tabmove', silentnoremap)
 map('n', '<leader>t<leader>', ':tabnext', silentnoremap)
 

@@ -80,6 +80,7 @@ return require('packer').startup(function(use)
         ]]
         map("n", ";", ":Files<cr>", silentnoremap)
         map("n", "<leader>;", ":Rg<cr>", silentnoremap)
+        map("n", "<leader><leader>;", ":BLines<cr>", silentnoremap)
       end,
   }
 
@@ -167,6 +168,13 @@ return require('packer').startup(function(use)
       'junegunn/goyo.vim'
   }
   use { 'smithbm2316/centerpad.nvim' }
+
+  -- Color preview
+  use {
+    'lilydjwg/colorizer',
+    config = function()
+    end,
+  }
 
   -- packer.nvim
   -- Automatically set up your configuration after cloning packer.nvim

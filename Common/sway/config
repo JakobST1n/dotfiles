@@ -57,7 +57,6 @@ bindswitch lid:off output $laptop enable
 
 # kill focused window
 bindsym $Mod+Shift+q kill
-bindsym Mod1+q kill
 bindsym Mod1+F4 kill
 
 # core applications
@@ -103,8 +102,8 @@ bindsym $Mod+Shift+c reload
 bindsym $Mod+Shift+Return exec /home/jakob/.local/bin/tt-g
 
 # Keyboard layout
-bindsym $Mod+Shift+F1 exec "swaymsg input 1:1:AT_Translated_Set_2_keyboard xkb_layout no"
-bindsym $Mod+Shift+F2 exec "swaymsg input 1:1:AT_Translated_Set_2_keyboard xkb_layout us"
+bindsym $Mod+Shift+Space input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
+
 
 ###########          Workspace Bindings          ###############
 

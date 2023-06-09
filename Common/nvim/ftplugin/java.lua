@@ -44,7 +44,7 @@ local config = {
     }
 }
 
-require("jdtls").start_or_attach(config)
+--require("jdtls").start_or_attach(config)
 
 local current_buff = vim.api.nvim_get_current_buf
 -- After the language server attaches to the current buffer
@@ -93,4 +93,4 @@ local java_on_attach = function(client, bufnr)
     --vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
 
-java_on_attach(nil, current_buff)
+-- java_on_attach(nil, current_buff)
