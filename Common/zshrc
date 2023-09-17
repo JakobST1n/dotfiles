@@ -142,13 +142,15 @@ case "$OSTYPE" in
     ;;
 esac
 
-export EDITOR="vim"
-export GIT_AUTHOR_NAME="jakob.stendahl"
-export GIT_AUTHOR_EMAIL="jakob.stendahl@infomedia.dk"
+export EDITOR="nvim"
+#export GIT_AUTHOR_NAME="jakob.stendahl"
+#export GIT_AUTHOR_EMAIL="jakob.stendahl@infomedia.dk"
 
 # start only one ssh-agent and reuse the created one
 # this is used for sway, althou keys added do not persist on reboot
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-source "$XDG_RUNTIME_DIR/ssh-agent.env" > /dev/null
+#SSH_DIR="$HOME"
+#if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#    ssh-agent > "$SSH_DIR/ssh-agent.env"
+#fi
+#source "$SSH_DIR/ssh-agent.env" > /dev/null
+[ -z "$SSH\_AGENT\_PID" ] || eval "$(ssh-agent -s)" > /dev/null

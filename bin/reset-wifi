@@ -1,0 +1,22 @@
+#!/bin/bash
+
+RMMOD=rmmod
+ENMOD=modprobe
+
+declare -a MODS
+MODS[0]=brcmfmac_wcc
+MODS[1]=brcmfmac
+
+
+if [ ! "$UID" = "0" ]; then
+    echo "Script has to be run as root!"
+    exit 1
+fi
+
+for i in ${MODS[@]}; do
+    $RMMOD $i
+done
+
+for i in ${MODS[@]}; do
+    $ENMOD $i
+done
