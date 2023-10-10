@@ -1,4 +1,4 @@
-set $term foot
+set $term alacritty
 set $browser google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
 set $filemanager thunar
 set $editor emacs

@@ -31,7 +31,7 @@ if [ "$(ls -A $DIR)" ]; then
   exit 1
 fi
 
-sshfs "$1":"$DIR" "$DIR"
+sshfs -C -o cache_timeout=80000,auto_cache,reconnect "$1":"$DIR" "$DIR"
 
 if [ ! -f "/media/$2" ]; then
   sudo mkdir -p /media/$2
@@ -44,6 +44,13 @@ if [ "$(ls -A /media/$2)" ]; then
 else
   sudo mount --bind --verbose "$DIR" "/media/$2"
 fi
+
+tput setaf 4
+echo "Caching files"
+tput sgr0
+for file in $(find "$DIR"); do
+    cat $file > /dev/null  2>&1
+done
 
 tput setaf 2
 echo "Done"

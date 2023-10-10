@@ -1,0 +1,25 @@
+live_config_reload: true
+
+import:
+  - ~/.config/alacritty/papercolor-light.yaml
+  #- ~/.config/alacritty/atom_one_light.yaml
+  #- ~/.config/alacritty/papertheme.yaml
+  #- ~/.config/alacritty/solarized_light.yaml
+
+env:
+  TERM: xterm-256color
+
+font:
+  normal:
+    family: RobotoMono Nerd Font Mono
+
+  size: 10
+
+window:
+  padding:
+    x: 0
+    y: 0
+
+key_bindings:
+  - { key: V, mods: Alt, action: Paste }
+  - { key: C, mods: Alt, action: Copy }

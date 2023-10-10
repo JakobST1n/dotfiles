@@ -96,7 +96,8 @@ vim.cmd [[ highlight ColorColumn ctermbg=16 ]]
 
 -- Colorscheme
 -- default
-vim.cmd [[ colorscheme morning ]]
+vim.cmd [[ colorscheme default ]]
+vim.cmd [[ set background=light ]]
 
 -- Workaround for gutter color
 vim.cmd [[

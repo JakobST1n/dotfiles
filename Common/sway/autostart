@@ -1,5 +1,5 @@
-exec rm /tmp/nwg-shell-check-update.lock
-exec wlsunset -l 59.9614 -L 10.925 -t 4500 -T 6500 -g 1.0
+#exec rm /tmp/nwg-shell-check-update.lock
+#exec wlsunset -l 59.9614 -L 10.925 -t 4500 -T 6500 -g 1.0
 #exec swaync -s /home/jakob/.config/swaync/preset-1.css
 exec nm-applet --indicator
 #exec_always nwg-autotiling
