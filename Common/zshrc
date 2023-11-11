@@ -7,6 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export KEYTIMEOUT=1
 
 # Check if env setup file exists
 if [ ! -f ~/.zsh_env_setup ]; then
@@ -68,6 +69,11 @@ alias lsag="ls -la | grep"
 alias ls="tput setaf 3 && echo \"'lsa' for 'ls -la', \n'lsg' for 'ls | grep',\n'lsag' for 'ls -la | grep',\n'lsp' for 'ps -ax |grep'\" && tput sgr0 && ls"
 alias notes="vim ~/Documents/notes.txt"
 alias todo="vim ~/Documents/todo.txt"
+
+alias _vi=$(which vi)
+alias _vim=$(which vim)
+alias vi=nvim
+alias vim=nvim
 
 # man pages in colors
 man() {

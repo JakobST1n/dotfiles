@@ -13,6 +13,7 @@ include touchpad
 
 # border & title
 for_window [title="^.*"] border none, title_format "<b> %class >> %title </b>"
+for_window [floating] border 1
 default_border none
 
 # gaps

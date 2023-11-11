@@ -1,8 +1,8 @@
 live_config_reload: true
 
 import:
-  - ~/.config/alacritty/papercolor-light.yaml
-  #- ~/.config/alacritty/atom_one_light.yaml
+  #- ~/.config/alacritty/papercolor-light.yaml
+  - ~/.config/alacritty/atom_one_light.yaml
   #- ~/.config/alacritty/papertheme.yaml
   #- ~/.config/alacritty/solarized_light.yaml
 
@@ -13,7 +13,7 @@ font:
   normal:
     family: RobotoMono Nerd Font Mono
 
-  size: 10
+  size: 8
 
 window:
   padding:
