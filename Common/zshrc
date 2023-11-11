@@ -160,3 +160,5 @@ export EDITOR="nvim"
 #fi
 #source "$SSH_DIR/ssh-agent.env" > /dev/null
 [ -z "$SSH\_AGENT\_PID" ] || eval "$(ssh-agent -s)" > /dev/null
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

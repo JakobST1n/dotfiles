@@ -176,6 +176,11 @@ return require('packer').startup(function(use)
     end,
   }
 
+  -- Ledger
+  use {
+      'ledger/vim-ledger'
+  }
+
   -- packer.nvim
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

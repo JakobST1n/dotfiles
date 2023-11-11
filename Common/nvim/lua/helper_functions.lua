@@ -41,6 +41,9 @@ vim.api.nvim_create_user_command('JoinLinesSQ', JoinLinesSQ, {bang=false, desc='
 vim.api.nvim_create_user_command('JoinLinesDQ', JoinLinesDQ, {bang=false, desc='Joins all lines in a register', nargs='?'})
 vim.api.nvim_create_user_command('JoinLinesBT', JoinLinesBT, {bang=false, desc='Joins all lines in a register', nargs='?'})
 
+-- Strip trailing spaces
+vim.keymap.set('n', '<Leader>wt', [[:%s/\s\+$//e<cr>]])
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[
