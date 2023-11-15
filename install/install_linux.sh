@@ -82,6 +82,9 @@ if [ $res -eq 1 ]; then
     ln -isf "$CWD/Common/foot" ~/.config/foot
     ln -isf "$CWD/Common/alacritty" ~/.config/alacritty
     ln -isf "$CWD/Common/powerline_config" ~/.config/powerline
+    ln -isf "$CWD/Common/sxhkd" ~/.config/sxhkd
+    ln -isf "$CWD/Common/bspwm" ~/.config/bspwm
+    ln -isf "$CWD/Common/polybar" ~/.config/polybar
     tput rc; tput ed
 fi
 
