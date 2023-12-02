@@ -44,6 +44,28 @@ vim.api.nvim_create_user_command('JoinLinesBT', JoinLinesBT, {bang=false, desc='
 -- Strip trailing spaces
 vim.keymap.set('n', '<Leader>wt', [[:%s/\s\+$//e<cr>]])
 
+-- Quick json formatting using jq
+function FormatJson(start_line, end_line)
+    if start_line == nil or end_line == nil then
+        if vim.fn.mode() == 'v' then
+            start_line, _, end_line, _ = unpack(vim.fn.getpos("'<"), 2, 5)
+        else
+            start_line, end_line = 1, vim.api.nvim_buf_line_count(0)
+        end
+    end
+    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+    local json_string = table.concat(lines, "\n")
+    local handle = io.popen("echo '" .. json_string .. "' | jq .", "r")
+    local result = handle:read("*a")
+    handle:close()
+    vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, vim.fn.split(result, "\n"))
+end
+vim.api.nvim_create_user_command('FormatJson', function(opts)
+    FormatJson(opts.line1, opts.line2)
+end, {range = true, desc = 'Format JSON'})
+vim.keymap.set('n', '<leader>jq', FormatJson, { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>jq', ':FormatJson<CR>', { noremap = true, silent = true })
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[
