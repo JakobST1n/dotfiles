@@ -154,7 +154,7 @@ return require('packer').startup(function(use)
   }
   --use 'kabouzeid/nvim-lspinstall'
   use {
-    'williamboman/nvim-lsp-installer',
+    'williamboman/mason.nvim',
     config = function()
 
     end,
@@ -179,6 +179,32 @@ return require('packer').startup(function(use)
   -- Ledger
   use {
       'ledger/vim-ledger'
+  }
+
+  -- VimWiki stuff
+  use {
+      'vimwiki/vimwiki',
+      config = function ()
+          vim.g.vimwiki_list = {
+            {
+                path = '~/Nextcloud/wiki/P01/',
+                syntax = 'markdown',
+                ext = 'md',
+                --nested_syntaxes = {
+                --  python = 'python',
+                --},
+            },
+            {
+                path = '~/Nextcloud/wiki/I45',
+                syntax = 'markdown',
+                ext = 'md',
+            },
+          }
+          vim.g.vimwiki_global_ext = 0
+      end,
+  }
+  use {
+      'mattn/calendar-vim'
   }
 
   -- packer.nvim

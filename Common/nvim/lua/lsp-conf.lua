@@ -1,5 +1,5 @@
 -- lsp
-require("nvim-lsp-installer").setup()
+require("mason").setup()
 local lspconfig = require'lspconfig'
 local coq = require "coq"
 
