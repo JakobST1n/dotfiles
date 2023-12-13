@@ -29,6 +29,9 @@ vim.api.nvim_create_user_command(
  {bang=true, desc='Save file using sudo'}
 )
 
+-- Disable the auto line wrap
+vim.cmd [[ set formatoptions-=t ]]
+
 --[[
 VIM User interface
 --]]
@@ -256,6 +259,12 @@ map('n', '<leader>sl', ':source vim_session.vim<cr>', silentnoremap)
 --  {bang = true}
 --)
 
+--[[
+Debugging
+--]]
+vim.g.termdebug_popup = 0
+vim.g.termdebug_wide = 163
+vim.cmd([[:packadd termdebug]])
 
 
 

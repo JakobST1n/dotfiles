@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Try to use xpanes --ssh instead!"
+exit 1
+
 hosts=""
 ssh_options=""
 tmux_name="cssh"

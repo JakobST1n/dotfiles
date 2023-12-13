@@ -113,55 +113,34 @@ return require('packer').startup(function(use)
   use { 'tpope/vim-surround' }
 
   -- Tree-sitter-mysql
-  use { 'PatrickFeiring/tree-sitter-sql' }
+  -- use { 'PatrickFeiring/tree-sitter-sql' }
 
   -- terryma/vim-multiple-cursors
   -- preservim/nerdcommenter
 
   -- Lsp things
-  use 'neovim/nvim-lsp'
-  use {
-    'neovim/nvim-lspconfig',
-    config = function()
-      local lsp_flags = {
-        -- This is the default in Nvim 0.7+
-        debounce_text_changes = 150,
-      }
-      local lspconfig = require('lspconfig')
-      lspconfig['pyright'].setup{
-          on_attach = on_attach,
-          flags = lsp_flags,
-      }
-      lspconfig.ccls.setup {
-        single_file_support = true;
-        init_options = {
-          compilationDatabaseDirectory = "build";
-          index = {
-            threads = 0;
-          };
-          clang = {
-            excludeArgs = { "-frounding-math"} ;
-          };
-        }
-      }
-      
-      lspconfig.ccls.setup{}
-      lspconfig.intelephense.setup{}
-      lspconfig.cssls.setup{}
-      lspconfig.html.setup{}
-      lspconfig.bashls.setup{}
-    end,
-  }
-  --use 'kabouzeid/nvim-lspinstall'
   use {
     'williamboman/mason.nvim',
-    config = function()
-
-    end,
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig' ,
   }
   use 'ms-jpq/coq_nvim'
+  -- Language-specifics
+  use 'simrat39/rust-tools.nvim'
+  --use 'mfussenegger/nvim-jdtls'
 
-  use 'mfussenegger/nvim-jdtls'
+  -- Completion framework:
+  use 'hrsh7th/nvim-cmp'
+  -- LSP completion source:
+  use 'hrsh7th/cmp-nvim-lsp'
+  -- Useful completion sources:
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-buffer '
+  use 'hrsh7th/vim-vsnip'
+
 
   -- Goyo :)
   use {
@@ -187,20 +166,31 @@ return require('packer').startup(function(use)
       config = function ()
           vim.g.vimwiki_list = {
             {
+                path = '~/Nextcloud/wiki/I45',
+                syntax = 'markdown',
+                ext = 'md',
+                name = 'I45',
+                auto_toc = 1,
+                diary_frequency = 'daily',
+                nested_syntaxes = {
+                  python = 'python',
+                  sql = 'sql',
+                },
+            },
+            {
                 path = '~/Nextcloud/wiki/P01/',
                 syntax = 'markdown',
                 ext = 'md',
+                name = 'P01',
                 --nested_syntaxes = {
                 --  python = 'python',
                 --},
             },
-            {
-                path = '~/Nextcloud/wiki/I45',
-                syntax = 'markdown',
-                ext = 'md',
-            },
           }
           vim.g.vimwiki_global_ext = 0
+          vim.g.vimwiki_auto_header = 1
+          vim.g.vimwiki_links_space_char = '_'
+          vim.g.vimwiki_url_maxsave = 0
       end,
   }
   use {
@@ -225,6 +215,9 @@ return require('packer').startup(function(use)
   }
 
   -- packer.nvim
+  use 'evanleck/vim-svelte'
+  use 'pangloss/vim-javascript'
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

@@ -66,6 +66,17 @@ end, {range = true, desc = 'Format JSON'})
 vim.keymap.set('n', '<leader>jq', FormatJson, { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>jq', ':FormatJson<CR>', { noremap = true, silent = true })
 
+function English()
+    vim.opt.spell = true
+    vim.opt.spelllang = "en_us"
+end
+vim.api.nvim_create_user_command('English', English, {bang=false, desc='Enables spellchecking for english'})
+function Norsk()
+    vim.opt.spell = true
+    vim.opt.spelllang = "nb_no"
+end
+vim.api.nvim_create_user_command('Norsk', Norsk, {bang=false, desc='Enables spellchecking for norsk bokmål'})
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[
