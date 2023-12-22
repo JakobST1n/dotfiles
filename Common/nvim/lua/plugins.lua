@@ -124,7 +124,6 @@ return require('packer').startup(function(use)
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig' ,
   }
-  use 'ms-jpq/coq_nvim'
   -- Language-specifics
   use 'simrat39/rust-tools.nvim'
   --use 'mfussenegger/nvim-jdtls'
@@ -138,7 +137,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-buffer '
   use 'hrsh7th/vim-vsnip'
 
 
