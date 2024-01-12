@@ -176,6 +176,17 @@ return require('packer').startup(function(use)
                 },
             },
             {
+                path = '~/Nextcloud/wiki/M42',
+                syntax = 'markdown',
+                ext = 'md',
+                name = 'M42',
+                auto_toc = 1,
+                nested_syntaxes = {
+                  python = 'python',
+                  sql = 'sql',
+                },
+            },
+            {
                 path = '~/Nextcloud/wiki/P01/',
                 syntax = 'markdown',
                 ext = 'md',
