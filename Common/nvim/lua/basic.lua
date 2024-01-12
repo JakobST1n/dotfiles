@@ -226,6 +226,16 @@ if vim.fn.has("mac") or vim.fn.has("macunix") then
   map('v', '<D-k>', '<M-k>', silentnoremap)
 end
 
+-- Interact with system clipboard
+map('v', '<leader>y', '"+y', noremap)
+map('n', '<leader>Y', '"+yg_', noremap)
+map('n', '<leader>y', '"+y', noremap)
+
+map('v', '<leader>p', '"+p', noremap)
+map('v', '<leader>P', '"+P', noremap)
+map('n', '<leader>p', '"+p', noremap)
+map('n', '<leader>P', '"+P', noremap)
+
 -- Delete trailing whitespace on save
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --  pattern = { "*" },

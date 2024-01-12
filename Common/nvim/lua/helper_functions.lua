@@ -1,5 +1,6 @@
 -- opts that replicate the nore part of noremap
 silentnoremap = { noremap = true, silent = true }
+noremap = { noremap = true, silent = false }
 
 -- Just to make the map function "shorter"
 function map(kind, lhs, rhs, opts)
