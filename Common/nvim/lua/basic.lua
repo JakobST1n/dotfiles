@@ -5,7 +5,7 @@ General
 -- Lines of history
 vim.opt.history = 500
 -- Line numbers
-vim.opt.nu = true
+vim.opt.nu = false
 
 -- Autoread when file is changed outside vim
 vim.opt.autoread = true
@@ -191,7 +191,7 @@ map('n', '<leader>cd', ':cd %:p:h<cr>:pwd<cr', silentnoremap)
 vim.opt.switchbuf = 'useopen,usetab,newtab'
 
 -- Always show tabbar
-vim.opt.stal = 2
+vim.opt.stal = 1
 
 -- Return to last edit position when opening files (You want this!)
 vim.cmd [[

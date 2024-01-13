@@ -34,16 +34,19 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require('lualine').setup {
-        options = { theme = 'onedark' },
+        options = {
+          theme = 'Tomorrow',
+          component_separators = '',
+          section_separators = ''
+        },
         sections = {
+          lualine_a = {'mode'},
           lualine_x = {'filetype'},
           lualine_y = {}
         },
-        tabline = {
-          lualine_a = {'buffers'},
-          lualine_b = {'branch'},
-          lualine_z = {'tabs'}
-        }
+        -- tabline = {
+        --   lualine_z = {'tabs'}
+        -- }
       }
     end,
   }
@@ -205,6 +208,8 @@ return require('packer').startup(function(use)
   use {
       'mattn/calendar-vim',
       config = function()
+        vim.g.calendar_monday = 1
+        vim.g.calendar_weeknm = 5
         vim.api.nvim_create_autocmd("QuitPre", {
           callback = function()
           local invalid_win = {}
