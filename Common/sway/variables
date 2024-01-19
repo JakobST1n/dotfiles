@@ -1,6 +1,0 @@
-set $term alacritty
-set $browser google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
-set $filemanager thunar
-set $editor emacs
-set $launcher nwg-drawer
-set $exit nwg-bar -p center -a middle -i 48 -s preset-1.css

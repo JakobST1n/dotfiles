@@ -1,15 +1,5 @@
-# The files we include below will be created / overwritten by nwg-shell tools
-#
-include variables
-include outputs
 include autostart
-include workspaces
-include keyboard
-include pointer
-include touchpad
-
-# nwg-shell sway config
-# Read `man 5 sway` for reference.
+include hid
 
 # border & title
 for_window [title="^.*"] border none, title_format "<b> %class >> %title </b>"
@@ -35,24 +25,10 @@ set $down k
 set $left j
 set $right semicolon
 
-###############        wob         ##################
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
-
-###############     Autostart      ##################
-
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-    dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec ~/.azotebg
-exec blueman-applet
-exec udiskie
-
 ### Turn off screen on lid closed
-# set $laptop eDP-1
-# bindswitch lid:on output $laptop disable
-# bindswitch lid:off output $laptop enable
+set $laptop eDP-1
+bindswitch lid:on output $laptop disable
+bindswitch lid:off output $laptop enable
 
 #############         Bindings           ##################
 
@@ -61,18 +37,15 @@ bindsym $Mod+Shift+q kill
 bindsym Mod1+F4 kill
 
 # core applications
-bindsym $Mod+Return       exec $term
-bindsym $Mod+s            exec nwg-shell-config
-bindsym $Mod+w            exec $browser
-bindsym $Mod+f            exec $filemanager
+bindsym $Mod+Return       exec alacritty
+bindsym $Mod+w            exec firefox
+bindsym $Mod+f            exec thunar
 bindsym $Mod+c            exec swaync-client -t
-bindsym Mod1+l            exec nwg-lock
-bindsym $Mod+F1           exec nwg-shell-help
+bindsym Mod1+l            exec physlock
 bindsym $Mod+d            exec wofi --show=drun
-#bindsym $Mod+d            exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 8'
 
 # Exit menu
-bindsym $Mod+p exec $exit
+bindsym $Mod+p exec wlogout
 
 # Exit sway (default way to log you out of your Wayland session)
 bindsym $Mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -274,5 +247,8 @@ for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
 for_window [title="(?i)(?:Cssh|cssh)"] border none floating enable
 for_window [app_id="(?i)(?:Cssh|cssh)"] floating enable
 for_window [title="CSSH"] floating enable
+
+# Make it easier to spot X11 windows
+for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 popup_during_fullscreen smart

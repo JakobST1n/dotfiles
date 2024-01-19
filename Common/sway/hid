@@ -1,3 +1,11 @@
+input "type:keyboard" {
+  xkb_layout us,no
+  repeat_delay 300
+  repeat_rate 40
+  xkb_capslock disabled
+  xkb_numlock disabled
+}
+
 input "type:touchpad" {
   pointer_accel 0.0
   natural_scroll disabled
@@ -10,4 +18,10 @@ input "type:touchpad" {
   drag_lock disabled
   dwt enabled
   middle_emulation enabled
+}
+
+input "type:pointer" {
+  natural_scroll disabled
+  scroll_factor 1.0
+  left_handed disabled
 }
