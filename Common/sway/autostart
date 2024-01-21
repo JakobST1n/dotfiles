@@ -1,3 +1,6 @@
+# Fix GTK+ application slow start
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 # screen locking
 exec swayidle timeout 1200 physlock \
               timeout 1800 'swaymsg "output * dpms off"' \
