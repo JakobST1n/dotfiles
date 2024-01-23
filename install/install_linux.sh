@@ -89,29 +89,40 @@ fi
 
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
+    function createOrUpdateSymlink() {
+        if [ -L "$2" ]; then
+            unlink $2
+        fi
+        if [ -e "$2" ]; then
+            echo "Directory $2 exists already!"
+            return
+        fi
+        ln -isf "$1" "$2"
+    }
+
     CWD=$(pwd)
     tput sc
-    ln -isf "$CWD/bin" ~/bin
-    ln -isf "$CWD/linux/tmux.conf" ~/.tmux.conf
-    ln -isf "$CWD/Common/zshrc" ~/.zshrc
-    ln -isf "$CWD/Common/vimrc" ~/.vimrc
-    ln -isf "$CWD/Common/vim" ~/.vim
-    ln -isf "$CWD/Common/p10k.zsh" ~/.p10k.zsh
-    ln -isf "$CWD"/Common/i3/config/* ~/.config/
-    ln -isf "$CWD/Common/i3/urxvt" ~/.urxvt
-    ln -isf "$CWD/Common/i3/Xresources" ~/.Xresources
-    ln -isf "$CWD/Common/i3/xsettingsd" ~/.xsettingsd
-    ln -isf "$CWD/Common/rofi" ~/.config/rofi
-    ln -isf "$CWD/Common/deadd" ~/.config/deadd
-    ln -isf "$CWD/Common/nvim" ~/.config/nvim
-    ln -isf "$CWD/Common/sway" ~/.config/sway
-    ln -isf "$CWD/Common/waybar" ~/.config/waybar
-    ln -isf "$CWD/Common/foot" ~/.config/foot
-    ln -isf "$CWD/Common/alacritty" ~/.config/alacritty
-    ln -isf "$CWD/Common/powerline_config" ~/.config/powerline
-    ln -isf "$CWD/Common/sxhkd" ~/.config/sxhkd
-    ln -isf "$CWD/Common/bspwm" ~/.config/bspwm
-    ln -isf "$CWD/Common/polybar" ~/.config/polybar
+    createOrUpdateSymlink "$CWD/bin" ~/bin
+    createOrUpdateSymlink "$CWD/Common/zshrc" ~/.zshrc
+    createOrUpdateSymlink "$CWD/Common/vimrc" ~/.vimrc
+    createOrUpdateSymlink "$CWD/Common/vim" ~/.vim
+    createOrUpdateSymlink "$CWD/Common/nvim" ~/.config/nvim
+    createOrUpdateSymlink "$CWD/Common/p10k.zsh" ~/.p10k.zsh
+    createOrUpdateSymlink "$CWD/linux/tmux.conf" ~/.tmux.conf
+    createOrUpdateSymlink "$CWD"/linux/i3/config/* ~/.config/
+    createOrUpdateSymlink "$CWD/linux/i3/urxvt" ~/.urxvt
+    createOrUpdateSymlink "$CWD/linux/i3/Xresources" ~/.Xresources
+    createOrUpdateSymlink "$CWD/linux/i3/xsettingsd" ~/.xsettingsd
+    createOrUpdateSymlink "$CWD/linux/rofi" ~/.config/rofi
+    createOrUpdateSymlink "$CWD/linux/deadd" ~/.config/deadd
+    createOrUpdateSymlink "$CWD/linux/sway" ~/.config/sway
+    createOrUpdateSymlink "$CWD/linux/waybar" ~/.config/waybar
+    createOrUpdateSymlink "$CWD/linux/foot" ~/.config/foot
+    createOrUpdateSymlink "$CWD/linux/alacritty" ~/.config/alacritty
+    createOrUpdateSymlink "$CWD/linux/powerline_config" ~/.config/powerline
+    createOrUpdateSymlink "$CWD/linux/sxhkd" ~/.config/sxhkd
+    createOrUpdateSymlink "$CWD/linux/bspwm" ~/.config/bspwm
+    createOrUpdateSymlink "$CWD/linux/polybar" ~/.config/polybar
     tput rc; tput ed
 fi
 

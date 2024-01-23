@@ -47,7 +47,7 @@ bindsym $Mod+Return       exec alacritty
 bindsym $Mod+w            exec firefox
 bindsym $Mod+f            exec thunar
 bindsym $Mod+c            exec swaync-client -t
-bindsym Mod1+l            exec physlock
+bindsym Mod1+l            exec nwg-lock
 bindsym $Mod+d            exec wofi --show=drun
 
 # Exit menu

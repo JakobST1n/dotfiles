@@ -20,4 +20,3 @@ This should be the steps for all os', but it might not be updated for all the in
 
 - You then need to run `:PlugInstall` in vim.
 - And install the font, in `fonts` on your system.
-- You can then install the mac terminal theme from the `themer/gen` folder if you want
