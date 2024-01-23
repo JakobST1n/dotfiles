@@ -2,13 +2,19 @@ include autostart
 include hid
 
 # border & title
-for_window [title="^.*"] border none, title_format "<b> %class >> %title </b>"
-for_window [floating] border 1
-default_border none
+for_window [title="^.*"] title_format "<b> %class >> %title </b>"
+for_window [floating] border 1, border normal
+default_border pixel 2
+default_floating_border normal
+smart_borders on
+
+client.focused          #4c7899 #539ce0    #ffffff #5fe327   #539ce0
+client.focused_inactive #333333 #5f676a    #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222    #888888 #292d2e   #222222
 
 # gaps
-gaps inner 5
 gaps outer 0
+gaps inner 0
 smart_gaps off
 
 # font
@@ -20,10 +26,10 @@ font pango:monospace 11
 set $Mod Mod4
 
 # direction keys
-set $up l
-set $down k
-set $left j
-set $right semicolon
+set $up k
+set $down j
+set $left h
+set $right l
 
 ### Turn off screen on lid closed
 set $laptop eDP-1
@@ -147,10 +153,10 @@ bindsym $Mod+Shift+z move scratchpad
 bindsym $Mod+z scratchpad show
 
 # change focus
-bindsym $Mod+$left  focus left
-bindsym $Mod+$down  focus down
-bindsym $Mod+$up    focus up
-bindsym $Mod+$right focus right
+# bindsym $Mod+$left  focus left
+# bindsym $Mod+$down  focus down
+# bindsym $Mod+$up    focus up
+# bindsym $Mod+$right focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $Mod+Left   focus left
@@ -159,10 +165,10 @@ bindsym $Mod+Up     focus up
 bindsym $Mod+Right  focus right
 
 # move focused window
-bindsym $Mod+Shift+$left  move left
-bindsym $Mod+Shift+$down  move down
-bindsym $Mod+Shift+$up    move up
-bindsym $Mod+Shift+$right move right
+# bindsym $Mod+Shift+$left  move left
+# bindsym $Mod+Shift+$down  move down
+# bindsym $Mod+Shift+$up    move up
+# bindsym $Mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
 bindsym $Mod+Shift+Up    move up
@@ -196,8 +202,8 @@ bindsym $Mod+r mode "resize"
 # bindsym Mod1+Right resize grow   width  10 px or 1 ppt
 
 # layout toggle
-bindsym Mod1+Tab layout toggle tabbed stacking split
-bindsym $Mod+Tab layout toggle splitv splith
+bindsym Mod1+Tab layout toggle splith splitv
+bindsym $Mod+Tab layout toggle all
 
 # switch to workspace with urgent window
 for_window [urgent="latest"] focus
@@ -220,17 +226,6 @@ bindsym $Mod+Shift+f fullscreen
 
 # changing border style
 bindsym $Mod+b border toggle
-
-# change gaps
-bindsym $Mod+plus                gaps inner current plus  5
-bindsym $Mod+minus               gaps inner current minus 5
-bindsym Mod1+plus                gaps outer current plus  5
-bindsym Mod1+minus               gaps outer current minus 5
-
-bindsym $Mod+KP_Add              gaps inner current plus  5
-bindsym $Mod+KP_Subtract         gaps inner current minus 5
-bindsym Mod1+KP_Add              gaps outer current plus  5
-bindsym Mod1+KP_Subtract         gaps outer current minus 5
 
 ############    bar settings   ############
 bar {

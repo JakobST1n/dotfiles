@@ -82,8 +82,8 @@ vim.opt.mat = 2
 --vim.opt.t_vb = ''
 --vim.opt.tm = 500
 
--- Add extra margin to the left (makes changing margins less annoying
-vim.opt.foldcolumn = '1'
+-- Left column option, used to have it at 1 to always show it. But Gitsigns is not using it anyway
+vim.opt.foldcolumn = '0'
 
 -- Show leader commands
 vim.opt.showcmd = true

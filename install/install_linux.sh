@@ -64,11 +64,11 @@ dlgYN "> Install greetd and tuigreet" res
 if [ $res -eq 1 ]; then
     tput sc
     $INST_PM greetd
-    curl https://github.com/apognu/tuigreet/releases/download/0.8.0/tuigreet-0.8.0-x86_64 -o /usr/local/bin/tuigreet
-    chmod +x /usr/local/bin/tuigreet
-    cp /etc/greetd/config.toml /etc/greetd.config.toml.orig
-    ln -isf "$CWD/linux/greetd.toml" /etc/greetd/config.toml
-    systemctl enable greetd
+    sudo curl https://github.com/apognu/tuigreet/releases/download/0.8.0/tuigreet-0.8.0-x86_64 -o /usr/local/bin/tuigreet
+    sudo chmod +x /usr/local/bin/tuigreet
+    sudo cp /etc/greetd/config.toml /etc/greetd.config.toml.orig
+    sudo ln -isf "$CWD/linux/greetd.toml" /etc/greetd/config.toml
+    sudo systemctl enable greetd
     tput rc; tput ed
 fi
 
