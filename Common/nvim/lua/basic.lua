@@ -10,12 +10,6 @@ vim.opt.nu = false
 -- Autoread when file is changed outside vim
 vim.opt.autoread = true
 
--- enable filetype plugins
-vim.cmd [[
-  filetype plugin on
-  filetype indent on
-]]
-
 -- Use a mapleader
 --vim.opt.mapleader = ","
 vim.g.mapleader   = ","
@@ -76,12 +70,6 @@ vim.opt.magic = true
 vim.opt.showmatch = true
 vim.opt.mat = 2
 
--- Turn off annoying bells aon errors
---vim.opt.noerrorbells = false
---vim.opt.novisualbell = false
---vim.opt.t_vb = ''
---vim.opt.tm = 500
-
 -- Left column option, used to have it at 1 to always show it. But Gitsigns is not using it anyway
 vim.opt.foldcolumn = '0'
 
@@ -91,11 +79,6 @@ vim.opt.showcmd = true
 -- Show colour column
 vim.opt.colorcolumn = '80,120'
 vim.cmd [[ highlight ColorColumn ctermbg=16 ]]
-
--- => Colors and Fonts
-
--- Enable syntac highlighting
---vim.opt.syntax = 'enable'
 
 -- Colorscheme
 -- default
@@ -140,14 +123,12 @@ vim.opt.shiftwidth  = 4
 vim.opt.tabstop     = 4
 vim.opt.softtabstop = 4
 
--- Linebreak on 500 ch
-vim.opt.lbr = true
-vim.opt.tw = 500
-
 -- Auto indent
 vim.opt.ai = true
+
 -- Smart indent
 vim.opt.si = true
+
 -- Wrap lines
 vim.opt.wrap = true
 
@@ -256,26 +237,12 @@ map('n', '<leader>pp', ':setlocal paste!<cr>', silentnoremap)
 vim.opt.titlestring = [[%f %h%m%r%w%{v:progname} (%{tabpagenr()} of %{tabpagenr('$')}})]]
 vim.opt.title = true
 
--- Toggle displaying special characters
-vim.keymap.set('n', '<leader><tab>', ToggleListChars, silentnoremap)
-
--- Load and save session
-map('n', '<leader>sm', ':mksession! vim_session.vim<cr>', silentnoremap)
-map('n', '<leader>sl', ':source vim_session.vim<cr>', silentnoremap)
-
--- Dont't close window when deleting buffer
---vim.api.nvim_create_user_command("Bclose",
---  "<SID>BufcloseCloseIt()",
---  {bang = true}
---)
-
 --[[
 Debugging
 --]]
 vim.g.termdebug_popup = 0
 vim.g.termdebug_wide = 163
 vim.cmd([[:packadd termdebug]])
-
 
 
 -- This is to get rid of weird artifacts with text showing up inside buffer.

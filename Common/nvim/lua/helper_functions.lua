@@ -21,6 +21,7 @@ function ToggleListChars()
   vim.opt.list = list_chars_enabled
   vim.opt.listchars = list_chars_enabled and list_chars_when_enabled or 'eol:$'
 end
+vim.keymap.set('n', '<leader><tab>', ToggleListChars, silentnoremap)
 
 -- Command to join lines in buffer as list
 function JoinLines(args, quotes)
@@ -77,6 +78,15 @@ function Norsk()
     vim.opt.spelllang = "nb_no"
 end
 vim.api.nvim_create_user_command('Norsk', Norsk, {bang=false, desc='Enables spellchecking for norsk bokmål'})
+
+-- enable filetype and such
+function auto()
+    vim.cmd [[
+        filetype plugin on
+        filetype indent on
+    ]]
+end
+vim.api.nvim_create_user_command('A', auto, {bang=false, desc='Enable filetype plugin and indent'})
 
 -- Close buffer without closing window
 --[[

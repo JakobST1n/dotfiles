@@ -167,7 +167,7 @@ return require('packer').startup(function(use)
       config = function ()
           vim.g.vimwiki_list = {
             {
-                path = '~/Nextcloud/wiki/I45',
+                path = '~/Nextcloud/2-Områder/204-profesjonelt/204.06-Infomedia/204.06.AA-wiki',
                 syntax = 'markdown',
                 ext = 'md',
                 name = 'I45',
