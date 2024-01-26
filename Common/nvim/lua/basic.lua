@@ -24,7 +24,8 @@ vim.api.nvim_create_user_command(
 )
 
 -- Disable the auto line wrap
-vim.cmd [[ set formatoptions-=t ]]
+-- vim.cmd [[ set formatoptions-=t ]]
+vim.opt.formatoptions:remove("t")
 
 --[[
 VIM User interface
@@ -78,24 +79,22 @@ vim.opt.showcmd = true
 
 -- Show colour column
 vim.opt.colorcolumn = '80,120'
-vim.cmd [[ highlight ColorColumn ctermbg=16 ]]
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 16 })
+
 
 -- Colorscheme
--- default
 vim.cmd [[ colorscheme default ]]
-vim.cmd [[ set background=light ]]
+vim.opt.background = "light"
+vim.opt.termguicolors = true
 
--- Workaround for gutter color
-vim.cmd [[
-highlight! link SignColumn LineNr
-autocmd ColorScheme * highlight! link SignColumn LineNr
-]]
-
--- Change git colors
---vim.api.nvim_set_hl(0, "DiffAdd", {fg = "#bada9f", bg = "None"})
---vim.api.nvim_set_hl(0, "DiffChange", {fg = "Purple", bg = "None"})
---vim.api.nvim_set_hl(0, "DiffDelete", {fg = "Red", bg = "None"})
---vim.api.nvim_set_hl(0, "DiffText", {fg = "Yellow", bg = "None"})
+-- Workaround for gutter color, to remove background?
+vim.api.nvim_set_hl(0, "SignColumn", {link = "LineNr"})
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_hl(0, "SignColumn", {link = "LineNr"})
+    end
+})
 
 -- Set utf8 as standard encoding
 vim.opt.encoding = 'utf8'

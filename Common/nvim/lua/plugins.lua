@@ -149,10 +149,11 @@ return require('packer').startup(function(use)
   }
   use { 'smithbm2316/centerpad.nvim' }
 
-  -- Color preview
+  -- Color picker
   use {
-    'lilydjwg/colorizer',
+    "ziontee113/color-picker.nvim",
     config = function()
+      require("color-picker")
     end,
   }
 
