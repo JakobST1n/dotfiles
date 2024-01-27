@@ -88,6 +88,36 @@ function auto()
 end
 vim.api.nvim_create_user_command('A', auto, {bang=false, desc='Enable filetype plugin and indent'})
 
+ -- Quick rerun of last command in terminal
+ function rerun_last_command_in_any_terminal()
+     local buffers = vim.api.nvim_list_bufs()
+     local terminal_buf = nil
+
+     for _, buf in ipairs(buffers) do
+         if (vim.bo[buf].buftype == 'terminal') and (vim.fn.getbufinfo(buf)[1].hidden == 0) then
+             terminal_buf = buf
+             break
+         end
+     end
+
+     if terminal_buf then
+         local current_win = vim.api.nvim_get_current_win()
+         local terminal_win = vim.fn.bufwinid(terminal_buf)
+
+         if terminal_win ~= -1 then
+             vim.api.nvim_set_current_win(terminal_win)
+             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('a<Up><CR>', false, false, true), 'n', false)
+             vim.defer_fn(function() vim.api.nvim_set_current_win(current_win) end, 100) -- 100 ms delay
+         end
+     else
+         print("No terminal buffer found")
+     end
+ end
+
+ -- Map F5 to rerun the last command in any terminal buffer
+ vim.api.nvim_create_user_command('RerunTermCommand', rerun_last_command_in_any_terminal, {bang=false, desc=''})
+ vim.api.nvim_set_keymap('n', '<F5>', ':lua rerun_last_command_in_any_terminal()<CR>', {noremap = true, silent = true})
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[
