@@ -1,14 +1,37 @@
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    //"height": 0, // Waybar height (to be removed for auto height)
+    // "height": 0, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 0, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
-    "modules-center": ["clock"],
-    "modules-right": ["temperature", "mpd", "cpu", "memory", "idle_inhibitor", "sway/language", "pulseaudio", "battery", "battery#bat2", "tray"],
-    // Modules configuration
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/scratchpad"
+    ],
+
+    "modules-center": [
+        "clock",
+        "privacy",
+    ],
+
+    //"modules-right": ["temperature", "mpd", "cpu", "memory", "idle_inhibitor", "", "sway/language", "pulseaudio", "battery", "battery#bat2", "tray"],
+    "modules-right": [
+        "temperature",
+        "mpd",
+        "cpu",
+        "memory",
+        "idle_inhibitor",
+        "custom/notification",
+        "pulseaudio",
+        "battery",
+        "battery#bat2",
+        "tray"
+    ],
+
+
+
     "sway/workspaces": {
         //"disable-scroll": true,
         //"all-outputs": true,
@@ -32,6 +55,24 @@
             "locked": "",
             "unlocked": ""
         }
+    },
+    "privacy": {
+        "icon-spacing": 4,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+            },
+        ]
     },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
@@ -83,7 +124,8 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%H:%M}",
+        "format": "{:%H:%M (%d/%m/%Y)}",
     },
     "cpu": {
         "format-critical": " {usage}%",
@@ -161,17 +203,25 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
         "format-icons": {
-            "spotify": "",
-            "default": "🎜"
+              "notification": "<span foreground='red'><sup></sup></span>",
+              "none": "",
+              "dnd-notification": "<span foreground='red'><sup></sup></span>",
+              "dnd-none": "",
+              "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+              "inhibited-none": "",
+              "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+              "dnd-inhibited-none": ""
         },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.1 && swaync-client -t -sw",
+        "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+        "escape": true
     }
 }
 

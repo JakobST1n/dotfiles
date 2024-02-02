@@ -118,6 +118,47 @@ vim.api.nvim_create_user_command('A', auto, {bang=false, desc='Enable filetype p
  vim.api.nvim_create_user_command('RerunTermCommand', rerun_last_command_in_any_terminal, {bang=false, desc=''})
  vim.api.nvim_set_keymap('n', '<F5>', ':lua rerun_last_command_in_any_terminal()<CR>', {noremap = true, silent = true})
 
+-- Look at history on range or line
+vim.cmd [[
+function! ShowCommitDiff(commit)
+  " Extract the commit hash from the selected line (assuming it's the first word)
+  let commit_hash = split(a:commit)[0]
+
+  tabnew
+  setlocal buftype=nofile
+  setlocal bufhidden=delete
+
+  " Use 'read !command' to insert the output of the git show command into the buffer
+  execute 'read !git show ' . commit_hash
+
+  setlocal nomodifiable
+  set filetype=gitcommit
+  normal! gg
+endfunction
+
+function! GitHistoryForLine(start_line, end_line)
+  " Check if the range encompasses the entire file, which might indicate that no specific range was provided
+  if a:start_line == 1 && a:end_line == line('$')
+    " Default to the current line if it seems like the entire file is being selected
+    let l:start_line = line('.')
+    let l:end_line = l:start_line
+  else
+    let l:start_line = a:start_line
+    let l:end_line = a:end_line
+  endif
+
+  let l:filepath = expand('%:p')
+  let l:git_cmd = 'git log -s --pretty=format:"%h %s (%an)" -L '.l:start_line.','.l:end_line.':"'.l:filepath.'"'
+  let l:options = '--delimiter " " --preview "git show {1}"'
+  call fzf#vim#grep(l:git_cmd, 1, {'options': l:options, 'sink': function('ShowCommitDiff')}, 0)
+endfunction
+
+command! -range=% GitHistoryForLine call GitHistoryForLine(<line1>, <line2>)
+nnoremap <leader><leader>s :GitHistoryForLine<CR>
+vnoremap <leader><leader>s :'<,'>GitHistoryForLine<CR>
+]]
+
+
 -- Close buffer without closing window
 --[[
 vim.cmd [[

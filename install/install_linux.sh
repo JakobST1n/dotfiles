@@ -25,7 +25,7 @@ function dlgYN() {
 dlgYN "> Install \"Highlight, atool, w3m, mediainfo, vim, git\"" res
 if [ $res -eq 1 ]; then
     tput sc
-    $INST_PM highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs
+    $INST_PM highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs catimg ripgrep silversearcher-ag
     tput rc; tput ed
 fi
 
@@ -83,7 +83,11 @@ fi
 dlgYN "> Install sway" res
 if [ $res -eq 1 ]; then
     tput sc
-    $INST_PM sway swayidle physlock alacritty blueman network-manager-gnome wob wlogout wofi brightnessctl clipman
+    if [ "$distro" == "fedora" ]; then
+        $INST_PM sway swayidle  alacritty blueman wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5 im-config
+    else
+        $INST_PM sway swayidle physlock alacritty blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5 imsettings
+    fi
     tput rc; tput ed
 fi
 

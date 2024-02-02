@@ -1,3 +1,7 @@
+output eDP-1 {
+    scale 1.4
+}
+
 input "type:keyboard" {
   xkb_layout us,no
   repeat_delay 300
@@ -8,7 +12,7 @@ input "type:keyboard" {
 
 input "type:touchpad" {
   pointer_accel 0.0
-  natural_scroll disabled
+  natural_scroll enabled
   scroll_factor 1.0
   scroll_method two_finger
   left_handed disabled

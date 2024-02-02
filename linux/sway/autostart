@@ -2,9 +2,11 @@
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # screen locking
-exec swayidle timeout 1200 physlock \
-              timeout 1800 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' 
+exec swayidle -w \
+              timeout 300 'swaymsg "output * dpms off"' \
+              timeout 3600 physlock \
+              resume 'swaymsg "output * dpms on"' \
+              before-sleep physlock
 
 # notification centre
 exec swaync
@@ -24,3 +26,12 @@ exec wl-paste -t text --watch clipman store --no-persist
 # Nice color hues in the evenings
 exec wlsunset -l 59.9614 -L 10.925 -t 4500 -T 6500 -g 1.0
 
+# start nextcloud
+exec_always nextcloud --background
+
+# gnome keyring daemon
+exec_always eval $(gnome-keyring-daemon --start)
+exec_always export SSH_AUTH_SOCK
+
+# IME
+exec_always fcitx5 -d

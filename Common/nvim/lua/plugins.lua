@@ -76,14 +76,17 @@ return require('packer').startup(function(use)
   -- fzf (Fuzzy finder for various things)
   use {
       'junegunn/fzf.vim',
-      requires = { 'kyazdani42/nvim-web-devicons' },
+      requires = { 'junegunn/fzf', 'kyazdani42/nvim-web-devicons' },
       config = function()
         vim.cmd [[
         let g:fzf_layout = { 'down': '40%' }
+        autocmd! FileType fzf
+        autocmd  FileType fzf set laststatus=0 noshowmode noruler
+          \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
         ]]
         map("n", ";", ":Files<cr>", silentnoremap)
         map("n", "<leader>;", ":Rg<cr>", silentnoremap)
-        map("n", "<leader><leader>;", ":BLines<cr>", silentnoremap)
+        map("n", "<leader><leader>;", ":Lines<cr>", silentnoremap)
       end,
   }
 
@@ -180,10 +183,10 @@ return require('packer').startup(function(use)
                 },
             },
             {
-                path = '~/Nextcloud/wiki/M42',
+                path = '~/Nextcloud/1-Prosjekter/101-masteroppgave/101.02-quick-notes',
                 syntax = 'markdown',
                 ext = 'md',
-                name = 'M42',
+                name = 'P101',
                 auto_toc = 1,
                 nested_syntaxes = {
                   python = 'python',
@@ -191,7 +194,7 @@ return require('packer').startup(function(use)
                 },
             },
             {
-                path = '~/Nextcloud/wiki/P01/',
+                path = '~/Nextcloud/',
                 syntax = 'markdown',
                 ext = 'md',
                 name = 'P01',
