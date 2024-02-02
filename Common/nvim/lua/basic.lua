@@ -86,6 +86,8 @@ vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 16 })
 vim.cmd [[ colorscheme default ]]
 vim.opt.background = "light"
 vim.opt.termguicolors = true
+-- No idea why, preview in fzf does at least work extremely porly without this
+vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
 
 -- Workaround for gutter color, to remove background?
 vim.api.nvim_set_hl(0, "SignColumn", {link = "LineNr"})
