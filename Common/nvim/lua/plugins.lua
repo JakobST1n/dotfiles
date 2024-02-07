@@ -16,8 +16,6 @@ vim.cmd([[
 return require('packer').startup(function(use)
   -- Packer itself :)
   use 'wbthomason/packer.nvim'
-  -- targets (extends vim's targets, allowing things like multiline select inside backticks)
-  use 'wellle/targets.vim';
 
   -- GitSigns
   use {
@@ -25,29 +23,6 @@ return require('packer').startup(function(use)
     config = function()
       require('gitsigns').setup()
       map("n", "<leader>s", ":Gitsigns toggle_current_line_blame<cr>", silentnoremap)
-    end,
-  }
-
-  -- Lualine (Pretty statusbar and titlebar)
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require('lualine').setup {
-        options = {
-          theme = 'Tomorrow',
-          component_separators = '',
-          section_separators = ''
-        },
-        sections = {
-          lualine_a = {'mode'},
-          lualine_x = {'filetype'},
-          lualine_y = {}
-        },
-        -- tabline = {
-        --   lualine_z = {'tabs'}
-        -- }
-      }
     end,
   }
 
@@ -61,17 +36,6 @@ return require('packer').startup(function(use)
         map("n", "<F3>", ":NvimTreeToggle<cr>", silentnoremap)
     end,
   }
-
-  -- TagBar
-  use {
-    'preservim/tagbar',
-    config = function()
-      map("n", "<F2>", ":TagbarToggle<cr>", silentnoremap)
-    end,
-  }
-
-  -- Vim tmux navigator
-  use 'christoomey/vim-tmux-navigator'
 
   -- fzf (Fuzzy finder for various things)
   use {
@@ -106,7 +70,6 @@ return require('packer').startup(function(use)
       end,
   }
 
-  -- Tpope plugins :)
   -- vim-dadbob (run sql directly)
   use {
       'tpope/vim-dadbod',
@@ -129,16 +92,6 @@ return require('packer').startup(function(use)
         ]]
       end,
   }
-  -- vim-fugitive (Git commands)
-  use { 'tpope/vim-fugitive' }
-  -- Surround
-  use { 'tpope/vim-surround' }
-
-  -- Tree-sitter-mysql
-  -- use { 'PatrickFeiring/tree-sitter-sql' }
-
-  -- terryma/vim-multiple-cursors
-  -- preservim/nerdcommenter
 
   -- Lsp things
   use {
@@ -161,33 +114,13 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/vim-vsnip'
 
-
-  -- Goyo :)
-  use {
-      'junegunn/goyo.vim'
-  }
-  use { 'smithbm2316/centerpad.nvim' }
-
-  -- Color picker
-  use {
-    "ziontee113/color-picker.nvim",
-    config = function()
-      require("color-picker")
-    end,
-  }
-
-  -- Ledger
-  use {
-      'ledger/vim-ledger'
-  }
-
   -- VimWiki stuff
   use {
       'vimwiki/vimwiki',
       config = function ()
           vim.g.vimwiki_list = {
             {
-                path = '~/Nextcloud/2-Områder/204-profesjonelt/204.06-Infomedia/204.06.AA-wiki',
+                path = '~/Nextcloud/2-Områder/204-profesjonelt/204.06-infomedia/204.06.AA-wiki',
                 syntax = 'markdown',
                 ext = 'md',
                 name = 'I45',
@@ -248,9 +181,34 @@ return require('packer').startup(function(use)
      end
   }
 
-  -- packer.nvim
+  --use { 'PatrickFeiring/tree-sitter-sql' }
   use 'evanleck/vim-svelte'
   use 'pangloss/vim-javascript'
+  use 'ledger/vim-ledger'
+
+  -- Goyo :)
+  -- use {
+  --     'junegunn/goyo.vim'
+  -- }
+  -- use { 'smithbm2316/centerpad.nvim' }
+
+  -- Color picker
+  use {
+    "ziontee113/color-picker.nvim",
+    config = function()
+      require("color-picker")
+    end,
+  }
+  -- TagBar
+  -- use {
+  --   'preservim/tagbar',
+  --   config = function()
+  --     map("n", "<F2>", ":TagbarToggle<cr>", silentnoremap)
+  --   end,
+  -- }
+  -- Vim tmux navigator
+  -- use 'christoomey/vim-tmux-navigator'
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
