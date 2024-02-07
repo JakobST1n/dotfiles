@@ -26,17 +26,6 @@ return require('packer').startup(function(use)
     end,
   }
 
-  -- nvim-tree
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    tag = 'nightly', -- optional, updated every week. (see issue #1193)
-    config = function()
-        require("nvim-tree").setup()
-        map("n", "<F3>", ":NvimTreeToggle<cr>", silentnoremap)
-    end,
-  }
-
   -- fzf (Fuzzy finder for various things)
   use {
       'junegunn/fzf.vim',
@@ -181,15 +170,13 @@ return require('packer').startup(function(use)
      end
   }
 
+  use 'tpope/vim-surround'
   --use { 'PatrickFeiring/tree-sitter-sql' }
   use 'evanleck/vim-svelte'
   use 'pangloss/vim-javascript'
   use 'ledger/vim-ledger'
 
-  -- Goyo :)
-  -- use {
-  --     'junegunn/goyo.vim'
-  -- }
+  -- use { 'junegunn/goyo.vim' }
   -- use { 'smithbm2316/centerpad.nvim' }
 
   -- Color picker

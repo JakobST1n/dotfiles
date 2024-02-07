@@ -24,8 +24,19 @@ vim.api.nvim_create_user_command(
 )
 
 -- Disable the auto line wrap
--- vim.cmd [[ set formatoptions-=t ]]
 vim.opt.formatoptions:remove("t")
+
+-- Make find more usefull
+vim.opt.path:append("**")
+
+-- Turn off netrw banner
+vim.g.netrw_banner = 0
+-- Tree style listing in netrw
+vim.g.netrw_liststyle = 3
+-- Make browse set split
+-- vim.g.netrw_browse_split = 4
+-- Split to the right, instead of to the left
+-- vim.g.netrw_altv = 1
 
 --[[
 VIM User interface
