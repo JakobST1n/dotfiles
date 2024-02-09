@@ -4,7 +4,7 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 
 # screen locking
 m4_changequote({, })m4_dnl
-m4_ifelse(SYSID, {2}, {m4_dnl
+m4_ifelse(SYSID, {1}, {m4_dnl
 exec swayidle -w \
               timeout 300 'swaymsg "output * dpms off"' \
               timeout 3600 physlock \
