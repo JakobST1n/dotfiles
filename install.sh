@@ -10,6 +10,8 @@ read -p "Enter git email: " git_email
 echo "m4_define(\`GIT_EMAIL', \`${git_email}')m4_dnl" >> ${M4_DEF_FILE}
 read -p "Enter default editor: " default_editor
 echo "m4_define(\`DEFAULT_EDITOR', \`${default_editor}')m4_dnl" >> ${M4_DEF_FILE}
+read -p "Enter sysid: " sysid
+echo "m4_define(\`SYSID', \`${sysid}')m4_dnl" >> ${M4_DEF_FILE}
 
 if [ "$EUID" -eq 0 ]; then
     echo "Please don't run this as root, let sudo handle privilege escalation"
@@ -59,3 +61,5 @@ case "$OSTYPE" in
         echo "first run `export INST_PM=\"<sudo package-manager>\"` to indicate the package manager to the install script."
     ;;
 esac
+
+make
