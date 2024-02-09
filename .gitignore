@@ -80,5 +80,6 @@ system.m4
 Common/zshrc
 linux/tmux.conf
 linux/qtile/config/config.conf
+linux/sway/config
 linux/sway/autostart
 linux/sway/hid

@@ -1,3 +1,4 @@
+m4_include(`system.m4')m4_dnl
 include autostart
 include hid
 
@@ -47,7 +48,7 @@ bindsym $Mod+Return       exec alacritty
 bindsym $Mod+w            exec firefox
 bindsym $Mod+f            exec thunar
 bindsym $Mod+c            exec swaync-client -t
-bindsym Mod1+l            exec physlock
+bindsym Mod1+l            exec m4_ifelse(SYSID, `2', `nwg-lock', physlock)
 bindsym $Mod+d            exec wofi --show=drun
 
 # Exit menu
@@ -82,7 +83,7 @@ bindsym $Mod+Shift+c reload
 bindsym $Mod+Shift+Return exec /home/jakob/.local/bin/tt-g
 
 # Keyboard layout
-bindsym $Mod+Shift+Space input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
+#bindsym $Mod+Shift+Space input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
 
 ###########          Workspace Bindings          ###############

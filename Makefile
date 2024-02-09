@@ -9,6 +9,7 @@ endef
 TARGETS := linux/tmux.conf                                                    \
 		   Common/zshrc                                                       \
 		   linux/qtile/config/config.py                                       \
+		   linux/sway/config                                               \
 		   linux/sway/autostart                                               \
 		   linux/sway/hid
 
@@ -30,10 +31,7 @@ linux/qtile/config/config.py: linux/qtile/config/config.py.m4                 \
                               ${M4_COMMON_DEPS}
 	$(call M4_EXEC)
 
-linux/sway/autostart: linux/sway/autostart.m4                                 \
+linux/sway/%: linux/sway/%.m4                                 \
                       ${M4_COMMON_DEPS}
 	$(call M4_EXEC)
 
-linux/sway/hid: linux/sway/hid.m4                                             \
-                ${M4_COMMON_DEPS}
-	$(call M4_EXEC)
