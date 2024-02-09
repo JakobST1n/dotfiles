@@ -91,6 +91,23 @@ if [ $res -eq 1 ]; then
     tput rc; tput ed
 fi
 
+dlgYN "> Install qtile" res
+if [ $res -eq 1 ]; then
+    # tput sc
+    # # Core
+    # $INST_PM python3-cffi python3-cairocffi pango pango-devel python3-dbus-next
+    # # X11 
+    # $INST_PM python3-xcffib 
+    # # Wayland
+    # $INST_PM wlroots python3-pywlroots python3-pywayland python3-xkbcommon xwayland
+
+    # sudo pip install qtile qtile_extras
+
+    sudo ln -isf "$CWD/linux/qtile/qtile.desktop" /usr/share/xsessions/qtile.desktop
+    sudo ln -isf "$CWD/linux/qtile/qtile-wayland.desktop" /usr/share/wayland-sessions/qtile-wayland.desktop
+    # tput rc; tput ed
+fi
+
 dlgYN "> Create symlinks" res
 if [ $res -eq 1 ]; then
     function createOrUpdateSymlink() {

@@ -74,3 +74,9 @@ Common/vim/vim
 Common/nvim/plugin/
 Common/nvim/lsp/jdt-language-server/workspace/folder/
 Common/vim/netrwhist
+system.m4
+
+# Generated
+Common/zshrc
+linux/tmux.conf
+linux/qtile/config/config.conf

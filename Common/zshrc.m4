@@ -1,3 +1,4 @@
+m4_include(`system.m4')m4_dnl
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -13,21 +14,21 @@ export KEYTIMEOUT=1
 if [ ! -f ~/.zsh_env_setup ]; then
 	echo "export ZSH=$HOME/.oh-my-zsh" > ~/.zsh_env_setup
     echo "DEFAULT_USER=$USER" >> ~/.zsh_env_setup
-    echo "export GIT_EDITOR=\"nvim\"" >> ~/.zsh_env_setup
-    echo "export GIT_AUTHOR_NAME=\"jakobst1n\"" >> ~/.zsh_env_setup
-    echo "export GIT_AUTHOR_EMAIL=\"jakob.stendahl@outlook.com\"" >> ~/.zsh_env_setup
+    echo "export GIT_EDITOR=\"DEFAULT_EDITOR\"" >> ~/.zsh_env_setup
+    echo "export GIT_AUTHOR_NAME=\"GIT_USER\"" >> ~/.zsh_env_setup
+    echo "export GIT_AUTHOR_EMAIL=\"GIT_EMAIL\"" >> ~/.zsh_env_setup
 fi
 
 # Source env setup file
 source ~/.zsh_env_setup
 
 # Source powerlevel10k theme
-case "$OSTYPE" in
-    darwin*)
-        source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme;;
-    linux*)
-        ZSH_THEME="powerlevel10k/powerlevel10k";;
-esac
+m4_ifelse(OS_TYPE, `macos', `m4_dnl
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+')m4_dnl
+m4_ifelse(OS_TYPE, `linux', `m4_dnl
+ZSH_THEME="powerlevel10k/powerlevel10k"
+')m4_dnl
 
 COMPLETION_WAITING_DOTS="true"
 
@@ -59,7 +60,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Set editor
-export EDITOR="nvim"
+export EDITOR="DEFAULT_EDITOR"
 
 # Enable vim keybindings (This is enabled using zsh-vi-mode now.
 # bindkey -v
@@ -126,28 +127,24 @@ ec2ssh() {
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-case "$OSTYPE" in
-    darwin*)
-        path+=("$(readlink /Users/$DEFAULT_USER/bin)")
-        path+=("/Library/TeX/texbin")
-        path+=("/usr/local/share/dotnet")
-        path+=("/usr/local/sbin")
-        path+=("/Users/jakobstendahl/.deta/bin")
-        path+=("/Applications/Racket v8.2/bin")
-        path+=("/Users/jakobstendahl/Library/Python/3.9/bin/")
-        export PATH
+m4_ifelse(OS_TYPE, `macos', `m4_dnl
+path+=("$(readlink /Users/$DEFAULT_USER/bin)")
+path+=("/Library/TeX/texbin")
+path+=("/usr/local/share/dotnet")
+path+=("/usr/local/sbin")
+path+=("/Users/jakobstendahl/.deta/bin")
+path+=("/Applications/Racket v8.2/bin")
+path+=("/Users/jakobstendahl/Library/Python/3.9/bin/")
+export PATH
 
-        alias krak='/Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(PWD)" &>> /dev/null &'
-
-        #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-        export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
-        [[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
-    ;;
-    linux*)
-        alias pbcopy='xsel --clipboard --input'
-        alias pbpaste='xsel --clipboard --output'
-    ;;
-esac
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/jakobstendahl/.sdkman"
+[[ -s "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jakobstendahl/.sdkman/bin/sdkman-init.sh"
+')m4_dnl
+m4_ifelse(OS_TYPE, `linux', `m4_dnl
+alias pbcopy="xsel --clipboard --input"
+alias pbpaste="xsel --clipboard --output"
+')m4_dnl
 
 # start only one ssh-agent and reuse the created one
 # this is used for sway, although keys added do not persist on reboot

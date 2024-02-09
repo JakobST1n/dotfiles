@@ -1,5 +1,16 @@
 #!/bin/bash
 
+M4_DEF_FILE="system.m4"
+echo "m4_define(\`DEFAULT_SHELL', \`/usr/bin/zsh')m4_dnl" > ${M4_DEF_FILE}
+read -p "Enter dotfiles type: " dotfiles_type
+echo "m4_define(\`DOTFILES_TYPE', \`${dotfiles_type}')m4_dnl" >> ${M4_DEF_FILE}
+read -p "Enter git user: " git_user
+echo "m4_define(\`GIT_USER', \`${git_user}')m4_dnl" >> ${M4_DEF_FILE}
+read -p "Enter git email: " git_email
+echo "m4_define(\`GIT_EMAIL', \`${git_email}')m4_dnl" >> ${M4_DEF_FILE}
+read -p "Enter default editor: " default_editor
+echo "m4_define(\`DEFAULT_EDITOR', \`${default_editor}')m4_dnl" >> ${M4_DEF_FILE}
+
 if [ "$EUID" -eq 0 ]; then
     echo "Please don't run this as root, let sudo handle privilege escalation"
     exit 1
@@ -11,11 +22,13 @@ fi
 
 case "$OSTYPE" in
     darwin*)
+        echo "m4_define(\`OS_TYPE', \`macos')m4_dnl" >> ${M4_DEF_FILE}
         export INSTALLER_PM="brew"
         echo "Detected your OS as \"mac\"."
 	    ./install/install_mac.sh
     ;;
     linux*)
+        echo "m4_define(\`OS_TYPE', \`linux')m4_dnl" >> ${M4_DEF_FILE}
         echo "I detected that you are running linux, please enter your distro."
         tput setaf 4
         echo "Please enter: \"arch\", \"fedora\" or \"debian\""
