@@ -93,13 +93,13 @@ fi
 
 dlgYN "> Install qtile" res
 if [ $res -eq 1 ]; then
-    # tput sc
-    # # Core
-    # $INST_PM python3-cffi python3-cairocffi pango pango-devel python3-dbus-next
-    # # X11 
-    # $INST_PM python3-xcffib 
-    # # Wayland
-    # $INST_PM wlroots python3-pywlroots python3-pywayland python3-xkbcommon xwayland
+    tput sc
+    # Core
+    $INST_PM python3-cffi python3-cairocffi pango pango-devel python3-dbus-next
+    # X11 
+    $INST_PM python3-xcffib xsecurelock
+    # Wayland
+    $INST_PM wlroots python3-pywlroots python3-pywayland python3-xkbcommon xwayland
 
     # sudo pip install qtile qtile_extras
 

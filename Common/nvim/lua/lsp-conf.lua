@@ -98,7 +98,7 @@ cmp.setup({
   },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping(function(fallback)
+    ["<C-M-n>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			elseif has_words_before() then
