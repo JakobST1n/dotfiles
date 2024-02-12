@@ -1,4 +1,3 @@
-m4_include(`system.m4')m4_dnl
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -14,9 +13,9 @@ export KEYTIMEOUT=1
 if [ ! -f ~/.dotfiles_env ]; then
 	echo "export ZSH=$HOME/.oh-my-zsh" > ~/.dotfiles_env
     echo "DEFAULT_USER=$USER" >> ~/.dotfiles_env
-    echo "export GIT_EDITOR=\"DEFAULT_EDITOR\"" >> ~/.dotfiles_env
-    echo "export GIT_AUTHOR_NAME=\"GIT_USER\"" >> ~/.dotfiles_env
-    echo "export GIT_AUTHOR_EMAIL=\"GIT_EMAIL\"" >> ~/.dotfiles_env
+    echo "export GIT_EDITOR=\"DT_EDITOR\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_NAME=\"DT_GIT_USER\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_EMAIL=\"DT_GIT_EMAIL\"" >> ~/.dotfiles_env
 fi
 
 # Source env setup file
@@ -60,7 +59,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Set editor
-export EDITOR="DEFAULT_EDITOR"
+export EDITOR="DT_EDITOR"
 
 # Enable vim keybindings (This is enabled using zsh-vi-mode now.
 # bindkey -v

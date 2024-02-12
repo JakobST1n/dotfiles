@@ -12,9 +12,9 @@ esac
 # Check if env setup file exists
 if [ ! -f ~/.dotfiles_env ]; then
     echo "DEFAULT_USER=$USER" >> ~/.zsh_env_setup
-    echo "export GIT_EDITOR=\"DEFAULT_EDITOR\"" >> ~/.dotfiles_env
-    echo "export GIT_AUTHOR_NAME=\"GIT_USER\"" >> ~/.dotfiles_env
-    echo "export GIT_AUTHOR_EMAIL=\"GIT_EMAIL\"" >> ~/.dotfiles_env
+    echo "export GIT_EDITOR=\"DT_EDITOR\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_NAME=\"DT_GIT_USER\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_EMAIL=\"DT_GIT_EMAIL\"" >> ~/.dotfiles_env
 fi
 
 # Source env setup file
@@ -28,7 +28,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Set editor
-export EDITOR="DEFAULT_EDITOR"
+export EDITOR="DT_EDITOR"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options

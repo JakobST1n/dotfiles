@@ -1,4 +1,3 @@
-m4_include(`system.m4')m4_dnl
 include autostart
 include hid
 
@@ -48,7 +47,7 @@ bindsym $Mod+Return       exec alacritty
 bindsym $Mod+w            exec firefox
 bindsym $Mod+f            exec thunar
 bindsym $Mod+c            exec swaync-client -t
-bindsym Mod1+l            exec m4_ifelse(SYSID, `2', `nwg-lock', physlock)
+bindsym Mod1+l            exec m4_ifelse(DT_SYSID, `2', `nwg-lock', physlock)
 bindsym $Mod+d            exec wofi --show=drun
 
 # Exit menu

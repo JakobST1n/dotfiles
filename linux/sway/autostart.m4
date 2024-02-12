@@ -1,10 +1,9 @@
-m4_include(`system.m4')m4_dnl
 # Fix GTK+ application slow start
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # screen locking
 m4_changequote({, })m4_dnl
-m4_ifelse(SYSID, {1}, {m4_dnl
+m4_ifelse(DT_SYSID, {1}, {m4_dnl
 #exec swayidle -w \
 #              timeout 300 'swaymsg "output * dpms off"' \
 #              timeout 3600 physlock \

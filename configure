@@ -1,165 +1,210 @@
 #!/bin/bash
 
-set -o pipefail
-M4_DEF_FILE="system.m4"
+set -uo pipefail
+CONFIG_FILE="config"
 
-if [ -f "${M4_DEF_FILE}" ]; then
+function generate_makefile {
+    rm Makefile
+    m4 -P Makefile.m4 > Makefile
+    rm system.m4
+    make system.m4
+	echo 'm4_include(`system.m4'"'"')m4_dnl' | cat - Makefile.m4 | m4 -P > Makefile
+}
+
+if [ -f "${CONFIG_FILE}" ]; then
     dialog \
+        --keep-tite \
         --backtitle "Dotfile configuration" \
         --title "Overwrite settings?" \
         --defaultno \
         --yesno "A system.m4 file already exists, do you want to make that file over again? If you press No, the Makefile will be processed again based on the current system.m4 file." 0 0
     if [ "$?" -eq 1 ]; then
-        m4 -P Makefile.m4 > Makefile
+        generate_makefile
         exit 0
     fi
+    source ${CONFIG_FILE}
 fi
 
-HOME_DIRECTORY=$(dialog \
+: "${DT_DOTFILES_DIR:=$(pwd)}"
+: "${DT_HOME_DIRECTORY:=${HOME:-}}"
+: "${DT_SHELL:=${SHELL:-}}"
+: "${DT_EDITOR:=${EDITOR:-}}"
+: "${DT_SYSID:=1}"
+: "${DT_DISTRO:=}"
+: "${DT_OS:=linux}"
+: "${DT_DOTFILES_TYPE:=local}"
+: "${DT_GIT_USER:=${DT_GIT_AUTHOR_NAME:-}}"
+: "${DT_GIT_EMAIL:=${DT_GIT_AUTHOR_EMAIL:-}}"
+: "${DT_TOOLS:=yes}"
+: "${DT_OTHER_SYMLINKS:=yes}"
+: "${DT_NEOVIM:=yes}"
+: "${DT_ZSH:=no}"
+: "${DT_TLP:=no}"
+: "${DT_AUTORANDR:=no}"
+: "${DT_GREETD_TUIGREET:=no}"
+: "${DT_POWERLINE_P10K:=no}"
+: "${DT_SWAY:=no}"
+: "${DT_QTILE:=no}"
+: "${DT_BASH:=yes}"
+: "${DT_HOMEBIN:=no}"
+: "${DT_TMUX:=yes}"
+
+radiolist_on() {
+    local value="$1"
+    if [[ "$value" == "$2" ]]; then
+        echo "on"
+    else
+        echo "off"
+    fi
+}
+
+checklist_on() {
+    local value="$1"
+    if [[ "$value" == "yes" ]]; then
+        echo "on"
+    else
+        echo "off"
+    fi
+}
+
+DT_HOME_DIRECTORY=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --inputbox "Home directory" \
-      0 0 "${HOME}" \
+      0 0 "${DT_HOME_DIRECTORY}" \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
 
-DEFAULT_SHELL=$(dialog \
+DT_SHELL=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --inputbox "Default shell" \
-      0 0 "${SHELL}" \
+      0 0 "${DT_SHELL}" \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
 
-DEFAULT_EDITOR=$(dialog \
+DT_EDITOR=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --inputbox "Default editor" \
-      0 0 "nvim" \
+      0 0 "${DT_EDITOR}" \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
 
-SYSID=$(dialog \
+DT_SYSID=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
       --inputbox "System id (magical number)" \
-      0 0 "1" \
+      0 0 "${DT_SYSID}" \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
 
 SYSTEM_TYPE=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --radiolist "System type" \
       0 0 0 \
-      0 "Local" on \
-      1 "Remote" off \
+      0 "Local"  $(radiolist_on "${DT_DOTFILES_TYPE}" "local") \
+      1 "Remote" $(radiolist_on "${DT_DOTFILES_TYPE}" "remote") \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
+
+case $SYSTEM_TYPE in
+  0) DT_DOTFILES_TYPE=local;;
+  1) DT_DOTFILES_TYPE=remote;;
+esac
 
 DISTRO=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --radiolist "Distro" \
       0 0 0 \
-      0 "Debian" on \
-      1 "Fedora" off \
+      0 "Debian" $(radiolist_on "${DT_DISTRO}" "debian") \
+      1 "Fedora" $(radiolist_on "${DT_DISTRO}" "fedora") \
 3>&1 1>&2 2>&3 3>&-)
+if [ "$?" -eq 1 ]; then exit 0; fi
+
+case $DISTRO in
+  0) DT_DISTRO=debian;;
+  1) DT_DISTRO=fedora;;
+esac
 
 GIT_VALUES=$(dialog \
+      --keep-tite \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --form "Git settings" \
 0 50 0 \
-	"Username:" 1 1	"$GIT_AUTHOR_NAME" 	1 10 255 0 \
+	"Username:" 1 1	"$GIT_AUTHOR_NAME" 	    1 10 255 0 \
     "Email:"    2 1	"$GIT_AUTHOR_EMAIL"  	2 10 255 0 \
 3>&1 1>&2 2>&3 3>&-)
 GIT_VALUES=($GIT_VALUES)
+if [ "$?" -eq 1 ]; then exit 0; fi
+
+DT_GIT_USER=${GIT_VALUES[0]}
+DT_GIT_EMAIL=${GIT_VALUES[1]}
 
 FEATURES="$(dialog --stdout \
+    --keep-tite \
     --backtitle "Dotfile configuration" \
     --title "Configure" \
-    --checklist "Change dotfile features:" 0 0 0 \
-    1 "General tools (highligt, mediainfo, git, ripgrep...)" on \
-    2 "Other dotfile symlinks (Not for specific features below)" on \
-    3 "neovim" on \
-    4 "ZSH and Oh-My-Zsh" off \
-    5 "tlp" off \
-    6 "autorandr" off \
-    7 "greetd and tuigreet" off \
-    8 "Powerline and P10K" off \
-    9 "Sway" off \
-    10 "QTile" off \
-    11 "Bash" on \
-    12 "home folder bin dir" off \
-    13 "tmux" on)"
+    --checklist "Change dotfile features (be aware that turning them off is not really possible):" 0 0 0 \
+    1 "General tools (highligt, mediainfo, git, ripgrep...)" $(checklist_on "${DT_TOOLS}") \
+    2 "Other dotfile symlinks (Not for specific features below)" $(checklist_on "${DT_OTHER_SYMLINKS}") \
+    3 "neovim" $(checklist_on "${DT_NEOVIM}") \
+    4 "ZSH and Oh-My-Zsh" $(checklist_on "${DT_ZSH}") \
+    5 "tlp" $(checklist_on "${DT_TLP}") \
+    6 "autorandr" $(checklist_on "${DT_AUTORANDR}") \
+    7 "greetd and tuigreet" $(checklist_on "${DT_GREETD_TUIGREET}") \
+    8 "Powerline and P10K" $(checklist_on "${DT_POWERLINE_P10K}") \
+    9 "Sway" $(checklist_on "${DT_SWAY}") \
+    10 "QTile" $(checklist_on "${DT_QTILE}") \
+    11 "Bash" $(checklist_on "${DT_BASH}") \
+    12 "home folder bin dir" $(checklist_on "${DT_HOMEBIN}") \
+    13 "tmux" $(checklist_on "${DT_NEOVIM}"))"
+if [ "$?" -eq 1 ]; then exit 0; fi
 
-
-# Write all to file
-echo "m4_define(\`DOTFILES_DIR', \`$(pwd)')m4_dnl" > ${M4_DEF_FILE}
-echo "m4_define(\`HOME_DIRECTORY', \`${HOME_DIRECTORY}')m4_dnl" >> ${M4_DEF_FILE}
-echo "m4_define(\`DEFAULT_SHELL', \`${DEFAULT_SHELL}')m4_dnl" >> ${M4_DEF_FILE}
-echo "m4_define(\`DEFAULT_EDITOR', \`${DEFAULT_EDITOR}')m4_dnl" >> ${M4_DEF_FILE}
-echo "m4_define(\`SYSID', \`${SYSID}')m4_dnl" >> ${M4_DEF_FILE}
-
-case $SYSTEM_TYPE in
-  0)
-    echo "m4_define(\`DOTFILES_TYPE', \`local')m4_dnl" >> ${M4_DEF_FILE}
-  ;;
-  1)
-    echo "m4_define(\`DOTFILES_TYPE', \`remote')m4_dnl" >> ${M4_DEF_FILE}
-  ;;
-esac
-
-case $DISTRO in
-  0)
-    echo "m4_define(\`DISTRO', \`debian')m4_dnl" >> ${M4_DEF_FILE}
-  ;;
-  1)
-    echo "m4_define(\`DISTRO', \`fedora')m4_dnl" >> ${M4_DEF_FILE}
-  ;;
-esac
-
-echo "m4_define(\`GIT_USER', \`${GIT_VALUES[0]}')m4_dnl" >> ${M4_DEF_FILE}
-echo "m4_define(\`GIT_EMAIL', \`${GIT_VALUES[1]}')m4_dnl" >> ${M4_DEF_FILE}
+DT_TOOLS=no
+DT_OTHER_SYMLINKS=no
+DT_NEOVIM=no
+DT_ZSH=no
+DT_TLP=no
+DT_AUTORANDR=no
+DT_GREETD_TUIGREET=no
+DT_POWERLINE_P10K=no
+DT_SWAY=no
+DT_QTILE=no
+DT_BASH=no
+DT_HOMEBIN=no
+DT_TMUX=no
 
 for choice in ${FEATURES}; do
     case $choice in
-      1)
-        echo "m4_define(\`DT_TOOLS', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      2)
-        echo "m4_define(\`DT_OTHER_SYMLINKS', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      3)
-        echo "m4_define(\`DT_NEOVIM', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      4)
-        echo "m4_define(\`DT_ZSH', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      5)
-        echo "m4_define(\`DT_TLP', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      6)
-        echo "m4_define(\`DT_AUTORANDR', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      7)
-        echo "m4_define(\`DT_GREETD_TUIGREET', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      8)
-        echo "m4_define(\`DT_POWERLINE_P10K', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      9)
-        echo "m4_define(\`DT_SWAY', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      10)
-        echo "m4_define(\`DT_QTILE', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      11)
-        echo "m4_define(\`DT_BASH', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      12)
-        echo "m4_define(\`DT_HOMEBIN', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
-      13)
-        echo "m4_define(\`DT_TMUX', \`1')m4_dnl" >> ${M4_DEF_FILE}
-      ;;
+      1)   DT_TOOLS=yes;;
+      2)   DT_OTHER_SYMLINKS=yes;;
+      3)   DT_NEOVIM=yes;;
+      4)   DT_ZSH=yes;;
+      5)   DT_TLP=yes;;
+      6)   DT_AUTORANDR=yes;;
+      7)   DT_GREETD_TUIGREET=yes;;
+      8)   DT_POWERLINE_P10K=yes;;
+      9)   DT_SWAY=yes;;
+      10)  DT_QTILE=yes;;
+      11)  DT_BASH=yes;;
+      12)  DT_HOMEBIN=yes;;
+      13)  DT_TMUX=yes;;
     esac
 done
 
-m4 -P Makefile.m4 > Makefile
+# write config to file
+printf "" > "${CONFIG_FILE}"
+set | grep '^DT_' | awk -F '=' '{print $1"="$2""}' >> "${CONFIG_FILE}"
+
+# generate makefile
+generate_makefile

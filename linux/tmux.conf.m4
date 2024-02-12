@@ -1,4 +1,3 @@
-m4_include(`system.m4')m4_dnl
 # -- general -------------------------------------------------------------------
 #set -g default-terminal "screen-256color"
 #set -g default-terminal "screen-256color-bce"
@@ -23,7 +22,7 @@ set -g display-time 1000      # slightly longer status messages display time
 set -g status-interval 10     # redraw status linebg every 10 seconds
 set-option -g history-limit 5000
 
-set-option -g default-shell DEFAULT_SHELL
+set-option -g default-shell DT_SHELL
 
 # -- navigation ----------------------------------------------------------------
 
@@ -31,7 +30,7 @@ set-option -g default-shell DEFAULT_SHELL
 setw -g monitor-activity on
 set -g visual-activity off
 
-m4_ifelse(DOTFILES_TYPE, `local', `m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
@@ -63,7 +62,7 @@ set -g mouse on
 bind-key = set-window-option synchronize-panes
 
 # -- macros --------------------------------------------------------------------
-bind-key s send-keys "GIT_USER <GIT_EMAIL>"
+bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
 
 # -- vim-tmux-navigator --------------------------------------------------------
 # Smart pane switching with awareness of Vim splits.
@@ -95,7 +94,7 @@ bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'win
 bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 
 # -- Theme --------------------------------------------------------------------
-m4_ifelse(DOTFILES_TYPE, `local', `m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 set -g status-justify left
 set -g status-interval 2
 set -g status-position bottom
@@ -118,7 +117,7 @@ setw -g window-status-bell-style "bg=colour23,fg=colour15"
 #setw -g window-status-activity-style "bg=colour23,fg=colour15"
 setw -g window-status-activity-style "bg=colour243,fg=colour15"
 ')m4_dnl
-m4_ifelse(DOTFILES_TYPE, `remote', `m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
 set -g status-bg "purple"
 set -g status-fg "white"
 ')m4_dnl

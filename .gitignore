@@ -85,3 +85,4 @@ linux/sway/config
 linux/sway/autostart
 linux/sway/hid
 Makefile
+config

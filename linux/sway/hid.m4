@@ -1,7 +1,5 @@
-m4_include(`system.m4')m4_dnl
-
 output eDP-1 {
-    scale m4_ifelse(SYSID, `1', `1.4', `1.0')
+    scale m4_ifelse(DT_SYSID, `1', `1.4', `1.0')
 }
 
 input "type:keyboard" {
