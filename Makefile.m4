@@ -26,62 +26,34 @@ define create_dotfile_symlink
 endef
 
 all: install_packages m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.tmux.conf') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.zshrc') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/bin') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.vimrc') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.vim') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.bashrc') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.p10k.zsh') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/rofi') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/deadd') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/waybar') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/foot') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/alacritty') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/powerline') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/sxhkd') m4_dnl
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/bspwm') m4_dnl
-m4_ifdef(`INSTALL_QTILE', `$(HOME_DIR)/.config/qtile/config.py') m4_dnl
-m4_ifdef(`INSTALL_SWAY', `$(HOME_DIR)/.config/sway/config') m4_dnl
-m4_ifdef(`INSTALL_SWAY', `$(HOME_DIR)/.config/sway/hid') m4_dnl
-m4_ifdef(`INSTALL_SWAY', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
-m4_ifdef(`INSTALL_NEOVIM', `$(HOME_DIR)/.config/nvim') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.vimrc') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.vim') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/rofi') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/deadd') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/waybar') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/foot') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/alacritty') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/powerline') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/sxhkd') m4_dnl
+m4_ifdef(`DT_OTHER_SYMLINKS', `$(HOME_DIR)/.config/bspwm') m4_dnl
+m4_ifdef(`DT_HOMEBIN', `$(HOME_DIR)/bin') m4_dnl
+m4_ifdef(`DT_ZSH', `$(HOME_DIR)/.zshrc') m4_dnl
+m4_ifdef(`DT_ZSH', `$(HOME_DIR)/.p10k.zsh') m4_dnl
+m4_ifdef(`DT_BASH', `$(HOME_DIR)/.bashrc') m4_dnl
+m4_ifdef(`DT_TMUX', `$(HOME_DIR)/.tmux.conf') m4_dnl
+m4_ifdef(`DT_QTILE', `$(HOME_DIR)/.config/qtile/config.py') m4_dnl
+m4_ifdef(`DT_SWAY', `$(HOME_DIR)/.config/sway/config') m4_dnl
+m4_ifdef(`DT_SWAY', `$(HOME_DIR)/.config/sway/hid') m4_dnl
+m4_ifdef(`DT_SWAY', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
+m4_ifdef(`DT_NEOVIM', `$(HOME_DIR)/.config/nvim') m4_dnl
 
 
-m4_ifdef(`INSTALL_OTHER_SYMLINKS', `m4_dnl
-linux/tmux.conf: linux/tmux.conf.m4                                           \
-                 ${M4_COMMON_DEPS}
-	$(call M4_EXEC)
-	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
-
-$(HOME_DIR)/.tmux.conf: linux/tmux.conf
-	$(call create_dotfile_symlink,linux/tmux.conf,.tmux.conf)
-
-Common/zshrc: Common/zshrc.m4                                                 \
-              ${M4_COMMON_DEPS}
-	$(call M4_EXEC)
-
-$(HOME_DIR)/.zshrc: Common/zshrc
-	$(call create_dotfile_symlink,Common/zshrc,.zshrc)
-
-Common/bashrc: Common/bashrc.m4                                                 \
-              ${M4_COMMON_DEPS}
-	$(call M4_EXEC)
-
-$(HOME_DIR)/.bashrc: Common/bashrc
-	$(call create_dotfile_symlink,Common/bashrc,.bashrc)
-
-$(HOME_DIR)/bin: bin
-	$(call create_dotfile_symlink,bin,bin)
-
+m4_ifdef(`DT_OTHER_SYMLINKS', `m4_dnl
 $(HOME_DIR)/.vimrc: Common/vimrc
 	$(call create_dotfile_symlink,Common/vimrc,.vimrc)
 
 $(HOME_DIR)/.vim: Common/vim
 	$(call create_dotfile_symlink,Common/vim,.vim)
-
-$(HOME_DIR)/.p10k.zsh: Common/vim
-	$(call create_dotfile_symlink,Common/p10k.zsh,.p10k.zsh)
 
 $(HOME_DIR)/.config/rofi: linux/rofi
 	$(call create_dotfile_symlink,linux/rofi,.config/rofi)
@@ -108,7 +80,45 @@ $(HOME_DIR)/.config/bspwm: linux/bspwm
 	$(call create_dotfile_symlink,linux/bspwm,.config/bspwm)
 ')
 
-m4_ifdef(`INSTALL_SWAY', `m4_dnl
+m4_ifdef(`DT_HOMEBIN', `m4_dnl
+$(HOME_DIR)/bin: bin
+	$(call create_dotfile_symlink,bin,bin)
+')
+
+m4_ifdef(`DT_BASH', `m4_dnl
+Common/bashrc: Common/bashrc.m4                                                 \
+              ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+
+$(HOME_DIR)/.bashrc: Common/bashrc
+	$(call create_dotfile_symlink,Common/bashrc,.bashrc)
+')
+
+m4_ifdef(`DT_ZSH', `m4_dnl
+Common/zshrc: Common/zshrc.m4                                                 \
+              ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+
+$(HOME_DIR)/.zshrc: Common/zshrc
+	$(call create_dotfile_symlink,Common/zshrc,.zshrc)
+
+m4_ifdef(`DT_ZSH', `m4_dnl
+$(HOME_DIR)/.p10k.zsh: Common/vim
+	$(call create_dotfile_symlink,Common/p10k.zsh,.p10k.zsh)
+')
+')
+
+m4_ifdef(`DT_TMUX', `m4_dnl
+linux/tmux.conf: linux/tmux.conf.m4                                           \
+                 ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
+
+$(HOME_DIR)/.tmux.conf: linux/tmux.conf
+	$(call create_dotfile_symlink,linux/tmux.conf,.tmux.conf)
+')
+
+m4_ifdef(`DT_SWAY', `m4_dnl
 linux/sway/%: linux/sway/%.m4                                                 \
                       ${M4_COMMON_DEPS}
 	$(call M4_EXEC)
@@ -118,7 +128,7 @@ $(HOME_DIR)/.config/sway/%: linux/sway/config linux/sway/hid linux/sway/autostar
 
 ')m4_dnl
 
-m4_ifdef(`INSTALL_QTILE', `m4_dnl
+m4_ifdef(`DT_QTILE', `m4_dnl
 linux/qtile/config/config.py: linux/qtile/config/config.py.m4                 \
                               linux/qtile/config/screen.m4.py                 \
                               linux/qtile/config/group.m4.py                  \
@@ -133,7 +143,7 @@ $(HOME_DIR)/.config/qtile/config.py: linux/qtile/config/config.py
 	sudo cp linux/qtile/qtile-wayland.desktop /usr/share/wayland-sessions/qtile-wayland.desktop
 ')m4_dnl
 
-m4_ifdef(`INSTALL_NEOVIM', `m4_dnl
+m4_ifdef(`DT_NEOVIM', `m4_dnl
 /usr/local/bin/nvim:
 	git clone https://github.com/neovim/neovim /tmp/neovim
 	git -C /tmp/neovim checkout tags/v0.9.5
@@ -146,15 +156,15 @@ $(HOME_DIR)/.config/nvim/: /usr/local/bin/nvim
 # Genereal package manager stuff
 m4_ifelse(DISTRO, `debian', m4_dnl
 DPKG_DEPENDENCIES := m4_dnl
-m4_ifdef(`INSTALL_TOOLS', `highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs catimg ripgrep silversearcher-ag',) m4_dnl
-m4_ifdef(`INSTALL_GREETD_TUIGREET', `greetd',) m4_dnl
-m4_ifdef(`INSTALL_TLP', `tlp',) m4_dnl
+m4_ifdef(`DT_TOOLS', `highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs catimg ripgrep silversearcher-ag',) m4_dnl
+m4_ifdef(`DT_GREETD_TUIGREET', `greetd',) m4_dnl
+m4_ifdef(`DT_TLP', `tlp',) m4_dnl
 m4_dnl
-m4_ifdef(`INSTALL_SWAY', `sway swayidle physlock alacritty blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
+m4_ifdef(`DT_SWAY', `sway swayidle physlock alacritty blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
 m4_dnl
-m4_ifdef(`INSTALL_QTILE', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
-m4_ifdef(`INSTALL_QTILE', `python3_xcffib xsecurelock',) m4_dnl qtile x11
-m4_ifdef(`INSTALL_QTILE', `wlroots python3-wlroots python3-pywayland python3-xkbcommon xwayland',) m4_dnl qtile wayland
+m4_ifdef(`DT_QTILE', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
+m4_ifdef(`DT_QTILE', `python3_xcffib xsecurelock',) m4_dnl qtile x11
+m4_ifdef(`DT_QTILE', `wlroots python3-wlroots python3-pywayland python3-xkbcommon xwayland',) m4_dnl qtile wayland
 
 
 install_packages:

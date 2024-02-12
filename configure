@@ -26,7 +26,7 @@ DEFAULT_SHELL=$(dialog \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \
 	  --inputbox "Default shell" \
-      0 0 "/usr/bin/zsh" \
+      0 0 "${SHELL}" \
 3>&1 1>&2 2>&3 3>&-)
 
 DEFAULT_EDITOR=$(dialog \
@@ -66,15 +66,15 @@ GIT_VALUES=$(dialog \
 	  --title "Configure" \
 	  --form "Git settings" \
 0 50 0 \
-	"Username:" 1 1	"$GIT_USER" 	1 10 255 0 \
-	"Email:"    2 1	"$GIT_EMAIL"  	2 10 255 0 \
+	"Username:" 1 1	"$GIT_AUTHOR_NAME" 	1 10 255 0 \
+    "Email:"    2 1	"$GIT_AUTHOR_EMAIL"  	2 10 255 0 \
 3>&1 1>&2 2>&3 3>&-)
 GIT_VALUES=($GIT_VALUES)
 
 FEATURES="$(dialog --stdout \
     --backtitle "Dotfile configuration" \
     --title "Configure" \
-    --checklist "Change dotfile features:" 0 0 10 \
+    --checklist "Change dotfile features:" 0 0 0 \
     1 "General tools (highligt, mediainfo, git, ripgrep...)" on \
     2 "Other dotfile symlinks (Not for specific features below)" on \
     3 "neovim" on \
@@ -84,7 +84,10 @@ FEATURES="$(dialog --stdout \
     7 "greetd and tuigreet" off \
     8 "Powerline and P10K" off \
     9 "Sway" off \
-    10 "QTile" off)"
+    10 "QTile" off \
+    11 "Bash" on \
+    12 "home folder bin dir" off \
+    13 "tmux" on)"
 
 
 # Write all to file
@@ -118,34 +121,43 @@ echo "m4_define(\`GIT_EMAIL', \`${GIT_VALUES[1]}')m4_dnl" >> ${M4_DEF_FILE}
 for choice in ${FEATURES}; do
     case $choice in
       1)
-        echo "m4_define(\`INSTALL_TOOLS', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_TOOLS', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       2)
-        echo "m4_define(\`INSTALL_OTHER_SYMLINKS', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_OTHER_SYMLINKS', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       3)
-        echo "m4_define(\`INSTALL_NEOVIM', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_NEOVIM', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       4)
-        echo "m4_define(\`INSTALL_OH_MY_ZSH', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_ZSH', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       5)
-        echo "m4_define(\`INSTALL_TLP', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_TLP', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       6)
-        echo "m4_define(\`INSTALL_AUTORANDR', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_AUTORANDR', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       7)
-        echo "m4_define(\`INSTALL_GREETD_TUIGREET', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_GREETD_TUIGREET', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       8)
-        echo "m4_define(\`INSTALL_POWERLINE_P10K', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_POWERLINE_P10K', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       9)
-        echo "m4_define(\`INSTALL_SWAY', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_SWAY', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
       10)
-        echo "m4_define(\`INSTALL_QTILE', \`1')m4_dnl" >> ${M4_DEF_FILE}
+        echo "m4_define(\`DT_QTILE', \`1')m4_dnl" >> ${M4_DEF_FILE}
+      ;;
+      11)
+        echo "m4_define(\`DT_BASH', \`1')m4_dnl" >> ${M4_DEF_FILE}
+      ;;
+      12)
+        echo "m4_define(\`DT_HOMEBIN', \`1')m4_dnl" >> ${M4_DEF_FILE}
+      ;;
+      13)
+        echo "m4_define(\`DT_TMUX', \`1')m4_dnl" >> ${M4_DEF_FILE}
       ;;
     esac
 done
