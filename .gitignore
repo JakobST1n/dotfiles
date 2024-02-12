@@ -83,3 +83,4 @@ linux/qtile/config/config.py
 linux/sway/config
 linux/sway/autostart
 linux/sway/hid
+Makefile
