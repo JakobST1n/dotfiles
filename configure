@@ -3,6 +3,18 @@
 set -o pipefail
 M4_DEF_FILE="system.m4"
 
+if [ -f "${M4_DEF_FILE}" ]; then
+    dialog \
+        --backtitle "Dotfile configuration" \
+        --title "Overwrite settings?" \
+        --defaultno \
+        --yesno "A system.m4 file already exists, do you want to make that file over again? If you press No, the Makefile will be processed again based on the current system.m4 file." 0 0
+    if [ "$?" -eq 1 ]; then
+        m4 -P Makefile.m4 > Makefile
+        exit 0
+    fi
+fi
+
 HOME_DIRECTORY=$(dialog \
 	  --backtitle "Dotfile configuration" \
 	  --title "Configure" \

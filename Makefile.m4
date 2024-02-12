@@ -31,6 +31,7 @@ m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.zshrc') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/bin') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.vimrc') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.vim') m4_dnl
+m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.bashrc') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.p10k.zsh') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/rofi') m4_dnl
 m4_ifdef(`INSTALL_OTHER_SYMLINKS', `$(HOME_DIR)/.config/deadd') m4_dnl
@@ -62,6 +63,13 @@ Common/zshrc: Common/zshrc.m4                                                 \
 
 $(HOME_DIR)/.zshrc: Common/zshrc
 	$(call create_dotfile_symlink,Common/zshrc,.zshrc)
+
+Common/bashrc: Common/bashrc.m4                                                 \
+              ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+
+$(HOME_DIR)/.bashrc: Common/bashrc
+	$(call create_dotfile_symlink,Common/bashrc,.bashrc)
 
 $(HOME_DIR)/bin: bin
 	$(call create_dotfile_symlink,bin,bin)

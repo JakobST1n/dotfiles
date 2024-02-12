@@ -11,12 +11,12 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH:$HOME/go/bin
 export KEYTIMEOUT=1
 
 # Check if env setup file exists
-if [ ! -f ~/.zsh_env_setup ]; then
-	echo "export ZSH=$HOME/.oh-my-zsh" > ~/.zsh_env_setup
-    echo "DEFAULT_USER=$USER" >> ~/.zsh_env_setup
-    echo "export GIT_EDITOR=\"DEFAULT_EDITOR\"" >> ~/.zsh_env_setup
-    echo "export GIT_AUTHOR_NAME=\"GIT_USER\"" >> ~/.zsh_env_setup
-    echo "export GIT_AUTHOR_EMAIL=\"GIT_EMAIL\"" >> ~/.zsh_env_setup
+if [ ! -f ~/.dotfiles_env ]; then
+	echo "export ZSH=$HOME/.oh-my-zsh" > ~/.dotfiles_env
+    echo "DEFAULT_USER=$USER" >> ~/.dotfiles_env
+    echo "export GIT_EDITOR=\"DEFAULT_EDITOR\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_NAME=\"GIT_USER\"" >> ~/.dotfiles_env
+    echo "export GIT_AUTHOR_EMAIL=\"GIT_EMAIL\"" >> ~/.dotfiles_env
 fi
 
 # Source env setup file
