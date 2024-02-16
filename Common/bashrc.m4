@@ -153,3 +153,4 @@ source "$SSH_DIR/ssh-agent.env" > /dev/null
 
 # Enable FZF history
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source /usr/share/fzf/shell/key-bindings.bash

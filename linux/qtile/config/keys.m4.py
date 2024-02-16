@@ -44,7 +44,7 @@ keys = [
     Key([mod, "control", "shift"], "c", lazy.restart(), desc="Restart QTile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "l", lazy.spawn("xsecurelock"), desc="Toggle floating on the focused window"),
+    Key([mod1], "l", lazy.spawn("xsecurelock"), desc="Toggle floating on the focused window"),
     #Key([mod], 'd', lazy.run_extension(extension.DmenuRun(
     #    dmenu_ignorecase=True,
     #    dmenu_font="Andika-8",
