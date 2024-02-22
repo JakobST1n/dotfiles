@@ -25,6 +25,9 @@ return require('packer').startup(function(use)
       map("n", "<leader>s", ":Gitsigns toggle_current_line_blame<cr>", silentnoremap)
     end,
   }
+  use {
+    'tpope/vim-fugitive',
+  }
 
   -- fzf (Fuzzy finder for various things)
   use {
