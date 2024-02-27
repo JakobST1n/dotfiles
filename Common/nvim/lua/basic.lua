@@ -32,7 +32,7 @@ vim.opt.path:append("**")
 -- Turn off netrw banner
 vim.g.netrw_banner = 0
 -- Tree style listing in netrw
-vim.g.netrw_liststyle = 3
+vim.g.netrw_liststyle = 1
 -- Make browse set split
 -- vim.g.netrw_browse_split = 4
 -- Split to the right, instead of to the left
@@ -162,20 +162,10 @@ map('', '<C-k>', '<C-W>k', silentnoremap)
 map('', '<C-h>', '<C-W>h', silentnoremap)
 map('', '<C-l>', '<C-W>l', silentnoremap)
 
--- Close current buffer
-map('n', '<leader>bd', ':Bclose<cr>:tabclose<cr>gT', silentnoremap)
--- Close all buffers
-map('n', '<leader>ba', ':bufdo bd<cr>', silentnoremap)
--- Navigate buffers
-map('n', '<leader>l', ':bnext<cr>', silentnoremap)
-map('n', '<leader>h', ':bprevious<cr>', silentnoremap)
-
 -- Tab commands
-map('n', '<leader>tn',  ':tabnew<cr>', silentnoremap)
-map('n', '<leader>to',  ':tabonly<cr>', silentnoremap)
---map('n', '<leader>tc',  ':tabclose<cr>', silentnoremap)
-map('n', '<leader>tm',  ':tabmove', silentnoremap)
-map('n', '<leader>t<leader>', ':tabnext', silentnoremap)
+map('n', '<leader>tn', ':tabnext<cr>', silentnoremap)
+map('n', '<leader>tc',  ':tabnew<cr>', silentnoremap)
+map('n', '<leader>tx',  ':tabclose<cr>', silentnoremap)
 
 -- Switch CWD to directory of the open buffer
 map('n', '<leader>cd', ':cd %:p:h<cr>:pwd<cr', silentnoremap)
@@ -204,20 +194,6 @@ vim.opt.laststatus = 2
 --[[
 Mappings
 --]]
-
--- Move a line of text using ALT+[jk]
-map('n', '<M-j>', 'mz:m+<cr>`z', silentnoremap)
-map('n', '<M-k>', 'mz:m-2<cr>`z', silentnoremap)
-map('v', '<M-j>', ":m'>+<cr>`<my`>mzgv`yo`z", silentnoremap)
-map('v', '<M-k>', ":m'<-2<cr>`>my`<mzgv`yo`z", silentnoremap)
-
--- Move line using Command+[jk] on mac
-if vim.fn.has("mac") or vim.fn.has("macunix") then
-  map('n', '<D-j>', '<M-j>', silentnoremap)
-  map('n', '<D-k>', '<M-k>', silentnoremap)
-  map('v', '<D-j>', '<M-j>', silentnoremap)
-  map('v', '<D-k>', '<M-k>', silentnoremap)
-end
 
 -- Interact with system clipboard
 map('v', '<leader>y', '"+y', noremap)
