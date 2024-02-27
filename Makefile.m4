@@ -196,7 +196,7 @@ update_packages:
 
 m4_ifelse(DT_DISTRO, `fedora', m4_dnl
 DPKG_DEPENDENCIES := m4_dnl
-m4_ifelse(DT_TOOLS, `yes', `highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs catimg ripgrep the_silver_searcher',) m4_dnl
+m4_ifelse(DT_TOOLS, `yes', `highlight atool w3m mediainfo curl zsh vim-enhanced git python3-pip zsh tmux nodejs catimg ripgrep the_silver_searcher',) m4_dnl
 m4_ifelse(DT_GREETD_TUIGREET', `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
@@ -210,7 +210,7 @@ m4_ifelse(DT_QTILE, `yes', `wlroots python3-pywayland python3-xkbcommon',) m4_dn
 install_packages:
 	@missing_packages=""; \
 	for pkg in $(DPKG_DEPENDENCIES); do \
-		if ! dpkg -s "$$pkg" >/dev/null 2>&1; then \
+		if ! rpm -q "$$pkg" >/dev/null 2>&1; then \
 			missing_packages="$$missing_packages $$pkg"; \
 		fi; \
 	done; \

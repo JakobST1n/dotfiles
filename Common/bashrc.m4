@@ -49,17 +49,8 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='\w\$ '
-fi
-unset color_prompt
+# Prompt
+PS1='\w\$ '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

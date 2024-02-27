@@ -86,3 +86,4 @@ linux/sway/autostart
 linux/sway/hid
 Makefile
 config
+*.pyc
