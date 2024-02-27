@@ -43,7 +43,7 @@ VIM User interface
 --]]
 
 -- Set 3 lines to the cursor - when moving vertically using j/k
-vim.opt.so = 3
+-- vim.opt.so = 3
 
 -- set WildMenu
 --vim.opt.wildmenu = true
@@ -56,7 +56,7 @@ vim.opt.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store')
 --vim.opt.ruler = true
 
 -- Hide buffers when they are abandoned
-vim.opt.hid = true
+-- vim.opt.hid = true
 
 -- Make backspace function normally
 vim.opt.backspace = 'eol,start,indent'
