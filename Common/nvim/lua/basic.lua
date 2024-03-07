@@ -145,33 +145,15 @@ vim.opt.si = true
 vim.opt.wrap = true
 
 --[[
-Visual mode related
---]]
-map('v', '<silent> *', ':<C-u>call VisualSelection("","")<CR>/<C-R>=@/<CR><CR>', silentnoremap)
-map('v', '<silent> #', ':<C-u>call VisualSelection("","")<CR>?<C-R>=@/<CR><CR>', silentnoremap)
-
---[[
 Moving around, tabs, windows and buffers
 --]]
 -- Disable highlight when <leader><cr> is pressed
 map('n', '<leader><cr>', ':noh<cr>', silentnoremap)
 
--- Smart way to move between windows
-map('', '<C-j>', '<C-W>j', silentnoremap)
-map('', '<C-k>', '<C-W>k', silentnoremap)
-map('', '<C-h>', '<C-W>h', silentnoremap)
-map('', '<C-l>', '<C-W>l', silentnoremap)
-
 -- Tab commands
 map('n', '<leader>tn', ':tabnext<cr>', silentnoremap)
 map('n', '<leader>tc',  ':tabnew<cr>', silentnoremap)
 map('n', '<leader>tx',  ':tabclose<cr>', silentnoremap)
-
--- Switch CWD to directory of the open buffer
-map('n', '<leader>cd', ':cd %:p:h<cr>:pwd<cr', silentnoremap)
-
--- Behaviour when switching between buffers
-vim.opt.switchbuf = 'useopen,usetab,newtab'
 
 -- Always show tabbar
 vim.opt.stal = 1
@@ -180,9 +162,6 @@ vim.opt.stal = 1
 vim.cmd [[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]]
-
--- Make mouse work nice with tmux
-vim.opt.mouse = 'a'
 
 --[[
 Status Line

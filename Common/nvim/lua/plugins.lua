@@ -173,8 +173,18 @@ return require('packer').startup(function(use)
      end
   }
 
-  use 'tpope/vim-surround'
-  --use { 'PatrickFeiring/tree-sitter-sql' }
+  --use 'tpope/vim-surround'
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "c", "cpp", "python", "php", "java", "lua", "vim", "vimdoc", "query", "php", "sql" },
+        sync_install = false,
+        auto_install = true,
+        --ignore_install = { "javascript" },
+      }
+    end
+  }
   use 'evanleck/vim-svelte'
   use 'pangloss/vim-javascript'
   use 'ledger/vim-ledger'
