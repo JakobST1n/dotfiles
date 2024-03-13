@@ -4,11 +4,8 @@ set -uo pipefail
 CONFIG_FILE="config"
 
 function generate_makefile {
-    rm Makefile
     m4 -P Makefile.m4 > Makefile
-    rm system.m4
-    make system.m4
-	echo 'm4_include(`system.m4'"'"')m4_dnl' | cat - Makefile.m4 | m4 -P > Makefile
+    make Makefile
 }
 
 if [ -f "${CONFIG_FILE}" ]; then
@@ -48,6 +45,7 @@ fi
 : "${DT_BASH:=yes}"
 : "${DT_HOMEBIN:=no}"
 : "${DT_TMUX:=yes}"
+: "${DT_HELIX:=no}"
 
 radiolist_on() {
     local value="$1"
@@ -167,7 +165,8 @@ FEATURES="$(dialog --stdout \
     10 "QTile" $(checklist_on "${DT_QTILE}") \
     11 "Bash" $(checklist_on "${DT_BASH}") \
     12 "home folder bin dir" $(checklist_on "${DT_HOMEBIN}") \
-    13 "tmux" $(checklist_on "${DT_NEOVIM}"))"
+    13 "tmux" $(checklist_on "${DT_NEOVIM}") \
+    14 "Helix" $(checklist_on "${DT_HELIX}"))"
 if [ "$?" -eq 1 ]; then exit 0; fi
 
 DT_TOOLS=no
@@ -183,6 +182,7 @@ DT_QTILE=no
 DT_BASH=no
 DT_HOMEBIN=no
 DT_TMUX=no
+DT_HELIX=no
 
 for choice in ${FEATURES}; do
     case $choice in
@@ -199,6 +199,7 @@ for choice in ${FEATURES}; do
       11)  DT_BASH=yes;;
       12)  DT_HOMEBIN=yes;;
       13)  DT_TMUX=yes;;
+      14)  DT_HELIX=yes;;
     esac
 done
 

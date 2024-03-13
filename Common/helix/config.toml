@@ -1,0 +1,15 @@
+theme = "everforest_light"
+
+[editor]
+mouse = true
+gutters = ["diff"]
+auto-completion = true
+auto-format = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false

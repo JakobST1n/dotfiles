@@ -144,4 +144,6 @@ source "$SSH_DIR/ssh-agent.env" > /dev/null
 
 # Enable FZF history
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+m4_ifelse(DT_DISTRO, `fedora', m4_dnl
 source /usr/share/fzf/shell/key-bindings.bash
+)m4_dnl

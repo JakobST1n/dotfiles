@@ -56,6 +56,9 @@ $(M4_SYSFILE): $(CONFIG_FILE)
 		echo "`m4_define'(\``$$key'', \``$$value'')`m4_dnl'" >> $(M4_SYSFILE); \
 	done < $(CONFIG_FILE)
 
+Makefile: Makefile.m4 $(M4_SYSFILE)
+	$(call M4_EXEC)
+
 m4_ifelse(DT_OTHER_SYMLINKS, `yes', `m4_dnl
 $(HOME_DIR)/.vimrc: Common/vimrc
 	$(call create_dotfile_symlink,Common/vimrc,.vimrc)
@@ -158,6 +161,11 @@ m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 
 $(HOME_DIR)/.config/nvim/: /usr/local/bin/nvim
 	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
+
+')m4_dnl
+m4_ifelse(DT_HELIX, `yes', `m4_dnl
+$(HOME_DIR)/.config/helix: Common/helix
+	$(call create_dotfile_symlink,Common/helix,.config/helix)
 
 ')m4_dnl
 

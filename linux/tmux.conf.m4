@@ -1,13 +1,10 @@
 # -- general -------------------------------------------------------------------
-#set -g default-terminal "screen-256color"
-#set -g default-terminal "screen-256color-bce"
+# Options are 'screen-256color', 'screen-256color-bce'
 set -g default-terminal "xterm-256color"
-
-#set -as terminal-overrides ",*:U8=0"
-#set-option -sa terminal-overrides ',xterm-256color:RGB'
+# Options are ',*:U8=0', ',xterm-256color:Tc', 'xterm-256color:RGB'
 set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-set -s escape-time 0 # faster command sequences
+set -s escape-time 0   # faster command sequences
 set -s focus-events on
 
 # -- display -------------------------------------------------------------------
@@ -53,10 +50,7 @@ set -g visual-bell on
 set -g bell-action any
 
 # Scroll in shell
-#set -g terminal-overrides 'xterm*:smcup@:rmcup@'
-#set -wg xterm-keys       1
 set -g mouse on
-#set-option -s set-clipboard off
 
 # Sync panes
 bind-key = set-window-option synchronize-panes
@@ -64,27 +58,31 @@ bind-key = set-window-option synchronize-panes
 # -- macros --------------------------------------------------------------------
 bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
 
+m4_changequote({, })m4_dnl
+m4_ifelse(DT_TMUX_NAVIGATOR, `yes', {
 # -- vim-tmux-navigator --------------------------------------------------------
 # Smart pane switching with awareness of Vim splits.
 # this doesn't work, haven't checked why. chaning from vim to neovim could be it
 # See: https://github.com/christoomey/vim-tmux-navigator
-# is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-#     | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-# bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-# bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-# bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-# bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
-# tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-# if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-#     "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-# if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-#     "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-# 
-# bind-key -T copy-mode-vi 'C-h' select-pane -L
-# bind-key -T copy-mode-vi 'C-j' select-pane -D
-# bind-key -T copy-mode-vi 'C-k' select-pane -U
-# bind-key -T copy-mode-vi 'C-l' select-pane -R
-# bind-key -T copy-mode-vi 'C-\' select-pane -l
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+
+bind-key -T copy-mode-vi 'C-h' select-pane -L
+bind-key -T copy-mode-vi 'C-j' select-pane -D
+bind-key -T copy-mode-vi 'C-k' select-pane -U
+bind-key -T copy-mode-vi 'C-l' select-pane -R
+bind-key -T copy-mode-vi 'C-\' select-pane -l
+})m4_dnl
+m4_changequote(`, ')m4_dnl
 
 # -- Utility ------------------------------------------------------------------
 bind-key r source-file ~/.tmux.conf
