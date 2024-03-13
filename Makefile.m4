@@ -37,6 +37,7 @@ m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/alacritty') m4_dnl
 m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/powerline') m4_dnl
 m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/sxhkd') m4_dnl
 m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/bspwm') m4_dnl
+m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.inputrc') m4_dnl
 m4_ifelse(DT_HOMEBIN, `yes', `$(HOME_DIR)/bin') m4_dnl
 m4_ifelse(DT_ZSH, `yes', `$(HOME_DIR)/.zshrc') m4_dnl
 m4_ifelse(DT_ZSH, `yes', `$(HOME_DIR)/.p10k.zsh') m4_dnl
@@ -103,6 +104,9 @@ Common/bashrc: Common/bashrc.m4                                                 
 
 $(HOME_DIR)/.bashrc: Common/bashrc
 	$(call create_dotfile_symlink,Common/bashrc,.bashrc)
+
+$(HOME_DIR)/.inputrc: linux/inputrc 
+	$(call create_dotfile_symlink,linux/inputrc,.inputrc)
 
 ')m4_dnl
 m4_ifelse(DT_ZSH, `yes', `m4_dnl
