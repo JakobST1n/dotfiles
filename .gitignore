@@ -87,3 +87,8 @@ linux/sway/hid
 Makefile
 config
 *.pyc
+
+spell/*.add
+spell/*.add.spl
+tags
+.netrwhist
