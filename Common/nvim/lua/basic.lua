@@ -88,11 +88,6 @@ vim.opt.foldcolumn = '0'
 -- Show leader commands
 vim.opt.showcmd = true
 
--- Show colour column
-vim.opt.colorcolumn = '80,120'
-vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 16 })
-
-
 -- Colorscheme
 vim.cmd [[ colorscheme default ]]
 vim.opt.background = "light"
@@ -107,7 +102,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         vim.api.nvim_set_hl(0, "SignColumn", {link = "LineNr"})
     end
-})
+}) 
+
+-- Show colour column
+vim.opt.colorcolumn = '80,120'
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "lightgrey", bg = "#eae7da" })
 
 -- Set utf8 as standard encoding
 vim.opt.encoding = 'utf8'
