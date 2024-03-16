@@ -148,6 +148,7 @@ return require('packer').startup(function(use)
           vim.g.vimwiki_auto_header = 1
           vim.g.vimwiki_links_space_char = '_'
           vim.g.vimwiki_url_maxsave = 0
+          vim.g.vimwiki_auto_chdir = 1
       end,
   }
   use {

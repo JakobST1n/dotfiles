@@ -49,19 +49,19 @@ def group_window_add(group, window):
     logger.warning(group_screen_map)
 
 
-@hook.subscribe.delgroup
-def group_deleted(group_name):
-    send_notification("qtile", f"Group deleted: {group_name}")
-
-@hook.subscribe.setgroup
-def setgroup():
-    send_notification("qtile", "Group set")
-
-
-@hook.subscribe.changegroup
-def change_group():
-    send_notification("qtile", "Change group event")
-
-@hook.subscribe.addgroup
-def group_added(group_name):
-    send_notification("qtile", f"New group added: {group_name}")
+#@hook.subscribe.delgroup
+#def group_deleted(group_name):
+#    send_notification("qtile", f"Group deleted: {group_name}")
+#
+#@hook.subscribe.setgroup
+#def setgroup():
+#    send_notification("qtile", "Group set")
+#
+#
+#@hook.subscribe.changegroup
+#def change_group():
+#    send_notification("qtile", "Change group event")
+#
+#@hook.subscribe.addgroup
+#def group_added(group_name):
+#    send_notification("qtile", f"New group added: {group_name}")
