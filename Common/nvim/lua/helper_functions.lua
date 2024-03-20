@@ -148,7 +148,7 @@ function! GitHistoryForLine(start_line, end_line)
   endif
 
   let l:filepath = expand('%:p')
-  let l:git_cmd = 'git log -s --pretty=format:"%h %s (%an)" -L '.l:start_line.','.l:end_line.':"'.l:filepath.'"'
+  let l:git_cmd = 'git log -w -C -C -C -s --pretty=format:"%h %s (%an)" -L '.l:start_line.','.l:end_line.':"'.l:filepath.'"'
   let l:options = '--delimiter " " --preview "git show {1}"'
   call fzf#vim#grep(l:git_cmd, 1, {'options': l:options, 'sink': function('ShowCommitDiff')}, 0)
 endfunction
@@ -158,4 +158,18 @@ nnoremap <leader><leader>s :GitHistoryForLine<CR>
 vnoremap <leader><leader>s :'<,'>GitHistoryForLine<CR>
 ]]
 
-
+-- Invert timestamp
+function invertNumberUnderCursor()
+    local word = vim.fn.expand("<cword>") -- Get the word under the cursor
+    local number = tonumber(word)
+    if number then
+        local invertedNumber = 2147483648 - 1 - number
+        -- Replace the word under the cursor with the inverted number
+        vim.api.nvim_command('normal ciw'..invertedNumber)
+    else
+        print("The word under the cursor is not a valid number.")
+    end
+end
+vim.cmd [[
+command! InvertNumberUnderCursor lua invertNumberUnderCursor()
+]]
