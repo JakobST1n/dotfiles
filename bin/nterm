@@ -1,0 +1,3 @@
+#!/bin/sh
+# Meant to be used for a pipe into ´xargs -0´ for a input ending with newline
+tr '\n' '\0'
