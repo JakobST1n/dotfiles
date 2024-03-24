@@ -9,7 +9,7 @@ TMUXCONF="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 
 export $(tmux show-env | grep THEME)
 
-function send_vim_cmd() {
+send_vim_cmd() {
     vims=$(tmux list-panes -a -F '#{pane_id} #{pane_current_command}' |
                     grep vim |
                     cut -d ' ' -f 1)
@@ -20,7 +20,7 @@ function send_vim_cmd() {
 }
 
 
-if [ "$THEME" == "dark" ]; then
+if [ "$THEME" = "dark" ]; then
     # Update alacritty
     sed -i "s/${DARKTHEME}/${LIGHTTHEME}/" "${ALACRITTYCONF}"
     

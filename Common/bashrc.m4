@@ -17,6 +17,8 @@ if [ ! -f ~/.dotfiles_env ]; then
     echo "export GIT_AUTHOR_EMAIL=\"DT_GIT_EMAIL\"" >> ~/.dotfiles_env
 fi
 
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 # Source env setup file
 source ~/.dotfiles_env
 
