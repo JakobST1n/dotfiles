@@ -41,7 +41,7 @@ else
 
     # Update tmux
     tmux set-environment THEME "dark"
-    tmux set -g status-bg "#2c2c2c"
+    tmux set -g status-bg "#0c0c0c"
     tmux set -g status-fg "#d6d6d6"
 
     # Update nvim
