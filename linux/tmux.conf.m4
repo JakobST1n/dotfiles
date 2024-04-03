@@ -91,7 +91,7 @@ bind -n M-w display-popup -E "nvim -c VimwikiIndex -c Calendar -c 'wincmd p'"
 bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'wincmd p' -c 'call append(1, strftime(\"- **%T** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 
-bind -n T run-shell "toggle-theme"
+bind-key T run-shell "toggle-theme"
 
 # -- Theme --------------------------------------------------------------------
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl

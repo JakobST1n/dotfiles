@@ -14,9 +14,6 @@ vim.opt.autoread = true
 --vim.opt.mapleader = ","
 vim.g.mapleader   = ","
 
--- Fast saving
-map('n', '<leader>w', ':w!<cr>', silentnoremap)
-
 -- Convenient sudo saving of file
 vim.api.nvim_create_user_command(
  'W', 'w !sudo tee % > /dev/null',
@@ -182,12 +179,6 @@ map('v', '<leader>p', '"+p', noremap)
 map('v', '<leader>P', '"+P', noremap)
 map('n', '<leader>p', '"+p', noremap)
 map('n', '<leader>P', '"+P', noremap)
-
--- Delete trailing whitespace on save
---vim.api.nvim_create_autocmd("BufWritePre", {
---  pattern = { "*" },
---  command = [[%s/\s\+$//e]]
---})
 
 --[[
 Misc
