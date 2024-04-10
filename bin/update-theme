@@ -1,0 +1,27 @@
+#!/bin/bash
+
+ALACRITTYCONF="${HOME}/.config/alacritty/alacritty.yml"
+
+CURRENT_WINDOW_NAME=$(tmux display-message -p "#W" | tr '[:upper:]' '[:lower:]')
+export $(tmux show-env | grep THEME)
+
+DARK_THEME="campbell"
+LIGHT_THEME="papertheme"
+PRODUCTION_THEME="papertheme_prod"
+STAGING_THEME="papertheme_staging"
+
+if [[ "$CURRENT_WINDOW_NAME" == prod* ]]; then
+    sed -i "s/${ALACRITTY_THEME}/${PRODUCTION_THEME}/" "${ALACRITTYCONF}"
+    tmux set-environment ALACRITTY_THEME "${PRODUCTION_THEME}"
+elif [[ "$CURRENT_WINDOW_NAME" == staging* ]]; then
+    sed -i "s/${ALACRITTY_THEME}/${STAGING_THEME}/" "${ALACRITTYCONF}"
+    tmux set-environment ALACRITTY_THEME "${STAGING_THEME}"
+else
+    if [ "$THEME" = "dark" ]; then
+        sed -i "s/${ALACRITTY_THEME}/${DARK_THEME}/" "${ALACRITTYCONF}"
+        tmux set-environment ALACRITTY_THEME "${DARK_THEME}"
+    else
+        sed -i "s/${ALACRITTY_THEME}/${LIGHT_THEME}/" "${ALACRITTYCONF}"
+        tmux set-environment ALACRITTY_THEME "${LIGHT_THEME}"
+    fi
+fi

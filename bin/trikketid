@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Used to make the dataset significantly smaller
+# operators are listed here https://developer.entur.org/pages-real-time-intro
+OPERATOR="RUT"
+
+API_URL="https://api.entur.io"
+
+curl -X POST "${API_URL}/realtime/v1/services/${OPERATOR}"
+curl -X POST "${API_URL}/realtime/v1/services"
+
+
+

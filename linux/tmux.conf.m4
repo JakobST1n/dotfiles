@@ -49,9 +49,6 @@ bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xc
 set -g visual-bell on
 set -g bell-action any
 
-# Scroll in shell
-set -g mouse on
-
 # Sync panes
 bind-key = set-window-option synchronize-panes
 
@@ -92,6 +89,15 @@ bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'win
 bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 
 bind-key T run-shell "toggle-theme"
+
+m4_changequote({, })m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, {local}, {
+set-hook -g session-window-changed 'run-shell "update-theme"'
+set-hook -g window-renamed 'run-shell "update-theme"'
+bind-key P run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
+bind-key S run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
+})m4_dnl
+m4_changequote(`, ')m4_dnl
 
 # -- Theme --------------------------------------------------------------------
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl

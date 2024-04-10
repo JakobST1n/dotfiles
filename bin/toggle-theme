@@ -26,6 +26,7 @@ if [ "$THEME" = "dark" ]; then
     
     # Update tmux (Consider making a theme switch in the m4 config and re-running that instead of having it configured here)
     tmux set-environment THEME "light"
+    tmux set-environment ALACRITTY_THEME "${LIGHTTHEME}"
     tmux set -g status-bg "#F2EEDE"
     tmux set -g status-fg colour15
     tmux setw -g window-status-current-style "bg=colour0,fg=colour255"
@@ -47,6 +48,7 @@ else
 
     # Update tmux
     tmux set-environment THEME "dark"
+    tmux set-environment ALACRITTY_THEME "${DARKTHEME}"
     tmux set -g status-bg "#0c0c0c"
     tmux set -g status-fg "#d6d6d6"
     tmux setw -g window-status-style "bg=colour235,fg=colour7"
