@@ -10,10 +10,6 @@ vim.opt.nu = false
 -- Autoread when file is changed outside vim
 vim.opt.autoread = true
 
--- Use a mapleader
---vim.opt.mapleader = ","
-vim.g.mapleader   = ","
-
 -- Convenient sudo saving of file
 vim.api.nvim_create_user_command(
  'W', 'w !sudo tee % > /dev/null',
