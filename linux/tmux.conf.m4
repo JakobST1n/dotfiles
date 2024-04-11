@@ -94,8 +94,8 @@ m4_changequote({, })m4_dnl
 m4_ifelse(DT_DOTFILES_TYPE, {local}, {
 set-hook -g session-window-changed 'run-shell "update-theme"'
 set-hook -g window-renamed 'run-shell "update-theme"'
-bind-key P run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
-bind-key S run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
+bind-key C-p run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
+bind-key C-S run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
 })m4_dnl
 m4_changequote(`, ')m4_dnl
 

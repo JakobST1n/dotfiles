@@ -46,6 +46,7 @@ fi
 : "${DT_HOMEBIN:=no}"
 : "${DT_TMUX:=yes}"
 : "${DT_HELIX:=no}"
+: "${DT_MYCLI:=no}"
 
 radiolist_on() {
     local value="$1"
@@ -166,6 +167,7 @@ FEATURES="$(dialog --stdout \
     11 "Bash" $(checklist_on "${DT_BASH}") \
     12 "home folder bin dir" $(checklist_on "${DT_HOMEBIN}") \
     13 "tmux" $(checklist_on "${DT_NEOVIM}") \
+    15 "MyCLI" $(checklist_on "${DT_MYCLI}") \
     14 "Helix" $(checklist_on "${DT_HELIX}"))"
 if [ "$?" -eq 1 ]; then exit 0; fi
 
@@ -183,6 +185,7 @@ DT_BASH=no
 DT_HOMEBIN=no
 DT_TMUX=no
 DT_HELIX=no
+DT_MYCLI=no
 
 for choice in ${FEATURES}; do
     case $choice in
@@ -200,6 +203,7 @@ for choice in ${FEATURES}; do
       12)  DT_HOMEBIN=yes;;
       13)  DT_TMUX=yes;;
       14)  DT_HELIX=yes;;
+      15)  DT_MYCLI=yes;;
     esac
 done
 

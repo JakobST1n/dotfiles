@@ -48,6 +48,8 @@ m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/config') m4_dnl
 m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/hid') m4_dnl
 m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
 m4_ifelse(DT_NEOVIM, `yes', `$(HOME_DIR)/.config/nvim') m4_dnl
+m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.my.cnf') m4_dnl
+m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.myclirc') m4_dnl
 
 
 $(M4_SYSFILE): $(CONFIG_FILE)
@@ -172,6 +174,14 @@ $(HOME_DIR)/.config/helix: Common/helix
 	$(call create_dotfile_symlink,Common/helix,.config/helix)
 
 ')m4_dnl
+m4_ifelse(DT_MYCLI, `yes', `m4_dnl
+$(HOME_DIR)/.my.cnf: Common/my.cnf
+	$(call create_dotfile_symlink,Common/my.cnf,.my.cnf)
+
+$(HOME_DIR)/.myclirc: Common/myclirc
+	$(call create_dotfile_symlink,Common/myclirc,.myclirc)
+
+')m4_dnl
 
 # General package manager stuff
 m4_ifelse(DT_DISTRO, `debian', m4_dnl
@@ -211,6 +221,7 @@ DPKG_DEPENDENCIES := m4_dnl
 m4_ifelse(DT_TOOLS, `yes', `highlight atool w3m mediainfo curl zsh vim-enhanced git python3-pip zsh tmux nodejs catimg ripgrep the_silver_searcher',) m4_dnl
 m4_ifelse(DT_GREETD_TUIGREET', `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
+m4_ifelse(DT_MYCLI, `yes', `mycli pspg',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle alacritty blueman wob wlogout wofi brightnessctl clipman seahorse fcitx5 imsettings',) m4_dnl
 m4_dnl
