@@ -150,3 +150,6 @@ source "$SSH_DIR/ssh-agent.env" > /dev/null
 m4_ifelse(DT_DISTRO, `fedora', m4_dnl
 source /usr/share/fzf/shell/key-bindings.bash
 )m4_dnl
+
+# Autocompletion
+source DT_DOTFILES_DIR/auto_completion/cd-archive

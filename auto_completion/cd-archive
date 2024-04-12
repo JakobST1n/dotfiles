@@ -1,0 +1,32 @@
+#!/bin/bash
+ARCHIVE="${HOME}/Nextcloud"
+
+comp() {
+    find "${ARCHIVE}" -maxdepth $2 -type d -regextype posix-extended -regex "$1"
+}
+
+_cda() {
+    if [ ! -z "$2" ]; then
+        local cur
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+
+        if [ "${#2}" = "1" ]; then
+            D1=$(comp "${ARCHIVE}/[0-9]-.*" 1)
+            target=$(printf "${D1}" | grep "$2" | xargs basename)
+        elif [ "${#2}" = "3" ]; then
+            D2=$(comp "${ARCHIVE}/[0-9]+-[^/]+/[0-9]{3}-.*" 2)
+            target=$(printf "${D2}" | grep "$2" | xargs basename)
+        elif [ "${#2}" = "6" ]; then
+            D3=$(comp "${ARCHIVE}/[0-9]+-[^/]+/[0-9]{3}-[^/]+/[0-9]{3}\.[0-9]{2}-.*" 3)
+            target=$(printf "${D3}" | grep "$2" | xargs basename)
+        elif [ "${#2}" = "9" ]; then
+            D4=$(comp "${ARCHIVE}/[0-9]+-[^/]+/[0-9]{3}-[^/]+/[0-9]{3}\.[0-9]{2}-[^/]+/[0-9]{3}\.[0-9]{2}\.[a-zA-Z]+-.*" 4)
+            target=$(printf "${D4}" | grep "$2" | xargs basename)
+        fi
+        echo "$target"
+        COMPREPLY=($(compgen -W "${target}" $cur))
+    fi
+}
+
+complete -F _cda cda
