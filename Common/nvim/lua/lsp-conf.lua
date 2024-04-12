@@ -40,15 +40,17 @@ vim.diagnostic.config({
     virtual_text = false,
     signs = true,
     update_in_insert = true,
-    underline = false,
+    underline = true,
     severity_sort = false,
-    float = {
-        border = 'rounded',
-        source = 'always',
-        header = '',
-        prefix = '',
-    },
 })
+
+vim.cmd [[
+hi DiagnosticUnderlineError gui=none guibg='LightRed'
+hi DiagnosticUnderlineWarn guisp='Orange' gui=undercurl
+hi DiagnosticUnderlineInfo guisp='Cyan' gui=undercurl
+hi DiagnosticUnderlineHint guisp='Cyan' gui=undercurl
+hi DiagnosticUnderlineOk gui=none
+]]
 
 vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
 vim.opt.shortmess = vim.opt.shortmess + { c = true}
