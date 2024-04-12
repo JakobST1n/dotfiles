@@ -9,7 +9,7 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup({
-    ensure_installed = { "rust_analyzer", "tsserver", "clangd", "intelephense", "pyright", "texlab", "jdtls" }
+    ensure_installed = { "rust_analyzer", "tsserver", "clangd", "intelephense", "pyright", "texlab", "jdtls", "sqlls" }
 })
 require("mason-lspconfig").setup_handlers {
     function (server_name) -- default handler (optional)

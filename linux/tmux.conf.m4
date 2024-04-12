@@ -56,6 +56,8 @@ bind-key = set-window-option synchronize-panes
 # -- macros --------------------------------------------------------------------
 bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
 
+bind-key C-r send-keys C-b ":set status-style 'fg=black,bg=purple'"
+
 m4_changequote({, })m4_dnl
 m4_ifelse(DT_TMUX_NAVIGATOR, `yes', {
 # -- vim-tmux-navigator --------------------------------------------------------
