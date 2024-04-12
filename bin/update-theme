@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ALACRITTYCONF="${HOME}/.config/alacritty/alacritty.yml"
+ALACRITTYCONF="${HOME}/.config/alacritty/alacritty.toml"
 
 CURRENT_WINDOW_NAME=$(tmux display-message -p "#W" | tr '[:upper:]' '[:lower:]')
 export $(tmux show-env | grep THEME)

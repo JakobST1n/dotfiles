@@ -4,7 +4,7 @@ set -e
 LIGHTTHEME="papertheme"
 DARKTHEME="campbell"
 VIMCONF="${XDG_CONFIG_HOME}/nvim/lua/basic.lua"
-ALACRITTYCONF="${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
+ALACRITTYCONF="${XDG_CONFIG_HOME}/alacritty/alacritty.toml"
 TMUXCONF="${XDG_CONFIG_HOME}/tmux/tmux.conf"
 
 export $(tmux show-env | grep THEME)
