@@ -2,9 +2,18 @@ live_config_reload: true
 
 import:
   - ~/.config/alacritty/papertheme.yaml
+  - ~/.config/alacritty/papertheme_prod.yaml
+  - ~/.config/alacritty/papertheme_staging.yaml
+  - ~/.config/alacritty/afterglow.yaml
+  - ~/.config/alacritty/atom_one_light.yaml
+  - ~/.config/alacritty/campbell.yaml
+  - ~/.config/alacritty/hyper.yaml
+  - ~/.config/alacritty/inferno.yaml
+  - ~/.config/alacritty/papercolor-light.yaml
+  - ~/.config/alacritty/solarized_light.yaml
 
 env:
-  TERM: xterm-256color
+  TERM: alacritty
 
 font:
   normal:

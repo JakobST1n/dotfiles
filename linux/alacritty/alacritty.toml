@@ -1,0 +1,25 @@
+import = ["/home/jakob/.config/alacritty/papertheme.toml"]
+live_config_reload = true
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 7
+
+[font.normal]
+family = "RobotoMono Nerd Font Mono"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Alt"
+
+[window.padding]
+x = 0
+y = 0
