@@ -50,6 +50,11 @@ hi DiagnosticUnderlineWarn guisp='Orange' gui=undercurl
 hi DiagnosticUnderlineInfo guisp='Cyan' gui=undercurl
 hi DiagnosticUnderlineHint guisp='Cyan' gui=undercurl
 hi DiagnosticUnderlineOk gui=none
+
+hi link DiagnosticsFloatingHint Normal
+hi link DiagnosticsFloatingInfo Normal
+hi DiagnosticsFloatingOk guifg=Green
+hi link DiagnosticsFloatingWarn Normal
 ]]
 
 vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
