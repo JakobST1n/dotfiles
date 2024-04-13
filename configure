@@ -47,6 +47,7 @@ fi
 : "${DT_TMUX:=yes}"
 : "${DT_HELIX:=no}"
 : "${DT_MYCLI:=no}"
+: "${DT_NEWSBOAT:=no}"
 
 radiolist_on() {
     local value="$1"
@@ -168,6 +169,7 @@ FEATURES="$(dialog --stdout \
     12 "home folder bin dir" $(checklist_on "${DT_HOMEBIN}") \
     13 "tmux" $(checklist_on "${DT_NEOVIM}") \
     15 "MyCLI" $(checklist_on "${DT_MYCLI}") \
+    16 "Newsboat" $(checklist_on "${DT_NEWSBOAT}") \
     14 "Helix" $(checklist_on "${DT_HELIX}"))"
 if [ "$?" -eq 1 ]; then exit 0; fi
 
@@ -186,6 +188,7 @@ DT_HOMEBIN=no
 DT_TMUX=no
 DT_HELIX=no
 DT_MYCLI=no
+DT_NEWSBOAT=no
 
 for choice in ${FEATURES}; do
     case $choice in
@@ -204,8 +207,25 @@ for choice in ${FEATURES}; do
       13)  DT_TMUX=yes;;
       14)  DT_HELIX=yes;;
       15)  DT_MYCLI=yes;;
+      16)  DT_NEWSBOAT=yes;;
     esac
 done
+
+if [ "${DT_NEWSBOAT}" = "yes" ]; then
+    NEWSBOAT_VALUES=$(dialog \
+          --keep-tite \
+          --backtitle "Dotfile configuration" \
+          --title "Configure" \
+          --form "Newsboat settings" \
+    0 50 0 \
+        "Url:"      1 1	"${DT_NEWSBOAT_SOURCE:-}" 	    1 10 255 0 \
+        "Username:" 2 1	"${DT_NEWSBOAT_USER:-}"      	2 10 255 0 \
+    3>&1 1>&2 2>&3 3>&-)
+    NEWSBOAT_VALUES=($NEWSBOAT_VALUES)
+    if [ "$?" -eq 1 ]; then exit 0; fi
+    DT_NEWSBOAT_SOURCE=${NEWSBOAT_VALUES[0]}
+    DT_NEWSBOAT_USER=${NEWSBOAT_VALUES[1]}
+fi
 
 # write config to file
 printf "" > "${CONFIG_FILE}"

@@ -50,6 +50,7 @@ m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
 m4_ifelse(DT_NEOVIM, `yes', `$(HOME_DIR)/.config/nvim') m4_dnl
 m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.my.cnf') m4_dnl
 m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.myclirc') m4_dnl
+m4_ifelse(DT_NEWSBOAT, `yes', `$(HOME_DIR)/.newsboat') m4_dnl
 
 
 $(M4_SYSFILE): $(CONFIG_FILE)
@@ -182,6 +183,14 @@ $(HOME_DIR)/.myclirc: Common/myclirc
 	$(call create_dotfile_symlink,Common/myclirc,.myclirc)
 
 ')m4_dnl
+m4_ifelse(DT_NEWSBOAT, `yes', `m4_dnl
+Common/newsboat/config: Common/newsboat/config.m4                                                 \
+              ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+
+$(HOME_DIR)/.newsboat: Common/newsboat Common/newsboat/config
+	$(call create_dotfile_symlink,Common/newsboat,.newsboat)
+')m4_dnl
 
 # General package manager stuff
 m4_ifelse(DT_DISTRO, `debian', m4_dnl
@@ -246,3 +255,20 @@ update_packages:
 	@echo "Updating all packages..."
 	sudo dnf upgrade -y $(DPKG_DEPENDENCIES)
 )m4_dnl
+
+PIP := pip
+PIP_FLAGS := 
+PIP_DEPENDENCIES := m4_dnl
+m4_ifelse(DT_QTILE, `yes', `qtile qtile_extras',) m4_dnl qtile core
+
+install_pip_packages:
+	@missing_packages=""; \
+	for pkg in $(PIP_DEPENDENCIES); do \
+		if [ "$(pip list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
+			missing_packages="$$missing_packages $$pkg"; \
+		fi; \
+	done; \
+	if [ -n "$$missing_packages" ]; then \
+		echo "Installing missing packages: $$missing_packages"; \
+		sudo pip install $$missing_packages; \
+	fi

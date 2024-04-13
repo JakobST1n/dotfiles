@@ -92,3 +92,8 @@ config
 *.add.spl
 tags
 .netrwhist
+
+Common/newsboat/cache.db
+Common/newsboat/cache.db.lock
+Common/newsboat/history.cmdline
+Common/newsboat/urls
