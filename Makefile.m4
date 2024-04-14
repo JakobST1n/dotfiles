@@ -6,7 +6,7 @@ M4_COMMON_DEPS = $(M4_SYSFILE)
 SRC_DIR := DT_DOTFILES_DIR
 HOME_DIR := DT_HOME_DIRECTORY
 
-.PHONY: install_packages update_packages
+.PHONY: install_packages install_cargo_packages install_pip_packages update_packages update
 
 define M4_EXEC
 	echo "`m4_include'(\``system.m4'')`m4_dnl'" | cat - $< | ${M4} ${M4_OPTS} > $@
@@ -26,31 +26,31 @@ define create_dotfile_symlink
 	$(call create_symlink,${SRC_DIR}/$(1),${HOME_DIR}/$(2))
 endef
 
-all: system.m4 install_packages m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.vimrc') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.vim') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/rofi') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/deadd') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/waybar') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/foot') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/alacritty') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/powerline') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/sxhkd') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.config/bspwm') m4_dnl
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `$(HOME_DIR)/.inputrc') m4_dnl
-m4_ifelse(DT_HOMEBIN, `yes', `$(HOME_DIR)/bin') m4_dnl
-m4_ifelse(DT_ZSH, `yes', `$(HOME_DIR)/.zshrc') m4_dnl
-m4_ifelse(DT_ZSH, `yes', `$(HOME_DIR)/.p10k.zsh') m4_dnl
-m4_ifelse(DT_BASH, `yes', `$(HOME_DIR)/.bashrc') m4_dnl
-m4_ifelse(DT_TMUX, `yes', `$(HOME_DIR)/.tmux.conf') m4_dnl
-m4_ifelse(DT_QTILE, `yes', `$(HOME_DIR)/.config/qtile/config.py') m4_dnl
-m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/config') m4_dnl
-m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/hid') m4_dnl
-m4_ifelse(DT_SWAY, `yes', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
-m4_ifelse(DT_NEOVIM, `yes', `$(HOME_DIR)/.config/nvim') m4_dnl
-m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.my.cnf') m4_dnl
-m4_ifelse(DT_MYCLI, `yes', `$(HOME_DIR)/.myclirc') m4_dnl
-m4_ifelse(DT_NEWSBOAT, `yes', `$(HOME_DIR)/.newsboat') m4_dnl
+all: system.m4 install_packages install_cargo_packages m4_dnl
+m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vimrc') m4_dnl
+m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vim') m4_dnl
+m4_ifelse(DT_ROFI,           `yes', `$(HOME_DIR)/.config/rofi') m4_dnl
+m4_ifelse(DT_DEADD,          `yes', `$(HOME_DIR)/.config/deadd') m4_dnl
+m4_ifelse(DT_WAYBAR,         `yes', `$(HOME_DIR)/.config/waybar') m4_dnl
+m4_ifelse(DT_FOOT,           `yes', `$(HOME_DIR)/.config/foot') m4_dnl
+m4_ifelse(DT_POWERLINE,      `yes', `$(HOME_DIR)/.config/powerline') m4_dnl
+m4_ifelse(DT_SXHKD,          `yes', `$(HOME_DIR)/.config/sxhkd') m4_dnl
+m4_ifelse(DT_BSPWM,          `yes', `$(HOME_DIR)/.config/bspwm') m4_dnl
+m4_ifelse(DT_INPUTRC,        `yes', `$(HOME_DIR)/.inputrc') m4_dnl
+m4_ifelse(DT_HOMEBIN,        `yes', `$(HOME_DIR)/bin') m4_dnl
+m4_ifelse(DT_ZSH,            `yes', `$(HOME_DIR)/.zshrc') m4_dnl
+m4_ifelse(DT_ZSH,            `yes', `$(HOME_DIR)/.p10k.zsh') m4_dnl
+m4_ifelse(DT_BASH,           `yes', `$(HOME_DIR)/.bashrc') m4_dnl
+m4_ifelse(DT_TMUX,           `yes', `$(HOME_DIR)/.tmux.conf') m4_dnl
+m4_ifelse(DT_QTILE,          `yes', `$(HOME_DIR)/.config/qtile/config.py') m4_dnl
+m4_ifelse(DT_SWAY,           `yes', `$(HOME_DIR)/.config/sway/config') m4_dnl
+m4_ifelse(DT_SWAY,           `yes', `$(HOME_DIR)/.config/sway/hid') m4_dnl
+m4_ifelse(DT_SWAY,           `yes', `$(HOME_DIR)/.config/sway/autostart') m4_dnl
+m4_ifelse(DT_NEOVIM,         `yes', `$(HOME_DIR)/.config/nvim') m4_dnl
+m4_ifelse(DT_MYCLI,          `yes', `$(HOME_DIR)/.my.cnf') m4_dnl
+m4_ifelse(DT_MYCLI,          `yes', `$(HOME_DIR)/.myclirc') m4_dnl
+m4_ifelse(DT_NEWSBOAT,       `yes', `$(HOME_DIR)/.newsboat') m4_dnl
+m4_ifelse(DT_ALACRITTY,      `yes', `$(HOME_DIR)/.config/alacritty') m4_dnl
 
 
 $(M4_SYSFILE): $(CONFIG_FILE)
@@ -63,34 +63,45 @@ $(M4_SYSFILE): $(CONFIG_FILE)
 Makefile: Makefile.m4 $(M4_SYSFILE)
 	$(call M4_EXEC)
 
-m4_ifelse(DT_OTHER_SYMLINKS, `yes', `m4_dnl
+m4_ifelse(DT_VIM, `yes', `m4_dnl
 $(HOME_DIR)/.vimrc: Common/vimrc
 	$(call create_dotfile_symlink,Common/vimrc,.vimrc)
 
 $(HOME_DIR)/.vim: Common/vim
 	$(call create_dotfile_symlink,Common/vim,.vim)
 
+')m4_dnl
+m4_ifelse(DT_ROFI, `yes', `m4_dnl
 $(HOME_DIR)/.config/rofi: linux/rofi
 	$(call create_dotfile_symlink,linux/rofi,.config/rofi)
 
+')m4_dnl
+m4_ifelse(DT_DEADD, `yes', `m4_dnl
 $(HOME_DIR)/.config/deadd: linux/deadd/
 	$(call create_dotfile_symlink,linux/deadd,.config/deadd)
 
+')m4_dnl
+m4_ifelse(DT_WAYBAR, `yes', `m4_dnl
 $(HOME_DIR)/.config/waybar: linux/waybar
 	$(call create_dotfile_symlink,linux/waybar,.config/waybar)
 
+')m4_dnl
+m4_ifelse(DT_FOOT, `yes', `m4_dnl
 $(HOME_DIR)/.config/foot: linux/foot
 	$(call create_dotfile_symlink,linux/foot,.config/foot)
 
-$(HOME_DIR)/.config/alacritty: linux/alacritty
-	$(call create_dotfile_symlink,linux/alacritty,.config/alacritty)
-
+')m4_dnl
+m4_ifelse(DT_POWERLINE, `yes', `m4_dnl
 $(HOME_DIR)/.config/powerline: linux/powerline_config
 	$(call create_dotfile_symlink,linux/powerline_config,.config/powerline)
 
+')m4_dnl
+m4_ifelse(DT_SXHKD, `yes', `m4_dnl
 $(HOME_DIR)/.config/sxhkd: linux/sxhkd
 	$(call create_dotfile_symlink,linux/sxhkd,.config/sxhkd)
 
+')m4_dnl
+m4_ifelse(DT_BSPWM, `yes', `m4_dnl
 $(HOME_DIR)/.config/bspwm: linux/bspwm
 	$(call create_dotfile_symlink,linux/bspwm,.config/bspwm)
 
@@ -190,16 +201,21 @@ Common/newsboat/config: Common/newsboat/config.m4                               
 
 $(HOME_DIR)/.newsboat: Common/newsboat Common/newsboat/config
 	$(call create_dotfile_symlink,Common/newsboat,.newsboat)
-')m4_dnl
 
+')m4_dnl
+m4_ifelse(DT_ALACRITTY, `yes', `m4_dnl
+$(HOME_DIR)/.config/alacritty: linux/alacritty
+	$(call create_dotfile_symlink,linux/alacritty,.config/alacritty)
+
+')m4_dnl
 # General package manager stuff
-m4_ifelse(DT_DISTRO, `debian', m4_dnl
+m4_ifelse(DT_DISTRO, `debian', `m4_dnl
 DPKG_DEPENDENCIES := m4_dnl
 m4_ifelse(DT_TOOLS, `yes', `highlight atool w3m mediainfo curl zsh vim git python3-pip zsh tmux nodejs catimg ripgrep silversearcher-ag',) m4_dnl
-m4_ifelse(DT_GREETD_TUIGREET', `yes', `greetd',) m4_dnl
+m4_ifelse(DT_GREETD_TUIGREET, `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
-m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock alacritty blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
+m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
 m4_dnl
 m4_ifelse(DT_QTILE, `yes', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
 m4_ifelse(DT_QTILE, `yes', `python3_xcffib xsecurelock',) m4_dnl qtile x11
@@ -223,16 +239,16 @@ update_packages:
 	@echo "Updating all packages..."
 	sudo apt-get update
 	sudo apt-get upgrade -y $(DPKG_DEPENDENCIES)
-)m4_dnl
+')m4_dnl
 
-m4_ifelse(DT_DISTRO, `fedora', m4_dnl
+m4_ifelse(DT_DISTRO, `fedora', `m4_dnl
 DPKG_DEPENDENCIES := m4_dnl
 m4_ifelse(DT_TOOLS, `yes', `highlight atool w3m mediainfo curl zsh vim-enhanced git python3-pip zsh tmux nodejs catimg ripgrep the_silver_searcher',) m4_dnl
-m4_ifelse(DT_GREETD_TUIGREET', `yes', `greetd',) m4_dnl
+m4_ifelse(DT_GREETD_TUIGREET, `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_ifelse(DT_MYCLI, `yes', `mycli pspg',) m4_dnl
 m4_dnl
-m4_ifelse(DT_SWAY, `yes', `sway swayidle alacritty blueman wob wlogout wofi brightnessctl clipman seahorse fcitx5 imsettings',) m4_dnl
+m4_ifelse(DT_SWAY, `yes', `sway swayidle blueman wob wlogout wofi brightnessctl clipman seahorse fcitx5 imsettings',) m4_dnl
 m4_dnl
 m4_ifelse(DT_QTILE, `yes', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
 m4_ifelse(DT_QTILE, `yes', `python3-xcffib xsecurelock',) m4_dnl qtile x11
@@ -254,21 +270,43 @@ install_packages:
 update_packages:
 	@echo "Updating all packages..."
 	sudo dnf upgrade -y $(DPKG_DEPENDENCIES)
-)m4_dnl
-
+')m4_dnl
+# Global pip packages
 PIP := pip
-PIP_FLAGS := 
+PIP_FLAGS := m4_ifelse(DT_DISTRO, `debian', `--break-system-packages')
 PIP_DEPENDENCIES := m4_dnl
 m4_ifelse(DT_QTILE, `yes', `qtile qtile_extras',) m4_dnl qtile core
+
 
 install_pip_packages:
 	@missing_packages=""; \
 	for pkg in $(PIP_DEPENDENCIES); do \
-		if [ "$(pip list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
+		if [ "$($PIP list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
 			missing_packages="$$missing_packages $$pkg"; \
 		fi; \
 	done; \
 	if [ -n "$$missing_packages" ]; then \
 		echo "Installing missing packages: $$missing_packages"; \
-		sudo pip install $$missing_packages; \
+		sudo $PIP $PIP_FLAGS install $$missing_packages; \
+	fi
+
+# Global rust packages
+DT_HOME_DIRECTORY/.cargo/bin/cargo:
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+CARGO := cargo
+CARGO_FLAGS := 
+CARGO_DEPENDENCIES := m4_dnl
+m4_ifelse(DT_ALACRITTY, `yes', `alacritty',)
+
+install_cargo_packages: DT_HOME_DIRECTORY/.cargo/bin/cargo
+	@missing_packages=""; \
+	for pkg in $(CARGO_DEPENDENCIES); do \
+		if [ "$($$CARGO install --list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
+			missing_packages="$$missing_packages $$pkg"; \
+		fi; \
+	done; \
+	if [ -n "$$missing_packages" ]; then \
+		echo "Installing missing packages: $$missing_packages"; \
+		sudo $CARGO $CARGO_FLAGS install $$missing_packages; \
 	fi

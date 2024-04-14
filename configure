@@ -48,6 +48,16 @@ fi
 : "${DT_HELIX:=no}"
 : "${DT_MYCLI:=no}"
 : "${DT_NEWSBOAT:=no}"
+: "${DT_ALACRITTY:=yes}"
+: "${DT_ROFI:=no}"
+: "${DT_DEADD:=no}"
+: "${DT_WAYBAR:=no}"
+: "${DT_FOOT:=no}"
+: "${DT_POWERLINE:=no}"
+: "${DT_SXHKD:=no}"
+: "${DT_BSPWM:=no}"
+: "${DT_INPUTRC:=yes}"
+: "${DT_VIM:=yes}"
 
 radiolist_on() {
     local value="$1"
@@ -170,6 +180,16 @@ FEATURES="$(dialog --stdout \
     13 "tmux" $(checklist_on "${DT_NEOVIM}") \
     15 "MyCLI" $(checklist_on "${DT_MYCLI}") \
     16 "Newsboat" $(checklist_on "${DT_NEWSBOAT}") \
+    17 "Alacritty" $(checklist_on "${DT_ALACRITTY}") \
+    18 "Rofi" $(checklist_on "${DT_ROFI}") \
+    19 "Deadd" $(checklist_on "${DT_DEADD}") \
+    20 "Waybar (needed for sway)" $(checklist_on "${DT_WAYBAR}") \
+    21 "Foot" $(checklist_on "${DT_FOOT}") \
+    22 "Powerline" $(checklist_on "${DT_POWERLINE}") \
+    23 "Sxhkd" $(checklist_on "${DT_SXHKD}") \
+    24 "Bspwm" $(checklist_on "${DT_BSPWM}") \
+    25 "Inputrc (usefull for bash, less, read etc)" $(checklist_on "${DT_INPUTRC}") \
+    26 "Vim" $(checklist_on "${DT_VIM}") \
     14 "Helix" $(checklist_on "${DT_HELIX}"))"
 if [ "$?" -eq 1 ]; then exit 0; fi
 
@@ -189,6 +209,16 @@ DT_TMUX=no
 DT_HELIX=no
 DT_MYCLI=no
 DT_NEWSBOAT=no
+DT_ALACRITTY=no
+DT_ROFI=no
+DT_DEADD=no
+DT_WAYBAR=no
+DT_FOOT=no
+DT_POWERLINE=no
+DT_SXHKD=no
+DT_BSPWM=no
+DT_INPUTRC=no
+DT_VIM=no
 
 for choice in ${FEATURES}; do
     case $choice in
@@ -208,6 +238,16 @@ for choice in ${FEATURES}; do
       14)  DT_HELIX=yes;;
       15)  DT_MYCLI=yes;;
       16)  DT_NEWSBOAT=yes;;
+      17)  DT_ALACRITTY=yes;;
+      18) DT_ROFI=yes;;
+      19) DT_DEADD=yes;;
+      20) DT_WAYBAR=yes;;
+      21) DT_FOOT=yes;;
+      22) DT_POWERLINE=yes;;
+      23) DT_SXHKD=yes;;
+      24) DT_BSPWM=yes;;
+      25) DT_INPUTRC=yes;;
+      26) DT_VIM=yes;;
     esac
 done
 
