@@ -97,3 +97,5 @@ Common/newsboat/cache.db
 Common/newsboat/cache.db.lock
 Common/newsboat/history.cmdline
 Common/newsboat/urls
+
+bin/pingme

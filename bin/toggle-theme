@@ -27,14 +27,8 @@ if [ "$THEME" = "dark" ]; then
     # Update tmux (Consider making a theme switch in the m4 config and re-running that instead of having it configured here)
     tmux set-environment THEME "light"
     tmux set-environment ALACRITTY_THEME "${LIGHTTHEME}"
-    tmux set -g status-bg "#F2EEDE"
-    tmux set -g status-fg colour15
-    tmux setw -g window-status-current-style "bg=colour0,fg=colour255"
-    tmux setw -g window-status-style "bg=colour7,fg=colour0"
-    tmux setw -g window-status-bell-style "bg=colour23,fg=colour255"
-    tmux setw -g window-status-activity-style "bg=colour243,fg=colour255"
-    tmux set -g status-left "#[fg=colour232,bg=colour3,bold]#{?client_prefix,C-a,}#[default] #[fg=colour0,bg=colour7,bold][#S]#[default] "
-    tmux set -g status-right "#[fg=colour0,bg=colour7,bold] #(hostname) #[default] #[fg=colour0,bg=colour7,bold] %d/%m/%y #[default] #[fg=colour0,bg=colour7,bold] %H:%M:%S #[default] #[bg=colour7,fg=colour0,bold] #(cat /sys/class/power_supply/BAT0/capacity)% #[default] "
+    tmux set -g status-bg black
+    tmux set -g status-fg colour255
 
     # Update nvim
     send_vim_cmd ":set background=light"
@@ -49,15 +43,8 @@ else
     # Update tmux
     tmux set-environment THEME "dark"
     tmux set-environment ALACRITTY_THEME "${DARKTHEME}"
-    tmux set -g status-bg "#0c0c0c"
-    tmux set -g status-fg "#d6d6d6"
-    tmux setw -g window-status-style "bg=colour235,fg=colour7"
-    tmux setw -g window-status-current-style "bg=colour237,fg=colour7"
-    tmux setw -g window-status-bell-style "bg=colour23,fg=colour15"
-    tmux setw -g window-status-activity-style "bg=colour239,fg=colour15"
-    tmux set -g status-left "#[fg=colour232,bg=colour3,bold]#{?client_prefix,C-a,}#[default] #[fg=colour7,bg=colour235,bold][#S]#[default] "
-    tmux set -g status-right "#[fg=colour7,bg=colour235,bold] #(hostname) #[default] #[fg=colour7,bg=colour235,bold] %d/%m/%y #[default] #[fg=colour7,bg=colour235,bold] %H:%M:%S #[default] #[bg=colour235,fg=colour7,bold] #(cat /sys/class/power_supply/BAT0/capacity)% #[default] "
-    sed -i 's/"dark"/"light"/' "${VIMCONF}"
+    tmux set -g status-bg white
+    tmux set -g status-fg black
 
     # Update nvim
     send_vim_cmd ":set background=dark"

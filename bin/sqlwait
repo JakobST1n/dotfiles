@@ -1,0 +1,113 @@
+#!/bin/sh
+set -e
+
+PRINT_FLAG=false
+MYSQL_HOST="localhost"
+COMPARE_TYPE="eq"
+
+usage() {
+    printf "$0 [options] <query> <target>\n"
+    printf "\t-H <host>\tMysql host\n"
+    printf "\t-u <user>\tMysql user\n"
+    printf "\t-d <database>\tMysql database\n"
+    printf "\t-c <compare_typw>\teq, lt or gt, defaults to eq\n"
+    printf "\t-p\t\tPrint the current value for each check\n"
+}
+
+
+while getopts "H:u:d:c:p" opt; do
+  case ${opt} in
+    H )
+      MYSQL_HOST="$OPTARG"
+      ;;
+    u )
+      MYSQL_USER="$OPTARG"
+      ;;
+    d )
+      MYSQL_DATABASE="$OPTARG"
+      ;;
+    c )
+      COMPARE_TYPE="$OPTARG"
+      ;;
+    p )
+      PRINT_FLAG=true
+      ;;
+    \? )
+      echo "Invalid option: $OPTARG" 1>&2
+      exit 1
+      ;;
+    : )
+      echo "Option -$OPTARG requires an argument." 1>&2
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+if [ -z "$1" ]; then
+  echo "Error: <query> argument is missing." >&2
+  usage
+  exit 1
+fi
+QUERY="$1"
+
+if [ -z "$2" ]; then
+  echo "Error: <target> argument is missing." >&2
+  usage
+  exit 1
+fi
+TARGET="$2"
+
+if [ -z "$MYSQL_HOST" ]; then
+  echo "Error: -H <host> argument is missing." >&2
+  usage
+  exit 1
+fi
+
+if [ -z "$MYSQL_USER" ]; then
+  echo "Error: -u <user> argument is missing." >&2
+  usage
+  exit 1
+fi
+
+if [ -z "$MYSQL_DATABASE" ]; then
+  echo "Error: -d <database> argument is missing." >&2
+  usage
+  exit 1
+fi
+
+read -s -p "Enter password: " MYSQL_PASSWORD
+echo
+
+while true; do
+    RESULT=$(mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -h"$MYSQL_HOST" "$MYSQL_DATABASE" -e "$QUERY" --batch --silent 2> /dev/null)
+    if [ "$PRINT_FLAG" = true ]; then
+        echo "[$(date)]: ${RESULT}"
+    fi
+
+    if [ "$COMPARE_TYPE" = "eq" ]; then
+        if [ "$RESULT" = "$$TARGET" ]; then
+            if [ "$PRINT_FLAG" = true ]; then
+                echo "[$(date)]: Target reached $RESULT = $TARGET"
+            fi
+            break
+        fi
+    elif [ "$COMPARE_TYPE" = "lt" ]; then
+        if (( RESULT < TARGET )); then
+            if [ "$PRINT_FLAG" = true ]; then
+                echo "[$(date)]: Target reached $RESULT < $TARGET"
+            fi
+            break
+        fi
+    elif [ "$COMPARE_TYPE" = "gt" ]; then
+        if (( RESULT > TARGET )); then
+            if [ "$PRINT_FLAG" = true ]; then
+                echo "[$(date)]: Target reached $RESULT > $TARGET"
+            fi
+            break
+        fi
+    fi
+
+    sleep 10
+done
+

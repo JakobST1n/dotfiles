@@ -1,32 +1,24 @@
 # -- general -------------------------------------------------------------------
-#set -g default-terminal "xterm-256color"
 set -g default-terminal "tmux-256color"
 set-option -ga terminal-overrides ",xterm-256color:Tc"  # don't remember
 set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
 set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
 
-set -s escape-time 0   # faster command sequences
-set -s focus-events on
-
-# -- display -------------------------------------------------------------------
-set -g base-index 1
-setw -g pane-base-index 1
-setw -g automatic-rename on # rename window to reflect current program
-set -g renumber-windows on # renumber windows when a window is closed
-
-set -g display-panes-time 800 # slightly longer pane indicators display time
-set -g display-time 1000      # slightly longer status messages display time
-
-set -g status-interval 10     # redraw status linebg every 10 seconds
-set-option -g history-limit 5000
-
+set -s escape-time 0   # faster command sequences, vim is really annoying without it
+setw -g automatic-rename on
+set-option -g history-limit 10000
 set-option -g default-shell DT_SHELL
+set -s focus-events on
 
 # -- navigation ----------------------------------------------------------------
 
 # Set window notification
 setw -g monitor-activity on
 set -g visual-activity off
+
+# Bells
+set -g visual-bell on
+set -g bell-action any
 
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 unbind C-b
@@ -43,21 +35,35 @@ bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
 bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'xclip -sel clip -i'
 unbind -T copy-mode-vi Enter
 bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
-bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -se c -ind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
-bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -se c -i''
-
-# Bells
-set -g visual-bell on
-set -g bell-action any
-
-# Sync panes
-bind-key = set-window-option synchronize-panes
 
 # -- macros --------------------------------------------------------------------
-bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
-
+# Set tmux style on remote
 bind-key C-r send-keys C-b ":set status-style 'fg=black,bg=purple'"
 
+# Synchronize panes
+bind-key = set-window-option synchronize-panes
+
+# Reload
+bind-key r source-file ~/.tmux.conf
+
+# Git author
+bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
+
+# Quick notes, diary
+bind -n M-w display-popup -E "nvim -c VimwikiIndex -c Calendar -c 'wincmd p'"
+bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'wincmd p' -c 'call append(1, strftime(\"- **%T** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
+bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
+
+# Theme toggling
+bind-key T run-shell "toggle-theme"
+m4_changequote({, })m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, {local}, {m4_dnl
+set-hook -g session-window-changed 'run-shell "update-theme"'
+set-hook -g window-renamed 'run-shell "update-theme"'
+bind-key C-p run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
+bind-key C-s run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
+})m4_dnl
+m4_changequote(`, ')m4_dnl
 m4_changequote({, })m4_dnl
 m4_ifelse(DT_TMUX_NAVIGATOR, `yes', {
 # -- vim-tmux-navigator --------------------------------------------------------
@@ -84,49 +90,20 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 })m4_dnl
 m4_changequote(`, ')m4_dnl
 
-# -- Utility ------------------------------------------------------------------
-bind-key r source-file ~/.tmux.conf
-
-bind -n M-w display-popup -E "nvim -c VimwikiIndex -c Calendar -c 'wincmd p'"
-bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'wincmd p' -c 'call append(1, strftime(\"- **%T** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
-bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
-
-bind-key T run-shell "toggle-theme"
-
-m4_changequote({, })m4_dnl
-m4_ifelse(DT_DOTFILES_TYPE, {local}, {
-set-hook -g session-window-changed 'run-shell "update-theme"'
-set-hook -g window-renamed 'run-shell "update-theme"'
-bind-key C-p run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
-bind-key C-S run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
-})m4_dnl
-m4_changequote(`, ')m4_dnl
-
 # -- Theme --------------------------------------------------------------------
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 set -g status-justify left
 set -g status-interval 2
 set -g status-position bottom
-#set -g status-bg "#f8f8f8"
-set -g status-bg "#F2EEDE"
-set -g status-fg colour16
 
-set -g status-left "#[fg=colour232,bg=colour3,bold]#{?client_prefix,C-a,}#[default] #[fg=colour0,bg=colour7,bold][#S]#[default] "
-set -g status-left-length 20
+set -g status-left "#{?client_prefix,C-a ,}[#S] "
+set -g status-right "%d/%m/%y %H:%M:%S [#(cat /sys/class/power_supply/BAT0/capacity)%]"
 
-set -g status-right "#[fg=colour0,bg=colour7,bold] #(hostname) #[default] #[fg=colour0,bg=colour7,bold] %d/%m/%y #[default] #[fg=colour0,bg=colour7,bold] %H:%M:%S #[default] #[bg=colour7,bold] #(cat /sys/class/power_supply/BAT0/capacity)% #[default] "
-set -g status-right-length 50
-
-setw -g window-status-format " #I:#W#F "
-setw -g window-status-current-format " #I:#W#F "
-
-setw -g window-status-current-style "bg=colour0,fg=colour15"
-setw -g window-status-style "bg=colour7,fg=colour0"
-setw -g window-status-bell-style "bg=colour23,fg=colour15"
-#setw -g window-status-activity-style "bg=colour23,fg=colour15"
-setw -g window-status-activity-style "bg=colour243,fg=colour15"
+set -g status-bg black
+set -g status-fg colour255
 ')m4_dnl
 m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
+set -g status-left "#{?client_prefix,C-b ,}[#S] "
 set -g status-bg "purple"
 set -g status-fg "white"
 ')m4_dnl

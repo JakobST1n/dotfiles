@@ -26,7 +26,7 @@ define create_dotfile_symlink
 	$(call create_symlink,${SRC_DIR}/$(1),${HOME_DIR}/$(2))
 endef
 
-all: system.m4 install_packages install_cargo_packages m4_dnl
+all: system.m4 install_packages m4_dnl
 m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vimrc') m4_dnl
 m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vim') m4_dnl
 m4_ifelse(DT_ROFI,           `yes', `$(HOME_DIR)/.config/rofi') m4_dnl
@@ -107,8 +107,15 @@ $(HOME_DIR)/.config/bspwm: linux/bspwm
 
 ')m4_dnl
 m4_ifelse(DT_HOMEBIN, `yes', `m4_dnl
-$(HOME_DIR)/bin: bin
+M4_BINFILES := $(patsubst bin/%.m4,bin/%,$(wildcard bin/*.m4))
+
+$(HOME_DIR)/bin: bin ${M4_BINFILES}
 	$(call create_dotfile_symlink,bin,bin)
+
+bin/%: bin/%.m4                                                              \
+              ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+	chmod +x $@
 
 ')m4_dnl
 m4_ifelse(DT_BASH, `yes', `m4_dnl

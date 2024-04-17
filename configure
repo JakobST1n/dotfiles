@@ -44,6 +44,8 @@ fi
 : "${DT_QTILE:=no}"
 : "${DT_BASH:=yes}"
 : "${DT_HOMEBIN:=no}"
+: "${DT_GOTIFY_URL:=}"
+: "${DT_GOTIFY_TOKEN:=}"
 : "${DT_TMUX:=yes}"
 : "${DT_HELIX:=no}"
 : "${DT_MYCLI:=no}"
@@ -261,10 +263,26 @@ if [ "${DT_NEWSBOAT}" = "yes" ]; then
         "Url:"      1 1	"${DT_NEWSBOAT_SOURCE:-}" 	    1 10 255 0 \
         "Username:" 2 1	"${DT_NEWSBOAT_USER:-}"      	2 10 255 0 \
     3>&1 1>&2 2>&3 3>&-)
-    NEWSBOAT_VALUES=($NEWSBOAT_VALUES)
     if [ "$?" -eq 1 ]; then exit 0; fi
+    NEWSBOAT_VALUES=($NEWSBOAT_VALUES)
     DT_NEWSBOAT_SOURCE=${NEWSBOAT_VALUES[0]}
     DT_NEWSBOAT_USER=${NEWSBOAT_VALUES[1]}
+fi
+
+if [ "${DT_HOMEBIN}" = "yes" ]; then
+    GOTIFY_VALUES=$(dialog \
+          --keep-tite \
+          --backtitle "Dotfile configuration" \
+          --title "Configure" \
+          --form "Gotify (push) settings" \
+    0 50 0 \
+        "Url:"          1 1	"${DT_GOTIFY_URL:-}" 	    1 10 255 0 \
+        "Push token:"   2 1	"${DT_GOTIFY_TOKEN:-}"     	2 10 255 0 \
+    3>&1 1>&2 2>&3 3>&-)
+    if [ "$?" -eq 1 ]; then exit 0; fi
+    GOTIFY_VALUES=($GOTIFY_VALUES)
+    DT_GOTIFY_URL=${GOTIFY_VALUES[0]}
+    DT_GOTIFY_TOKEN=${GOTIFY_VALUES[1]}
 fi
 
 # write config to file
