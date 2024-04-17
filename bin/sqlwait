@@ -86,7 +86,7 @@ while true; do
     fi
 
     if [ "$COMPARE_TYPE" = "eq" ]; then
-        if [ "$RESULT" = "$$TARGET" ]; then
+        if [ "$RESULT" = "$TARGET" ]; then
             if [ "$PRINT_FLAG" = true ]; then
                 echo "[$(date)]: Target reached $RESULT = $TARGET"
             fi
