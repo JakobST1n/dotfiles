@@ -13,3 +13,6 @@ tmux display-message "${MESSAGE}"
 m4_ifelse(DT_GOTIFY_URL, `', `', `m4_dnl
 GOTIFY_RES=$(curl "$GOTIFY_URL" -F "title=Pingme" -F "message=$MESSAGE" -F "priority=5" 2> /dev/null)
 ')m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
+notify-send "$MESSAGE"
+')m4_dnl

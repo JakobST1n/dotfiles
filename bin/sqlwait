@@ -1,6 +1,6 @@
 #!/bin/sh
-set -e
 
+SLEEP=10
 PRINT_FLAG=false
 MYSQL_HOST="localhost"
 COMPARE_TYPE="eq"
@@ -76,11 +76,17 @@ if [ -z "$MYSQL_DATABASE" ]; then
   exit 1
 fi
 
-read -s -p "Enter password: " MYSQL_PASSWORD
+read -s -p "Enter password: " MYSQL_PWD
 echo
+export MYSQL_PWD
 
 while true; do
-    RESULT=$(mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -h"$MYSQL_HOST" "$MYSQL_DATABASE" -e "$QUERY" --batch --silent 2> /dev/null)
+    RESULT=$(mysql -u"$MYSQL_USER"  -h"$MYSQL_HOST" "$MYSQL_DATABASE" -e "$QUERY" --batch --silent)
+    if [ ! "$?" = "0" ]; then
+        >&2 echo "[$(date)]: MySQL Error!"
+        sleep $SLEEP
+        continue
+    fi
     if [ "$PRINT_FLAG" = true ]; then
         echo "[$(date)]: ${RESULT}"
     fi
@@ -108,6 +114,8 @@ while true; do
         fi
     fi
 
-    sleep 10
+    sleep $SLEEP
 done
+
+unset MYSQL_PWD
 
