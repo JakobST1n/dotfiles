@@ -1,21 +1,30 @@
 #!/bin/sh
 
 SLEEP=10
-PRINT_FLAG=false
+PRINT=false
+EXIT_ON_ERROR=false
+WATCH=false
 MYSQL_HOST="localhost"
 COMPARE_TYPE="eq"
+COMMAND=""
+COMMAND_NOK=""
 
 usage() {
     printf "$0 [options] <query> <target>\n"
-    printf "\t-H <host>\tMysql host\n"
-    printf "\t-u <user>\tMysql user\n"
-    printf "\t-d <database>\tMysql database\n"
-    printf "\t-c <compare_typw>\teq, lt or gt, defaults to eq\n"
-    printf "\t-p\t\tPrint the current value for each check\n"
+    printf "  -H <host>         Mysql host\n"
+    printf "  -u <user>         Mysql user\n"
+    printf "  -d <database>     Mysql database\n"
+    printf "  -t <compare_type> eq, lt or gt, defaults to eq\n"
+    printf "  -n <frequency>    How often to run sql query\n"
+    printf "  -c <command>      Command to run when target is reached\n"
+    printf "  -l <command>      Command to run when target is no longer reached, but has been reached\n"
+    printf "  -w                Watch mode, this will stop the program from exiting when target is reached,\n"
+    printf "                    but continue to run command each time criteria is triggered. \n"
+    printf "  -p                Print the current value for each check\n"
+    printf "  -e                Exit on error\n"
 }
 
-
-while getopts "H:u:d:c:p" opt; do
+while getopts "H:u:d:c:t:n:l:pewh" opt; do
   case ${opt} in
     H )
       MYSQL_HOST="$OPTARG"
@@ -26,11 +35,30 @@ while getopts "H:u:d:c:p" opt; do
     d )
       MYSQL_DATABASE="$OPTARG"
       ;;
-    c )
+    t )
       COMPARE_TYPE="$OPTARG"
       ;;
+    n )
+      SLEEP="$OPTARG"
+      ;;
+    c )
+      COMMAND="$OPTARG"
+      ;;
+    l )
+      COMMAND_NOK="$OPTARG"
+      ;;
     p )
-      PRINT_FLAG=true
+      PRINT=true
+      ;;
+    w )
+      WATCH=true
+      ;;
+    e )
+      EXIT_ON_ERROR=true
+      ;;
+    h )
+      usage
+      exit 0
       ;;
     \? )
       echo "Invalid option: $OPTARG" 1>&2
@@ -80,38 +108,93 @@ read -s -p "Enter password: " MYSQL_PWD
 echo
 export MYSQL_PWD
 
+TARGET_OK=false
+
 while true; do
     RESULT=$(mysql -u"$MYSQL_USER"  -h"$MYSQL_HOST" "$MYSQL_DATABASE" -e "$QUERY" --batch --silent)
     if [ ! "$?" = "0" ]; then
+        tput setaf 1
         >&2 echo "[$(date)]: MySQL Error!"
+        tput sgr0
+        if [ "$EXIT_ON_ERROR" = true ]; then
+            exit 1
+        fi
+        TARGET_OK=false
         sleep $SLEEP
         continue
     fi
-    if [ "$PRINT_FLAG" = true ]; then
+
+    if [ "$PRINT" = true ]; then
         echo "[$(date)]: ${RESULT}"
     fi
 
+    _TARGET_OK=false
     if [ "$COMPARE_TYPE" = "eq" ]; then
         if [ "$RESULT" = "$TARGET" ]; then
-            if [ "$PRINT_FLAG" = true ]; then
-                echo "[$(date)]: Target reached $RESULT = $TARGET"
-            fi
-            break
+            _TARGET_OK=true
+            SIGN_OK="="
+            SIGN_NOK="="
         fi
     elif [ "$COMPARE_TYPE" = "lt" ]; then
         if (( RESULT < TARGET )); then
-            if [ "$PRINT_FLAG" = true ]; then
-                echo "[$(date)]: Target reached $RESULT < $TARGET"
-            fi
-            break
+            _TARGET_OK=true
+            SIGN_OK=">"
+            SIGN_NOK="<"
         fi
     elif [ "$COMPARE_TYPE" = "gt" ]; then
         if (( RESULT > TARGET )); then
-            if [ "$PRINT_FLAG" = true ]; then
-                echo "[$(date)]: Target reached $RESULT > $TARGET"
+            _TARGET_OK=true
+            SIGN_OK="<"
+            SIGN_NOK=">"
+        fi
+    fi
+
+    if [ "$_TARGET_OK" = true ]; then
+        if [ "$TARGET_OK" = false ]; then
+            if [ "$PRINT" = true ]; then
+                printf "[$(date)]: Target "
+                tput setaf 2
+                printf "OK  "
+                tput sgr0
+                tput sitm
+                printf "$TARGET "
+                tput ritm
+                printf "$SIGN_OK "
+                tput bold
+                printf "$RESULT\n"
+                tput sgr0
             fi
+            if [ ! "$COMMAND" = "" ]; then
+                sh -c "$COMMAND"
+            fi
+        fi
+
+        TARGET_OK=true
+
+
+        if [ "$WATCH" = false ]; then
             break
         fi
+    else
+        if [ "$TARGET_OK" = true ]; then
+            if [ "$PRINT" = true ]; then
+                printf "[$(date)]: Target "
+                tput setaf 1
+                printf "NOK "
+                tput sgr0
+                tput sitm
+                printf "$TARGET "
+                tput ritm
+                printf "$SIGN_NOK "
+                tput bold
+                printf "$RESULT\n"
+                tput sgr0
+            fi
+            if [ ! "$COMMAND_NOK" = "" ]; then
+                sh -c "$COMMAND_NOK"
+            fi
+        fi
+        TARGET_OK=false
     fi
 
     sleep $SLEEP

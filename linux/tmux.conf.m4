@@ -105,5 +105,5 @@ set -g status-fg colour255
 m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
 set -g status-left "#{?client_prefix,C-b ,}[#S] "
 set -g status-bg "purple"
-set -g status-fg "white"
+set -g status-fg "colour255"
 ')m4_dnl
