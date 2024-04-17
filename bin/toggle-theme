@@ -27,8 +27,7 @@ if [ "$THEME" = "dark" ]; then
     # Update tmux (Consider making a theme switch in the m4 config and re-running that instead of having it configured here)
     tmux set-environment THEME "light"
     tmux set-environment ALACRITTY_THEME "${LIGHTTHEME}"
-    tmux set -g status-bg black
-    tmux set -g status-fg colour255
+    tmux set -g status-style "fg=colour255,bold,bg=black"
 
     # Update nvim
     send_vim_cmd ":set background=light"
@@ -43,8 +42,7 @@ else
     # Update tmux
     tmux set-environment THEME "dark"
     tmux set-environment ALACRITTY_THEME "${DARKTHEME}"
-    tmux set -g status-bg white
-    tmux set -g status-fg black
+    tmux set -g status-style "fg=black,bg=white"
 
     # Update nvim
     send_vim_cmd ":set background=dark"

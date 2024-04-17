@@ -98,12 +98,9 @@ set -g status-position bottom
 
 set -g status-left "#{?client_prefix,C-a ,}[#S] "
 set -g status-right "%d/%m/%y %H:%M:%S [#(cat /sys/class/power_supply/BAT0/capacity)%]"
-
-set -g status-bg black
-set -g status-fg colour255
+set -g status-style "fg=colour255,bold,bg=black"
 ')m4_dnl
 m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
 set -g status-left "#{?client_prefix,C-b ,}[#S] "
-set -g status-bg "purple"
-set -g status-fg "colour255"
+set -g status-style "fg=colour255,bold,bg=purple"
 ')m4_dnl
