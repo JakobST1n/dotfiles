@@ -2,6 +2,8 @@
 
 SLEEP=10
 PRINT=false
+CALCULATE=false
+REDRAW=false
 EXIT_ON_ERROR=false
 WATCH=false
 MYSQL_HOST="localhost"
@@ -21,10 +23,12 @@ usage() {
     printf "  -w                Watch mode, this will stop the program from exiting when target is reached,\n"
     printf "                    but continue to run command each time criteria is triggered. \n"
     printf "  -p                Print the current value for each check\n"
+    printf "  -P                Print only on same line (also enables -p)\n"
+    printf "  -k                C(k)alculate estimation until target\n"
     printf "  -e                Exit on error\n"
 }
 
-while getopts "H:u:d:c:t:n:l:pewh" opt; do
+while getopts "H:u:d:c:t:n:l:pPewkh" opt; do
   case ${opt} in
     H )
       MYSQL_HOST="$OPTARG"
@@ -50,8 +54,15 @@ while getopts "H:u:d:c:t:n:l:pewh" opt; do
     p )
       PRINT=true
       ;;
+    P )
+      PRINT=true
+      REDRAW=true
+      ;;
     w )
       WATCH=true
+      ;;
+    k )
+      CALCULATE=true
       ;;
     e )
       EXIT_ON_ERROR=true
@@ -104,11 +115,18 @@ if [ -z "$MYSQL_DATABASE" ]; then
   exit 1
 fi
 
-read -s -p "Enter password: " MYSQL_PWD
-echo
-export MYSQL_PWD
+PWD_SET_HERE=false
+if [ -z "$MYSQL_PWD" ]; then
+    read -s -p "Enter password: " MYSQL_PWD
+    echo
+    export MYSQL_PWD
+    PWD_SET_HERE=true
+fi
 
 TARGET_OK=false
+LAST=0
+ELAPSED_TIME=0
+LAST_CHANGE=0
 
 while true; do
     RESULT=$(mysql -u"$MYSQL_USER"  -h"$MYSQL_HOST" "$MYSQL_DATABASE" -e "$QUERY" --batch --silent)
@@ -125,7 +143,31 @@ while true; do
     fi
 
     if [ "$PRINT" = true ]; then
-        echo "[$(date)]: ${RESULT}"
+        if [ "$REDRAW" = true ]; then
+            tput cr
+            tput el
+        fi
+        printf "[$(date)]: ${RESULT}"
+        if [ "$CALCULATE" = true ]; then
+            CHANGE=$(python -c "print(int(abs($RESULT-$LAST)))" 2> /dev/null)
+            ELAPSED_TIME=$(($ELAPSED_TIME+$SLEEP))
+            LAST=$RESULT
+
+            if [ $CHANGE -ne 0 ]; then
+                remaining_time=$(( (TARGET - RESULT) * ELAPSED_TIME / CHANGE ))
+                remaining_time=$(python -c "print(abs($remaining_time))")
+                LAST_CHANGE=$CHANGE
+            fi
+
+            EST=$(($(date +%s)+$remaining_time))
+            printf " ~ $LAST_CHANGE/s ETA $(date -d @$EST) "
+            tput bold
+            printf "[$(date -u +"%T" -d "@${remaining_time}")]"
+            tput sgr0
+        fi
+        if [ ! "$REDRAW" = true ]; then
+            printf "\n"
+        fi
     fi
 
     _TARGET_OK=false
@@ -200,5 +242,6 @@ while true; do
     sleep $SLEEP
 done
 
-unset MYSQL_PWD
-
+if [ "$PWD_SET_HERE" = true ]; then
+    unset MYSQL_PWD
+fi
