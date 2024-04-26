@@ -1,17 +1,8 @@
--- opts that replicate the nore part of noremap
-silentnoremap = { noremap = true, silent = true }
-noremap = { noremap = true, silent = false }
-
--- Just to make the map function "shorter"
-function map(kind, lhs, rhs, opts)
-  vim.api.nvim_set_keymap(kind, lhs, rhs, opts)
-end
-
--- True if Paste Mode is enabled
-function HasPaste()
-  return vim.opt.paste:get() and 'PASTE MODE  ' or ''
-end
-vim.api.nvim_create_user_command('HasPaste', HasPaste, {bang=true, desc='Returns a string with PASTE MODE if paste is on.'})
+-- Convenient sudo saving of file
+vim.api.nvim_create_user_command(
+ 'W', 'w !sudo tee % > /dev/null',
+ {bang=true, desc='Save file using sudo'}
+)
 
 -- Toggles wether special characters are visible
 list_chars_enabled = false
@@ -21,7 +12,7 @@ function ToggleListChars()
   vim.opt.list = list_chars_enabled
   vim.opt.listchars = list_chars_enabled and list_chars_when_enabled or 'eol:$'
 end
-vim.keymap.set('n', '<leader><tab>', ToggleListChars, silentnoremap)
+vim.keymap.set('n', '<leader><tab>', ToggleListChars, { noremap = true, silent = true })
 
 -- Command to join lines in buffer as list
 function JoinLines(args, quotes)
@@ -183,4 +174,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank()
     end,
 })
+
+-- Reminders for system clipboard register
+vim.api.nvim_set_keymap('v', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
+vim.api.nvim_set_keymap('n', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
 

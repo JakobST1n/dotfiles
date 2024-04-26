@@ -31,10 +31,10 @@ local sign = function(opts)
   })
 end
 
-sign({name = 'DiagnosticSignError', text = ''})
-sign({name = 'DiagnosticSignWarn', text = ''})
-sign({name = 'DiagnosticSignHint', text = ''})
-sign({name = 'DiagnosticSignInfo', text = ''})
+sign({name = 'DiagnosticSignError', text = '!'})
+sign({name = 'DiagnosticSignWarn', text = '!!'})
+sign({name = 'DiagnosticSignHint', text = '?'})
+sign({name = 'DiagnosticSignInfo', text = 'i'})
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -61,9 +61,11 @@ vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
 vim.opt.shortmess = vim.opt.shortmess + { c = true}
 vim.api.nvim_set_option('updatetime', 300)
 
-vim.cmd([[
-set signcolumn=yes
-]])
+-- Enable signcolumn
+vim.opt.signcolumn = 'yes'
+-- Remove background in SignColumn, looks odd without this
+vim.api.nvim_set_hl(0, "SignColumn", {link = "LineNr"})
+
 -- autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)

@@ -19,13 +19,6 @@ return require('packer').startup(function(use)
 
   -- Git plugins
   use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-      map("n", "<leader>s", ":Gitsigns toggle_current_line_blame<cr>", silentnoremap)
-    end,
-  }
-  use {
     'tpope/vim-fugitive',
   }
 
@@ -56,10 +49,30 @@ return require('packer').startup(function(use)
               \ 'spinner': ['fg', 'Label'],
               \ 'header':  ['fg', 'Comment'] }
         ]]
-        map("n", ";", ":Files<cr>", silentnoremap)
-        map("n", "<leader>;", ":Rg<cr>", silentnoremap)
-        map("n", "<leader><leader>;", ":Lines<cr>", silentnoremap)
+        vim.api.nvim_set_keymap("n", ";", ":Files<cr>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>;", ":Rg<cr>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader><leader>;", ":Lines<cr>", { noremap = true, silent = true })
       end,
+  }
+
+  -- Lsp things
+  use {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig' ,
+  }
+
+  -- Treesitter, quicker highlighting and such
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "c", "cpp", "python", "php", "java", "lua", "vim", "vimdoc", "query", "php", "sql" },
+        sync_install = false,
+        auto_install = true,
+        --ignore_install = { "javascript" },
+      }
+    end
   }
 
   -- vim-dadbob (run sql directly)
@@ -85,15 +98,10 @@ return require('packer').startup(function(use)
       end,
   }
 
-  -- Lsp things
+  -- Useful for wide screens
   use {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig' ,
+      'smithbm2316/centerpad.nvim' 
   }
-  -- Language-specifics
-  use 'simrat39/rust-tools.nvim'
-  --use 'mfussenegger/nvim-jdtls'
 
   -- VimWiki stuff
   use {
@@ -162,43 +170,6 @@ return require('packer').startup(function(use)
         })
      end
   }
-
-  --use 'tpope/vim-surround'
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "cpp", "python", "php", "java", "lua", "vim", "vimdoc", "query", "php", "sql" },
-        sync_install = false,
-        auto_install = true,
-        --ignore_install = { "javascript" },
-      }
-    end
-  }
-  use 'evanleck/vim-svelte'
-  use 'pangloss/vim-javascript'
-  use 'ledger/vim-ledger'
-
-  -- use { 'junegunn/goyo.vim' }
-  -- use { 'smithbm2316/centerpad.nvim' }
-
-  -- Color picker
-  use {
-    "ziontee113/color-picker.nvim",
-    config = function()
-      require("color-picker")
-    end,
-  }
-  -- TagBar
-  -- use {
-  --   'preservim/tagbar',
-  --   config = function()
-  --     map("n", "<F2>", ":TagbarToggle<cr>", silentnoremap)
-  --   end,
-  -- }
-  -- Vim tmux navigator
-  -- use 'christoomey/vim-tmux-navigator'
-
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
