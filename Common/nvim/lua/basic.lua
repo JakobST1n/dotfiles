@@ -37,8 +37,11 @@ vim.cmd [[
 
 -- Colorscheme
 vim.cmd [[ colorscheme default ]]
-vim.opt.background = "light"
+vim.opt.background = "dark"
 vim.opt.termguicolors = true
 -- No idea why, preview in fzf does at least work extremely porly without this
 vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
 
+-- Show colour column
+vim.opt.colorcolumn = '120'
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "lightgrey", bg = "#363636" })
