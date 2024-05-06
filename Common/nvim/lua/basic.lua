@@ -1,7 +1,3 @@
---[[
-  General
---]]
-
 vim.opt.autoread = true
 vim.opt.formatoptions:remove("t")
 vim.opt.path:append("**")
@@ -11,10 +7,6 @@ vim.opt.smartcase = true
 vim.opt.showmatch = true
 vim.opt.swapfile = false
 vim.opt.smartindent = true
-
---[[
-  Convenience stuff
---]]
 
 -- Default to the "modern normal"
 vim.opt.expandtab   = true

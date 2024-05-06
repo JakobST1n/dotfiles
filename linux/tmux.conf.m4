@@ -1,6 +1,6 @@
 # -- general -------------------------------------------------------------------
 set -g default-terminal "tmux-256color"
-set-option -ga terminal-overrides ",xterm-256color:Tc"  # don't remember
+set -as terminal-overrides ",xterm-256color:Tc"  # don't remember
 set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
 set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
 
@@ -11,14 +11,12 @@ set-option -g default-shell DT_SHELL
 set -s focus-events on
 
 # -- navigation ----------------------------------------------------------------
-
-# Set window notification
 setw -g monitor-activity on
 set -g visual-activity off
-
-# Bells
 set -g visual-bell on
 set -g bell-action any
+
+setw -g mode-keys vi
 
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 unbind C-b
@@ -26,45 +24,24 @@ set -g prefix C-a
 bind C-a send-prefix
 ')m4_dnl
 
-# Set copying settings
-setw -g mode-keys vi
-set-option -s set-clipboard off
-bind P paste-buffer
-bind-key -T copy-mode-vi 'v' send -X begin-selection
-bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
-bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'xclip -sel clip -i'
-unbind -T copy-mode-vi Enter
-bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
-
 # -- macros --------------------------------------------------------------------
-# Set tmux style on remote
-bind-key C-r send-keys C-b ":set status-style 'fg=black,bg=purple'"
-
-# Synchronize panes
 bind-key = set-window-option synchronize-panes
-
-# Reload
 bind-key r source-file ~/.tmux.conf
 
-# Git author
-bind-key s send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
-
-# Quick notes, diary
+m4_changequote({, })m4_dnl
+m4_ifelse(DT_DOTFILES_TYPE, {local}, {m4_dnl
+bind-key S send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
 bind -n M-w display-popup -E "nvim -c VimwikiIndex -c Calendar -c 'wincmd p'"
 bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'wincmd p' -c 'call append(1, strftime(\"- **%T** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 
 # Theme toggling
 bind-key T run-shell "toggle-theme"
-m4_changequote({, })m4_dnl
-m4_ifelse(DT_DOTFILES_TYPE, {local}, {m4_dnl
 set-hook -g session-window-changed 'run-shell "update-theme"'
 set-hook -g window-renamed 'run-shell "update-theme"'
 bind-key C-p run-shell "tmux display-message -p '#W' | grep -q '^PROD' || tmux rename-window 'PROD #{window_name}'"
 bind-key C-s run-shell "tmux display-message -p '#W' | grep -q '^STAGING' || tmux rename-window 'STAGING #{window_name}'"
 })m4_dnl
-m4_changequote(`, ')m4_dnl
-m4_changequote({, })m4_dnl
 m4_ifelse(DT_TMUX_NAVIGATOR, `yes', {
 # -- vim-tmux-navigator --------------------------------------------------------
 # Smart pane switching with awareness of Vim splits.
@@ -92,10 +69,6 @@ m4_changequote(`, ')m4_dnl
 
 # -- Theme --------------------------------------------------------------------
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
-set -g status-justify left
-set -g status-interval 2
-set -g status-position bottom
-
 set -g status-left "#{?client_prefix,C-a ,}[#S] "
 set -g status-right "%d/%m/%y %H:%M:%S [#(cat /sys/class/power_supply/BAT0/capacity)%]"
 set -g status-style "fg=colour255,bold,bg=black"

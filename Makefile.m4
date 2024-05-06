@@ -28,7 +28,6 @@ endef
 
 all: system.m4 install_packages m4_dnl
 m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vimrc') m4_dnl
-m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vim') m4_dnl
 m4_ifelse(DT_ROFI,           `yes', `$(HOME_DIR)/.config/rofi') m4_dnl
 m4_ifelse(DT_DEADD,          `yes', `$(HOME_DIR)/.config/deadd') m4_dnl
 m4_ifelse(DT_WAYBAR,         `yes', `$(HOME_DIR)/.config/waybar') m4_dnl
@@ -66,9 +65,6 @@ Makefile: Makefile.m4 $(M4_SYSFILE)
 m4_ifelse(DT_VIM, `yes', `m4_dnl
 $(HOME_DIR)/.vimrc: Common/vimrc
 	$(call create_dotfile_symlink,Common/vimrc,.vimrc)
-
-$(HOME_DIR)/.vim: Common/vim
-	$(call create_dotfile_symlink,Common/vim,.vim)
 
 ')m4_dnl
 m4_ifelse(DT_ROFI, `yes', `m4_dnl
@@ -139,7 +135,7 @@ $(HOME_DIR)/.zshrc: Common/zshrc
 	$(call create_dotfile_symlink,Common/zshrc,.zshrc)
 
 m4_ifelse(DT_ZSH, `yes', `m4_dnl
-$(HOME_DIR)/.p10k.zsh: Common/vim
+$(HOME_DIR)/.p10k.zsh: 
 	$(call create_dotfile_symlink,Common/p10k.zsh,.p10k.zsh)
 
 ')m4_dnl

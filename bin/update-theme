@@ -3,7 +3,11 @@
 ALACRITTYCONF="${HOME}/.config/alacritty/alacritty.toml"
 
 CURRENT_WINDOW_NAME=$(tmux display-message -p "#W" | tr '[:upper:]' '[:lower:]')
-export $(tmux show-env | grep THEME)
+ALACRITTY_THEME=$(tmux show-env | grep '^ALACRITTY_THEME=' | cut -d '=' -f2-)
+ALACRITTY_THEME=${ALACRITTY_THEME:-light}
+
+# Export the ALACRITTY_THEME variable
+export ALACRITTY_THEME
 
 DARK_THEME="campbell"
 LIGHT_THEME="papertheme"
