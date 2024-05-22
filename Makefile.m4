@@ -177,7 +177,7 @@ $(HOME_DIR)/.config/qtile/config.py: linux/qtile/config/config.py
 m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 /usr/local/bin/nvim:
 	git clone https://github.com/neovim/neovim /tmp/neovim
-	git -C /tmp/neovim checkout tags/v0.9.5
+	git -C /tmp/neovim checkout tags/v0.9.0
 	(cd /tmp/neovim && sudo make install)
 
 $(HOME_DIR)/.config/nvim/: /usr/local/bin/nvim

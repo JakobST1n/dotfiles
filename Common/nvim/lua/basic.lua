@@ -18,22 +18,22 @@ vim.opt.softtabstop = 4
 vim.api.nvim_set_keymap('n', '<leader><cr>', ':noh<cr>', { noremap = true, silent = true })
 
 -- Tab commands
-vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<cr>',  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tc', ':tabnew<cr>',   { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tx', ':tabclose<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tp', ':tabprevious<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<cr>',     { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tc', ':tabnew<cr>',      { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tx', ':tabclose<cr>',    { noremap = true, silent = true })
 
--- Return to last edit position when opening files (You want this!)
+-- Return to last edit position when opening files
 vim.cmd [[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]]
 
 -- Colorscheme
-vim.cmd [[ colorscheme default ]]
-vim.opt.background = "dark"
-vim.opt.termguicolors = true
+vim.cmd [[ colorscheme vim ]]
+vim.opt.background = "light"
 -- No idea why, preview in fzf does at least work extremely porly without this
 vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
 
 -- Show colour column
 vim.opt.colorcolumn = '120'
-vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "lightgrey", bg = "#363636" })
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "lightgrey", bg = "#eae7da" })

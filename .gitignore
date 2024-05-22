@@ -99,3 +99,4 @@ Common/newsboat/history.cmdline
 Common/newsboat/urls
 
 bin/pingme
+bin/autoclean.sh

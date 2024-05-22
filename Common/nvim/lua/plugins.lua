@@ -90,57 +90,19 @@ return require('packer').startup(function(use)
         nmap <leader>dbb <Plug>(DBExeLine)
 
         autocmd FileType dbout setlocal nofoldenable
-
-        if !empty(glob("~/.env.vim"))
-            source ~/.env.vim
-        endif
         ]]
       end,
   }
 
   -- Useful for wide screens
   use {
-      'smithbm2316/centerpad.nvim' 
+      'junegunn/goyo.vim' 
   }
 
   -- VimWiki stuff
   use {
       'vimwiki/vimwiki',
       config = function ()
-          vim.g.vimwiki_list = {
-            {
-                path = '~/Nextcloud/2-Områder/204-profesjonelt/204.06-infomedia/204.06.AA-wiki',
-                syntax = 'markdown',
-                ext = 'md',
-                name = 'I45',
-                auto_toc = 1,
-                diary_frequency = 'daily',
-                nested_syntaxes = {
-                  python = 'python',
-                  sql = 'sql',
-                },
-            },
-            {
-                path = '~/Nextcloud/1-Prosjekter/101-masteroppgave/101.02-quick-notes',
-                syntax = 'markdown',
-                ext = 'md',
-                name = 'P101',
-                auto_toc = 1,
-                nested_syntaxes = {
-                  python = 'python',
-                  sql = 'sql',
-                },
-            },
-            {
-                path = '~/Nextcloud/',
-                syntax = 'markdown',
-                ext = 'md',
-                name = 'P01',
-                --nested_syntaxes = {
-                --  python = 'python',
-                --},
-            },
-          }
           vim.g.vimwiki_global_ext = 0
           vim.g.vimwiki_auto_header = 1
           vim.g.vimwiki_links_space_char = '_'

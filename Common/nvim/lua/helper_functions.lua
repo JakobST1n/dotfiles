@@ -1,3 +1,20 @@
+-- Load local configuration
+-- For me this is usually something like
+-- let g:vimwiki_list = [
+--     \ {'name': 'I45', 'syntax': 'markdown', 'ext': 'md', 'auto_toc': 1, 
+--     \  'path': '~/_library/I45/',
+--     \  'nested_syntaxes': {'python': 'python', 'sql': 'sql', 'ioql': 'ioql'}},
+--     \ {'name': 'P01', 'syntax': 'markdown', 'ext': 'md', 'auto_toc': 1, 
+--     \  'path': '~/_library/',
+--     \ }
+--     \]
+-- let g:db = "mysql://user@db001"
+vim.cmd [[
+if !empty(glob("~/.env.vim"))
+    source ~/.env.vim
+endif
+]]
+
 -- Convenient sudo saving of file
 vim.api.nvim_create_user_command(
  'W', 'w !sudo tee % > /dev/null',

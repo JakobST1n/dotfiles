@@ -1,5 +1,5 @@
 #!/bin/bash
-ARCHIVE="${HOME}/Nextcloud"
+ARCHIVE="${HOME}/_library"
 
 D1=$(find "${ARCHIVE}" -maxdepth 1 -type d -regextype posix-extended -regex "${ARCHIVE}/[0-9]-.*")
 D2=$(find "${ARCHIVE}" -maxdepth 2 -type d -regextype posix-extended -regex "${ARCHIVE}/[0-9]+-[^/]+/[0-9]{3}-.*")

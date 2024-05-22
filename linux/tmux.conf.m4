@@ -33,7 +33,7 @@ m4_ifelse(DT_DOTFILES_TYPE, {local}, {m4_dnl
 bind-key S send-keys "DT_GIT_USER <DT_GIT_EMAIL>"
 bind -n M-w display-popup -E "nvim -c VimwikiIndex -c Calendar -c 'wincmd p'"
 bind -n M-C-w display-popup -E "nvim -c VimwikiMakeDiaryNote -c Calendar -c 'wincmd p' -c 'call append(1, strftime(\"- **%T** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
-bind -n M-C-i display-popup -E "nvim -c 'e ~/Nextcloud/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
+bind -n M-C-i display-popup -E "nvim -c 'e ~/_library/wiki/I45/Hendelser.md' -c 'call append(1, strftime(\"- **%d.%m.%Y (%T)** - **\"))' -c 'call append(2, \"\")' -c 'execute \"normal! 2GA\"'"
 
 # Theme toggling
 bind-key T run-shell "toggle-theme"
@@ -70,7 +70,7 @@ m4_changequote(`, ')m4_dnl
 # -- Theme --------------------------------------------------------------------
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 set -g status-left "#{?client_prefix,C-a ,}[#S] "
-set -g status-right "%d/%m/%y %H:%M:%S [#(cat /sys/class/power_supply/BAT0/capacity)%]"
+set -g status-right "#(tt third-time) %d/%m/%y %H:%M:%S [#(cat /sys/class/power_supply/BAT0/capacity)%]"
 set -g status-style "fg=colour255,bold,bg=black"
 ')m4_dnl
 m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
