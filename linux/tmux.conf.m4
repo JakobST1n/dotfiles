@@ -17,6 +17,7 @@ set -g visual-bell on
 set -g bell-action any
 
 setw -g mode-keys vi
+set -s set-clipboard off
 
 m4_ifelse(DT_DOTFILES_TYPE, `local', `m4_dnl
 unbind C-b
