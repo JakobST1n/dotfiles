@@ -1,4 +1,3 @@
-vim.opt.autoread = true
 vim.opt.formatoptions:remove("t")
 vim.opt.path:append("**")
 vim.g.netrw_banner = 0
@@ -29,11 +28,10 @@ vim.cmd [[
 ]]
 
 -- Colorscheme
-vim.cmd [[ colorscheme vim ]]
+vim.cmd [[ colorscheme bw ]]
 vim.opt.background = "light"
 -- No idea why, preview in fzf does at least work extremely porly without this
 vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
 
 -- Show colour column
 vim.opt.colorcolumn = '120'
-vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "lightgrey", bg = "#eae7da" })

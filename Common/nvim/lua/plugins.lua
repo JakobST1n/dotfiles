@@ -17,12 +17,7 @@ return require('packer').startup(function(use)
   -- Packer itself :)
   use 'wbthomason/packer.nvim'
 
-  -- Git plugins
-  use {
-    'tpope/vim-fugitive',
-  }
-
-  -- fzf (Fuzzy finder for various things)
+  use 'tpope/vim-fugitive'
   use {
       'junegunn/fzf.vim',
       requires = { 'junegunn/fzf', 'kyazdani42/nvim-web-devicons' },
@@ -70,6 +65,9 @@ return require('packer').startup(function(use)
         ensure_installed = { "c", "cpp", "python", "php", "java", "lua", "vim", "vimdoc", "query", "php", "sql" },
         sync_install = false,
         auto_install = true,
+        highlight = {
+            enable = false,
+        },
         --ignore_install = { "javascript" },
       }
     end
@@ -92,11 +90,6 @@ return require('packer').startup(function(use)
         autocmd FileType dbout setlocal nofoldenable
         ]]
       end,
-  }
-
-  -- Useful for wide screens
-  use {
-      'junegunn/goyo.vim' 
   }
 
   -- VimWiki stuff
