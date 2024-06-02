@@ -86,7 +86,6 @@ linux/sway/autostart
 linux/sway/hid
 Makefile
 config
-Common/nvim/colors/bw.vim
 *.pyc
 
 *.add

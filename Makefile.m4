@@ -179,11 +179,7 @@ m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 	git -C /tmp/neovim checkout tags/v0.9.0
 	(cd /tmp/neovim && sudo make install)
 
-Common/nvim/colors/bw.vim: Common/nvim/colors/bw.vim.m4                                                 \
-              ${M4_COMMON_DEPS}
-	$(call M4_EXEC)
-
-$(HOME_DIR)/.config/nvim/: Common/nvim/colors/bw.vim /usr/local/bin/nvim
+$(HOME_DIR)/.config/nvim/: /usr/local/bin/nvim
 	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
 
 ')m4_dnl
