@@ -29,6 +29,7 @@ hi StatusLineNC  gui=reverse             cterm=reverse
 
 hi TabLine      term=reverse  cterm=reverse  gui=reverse
 hi link TabLineFill TabLine
+hi TabLineSel gui=bold cterm=bold
 
 hi WinBar        gui=bold                cterm=bold                                                                                       
 
