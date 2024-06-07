@@ -4,18 +4,12 @@ endif
 
 highlight clear
 
-" Function to reset all highlight groups
 function! ResetAllHighlights()
-  " Get all highlight groups
   let highlight_groups = getcompletion('', 'highlight')
-  
-  " Reset each highlight group
   for group in highlight_groups
     exec 'highlight ' . group . ' guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE cterm=NONE gui=NONE'
   endfor
 endfunction
-
-" Call the function to reset all highlights
 call ResetAllHighlights()
 
 let g:colors_name = "bw"
@@ -59,6 +53,8 @@ hi DiffAdd     ctermfg=2   guifg=Green
 hi DiffChange  ctermfg=94  guifg=DarkYellow
 hi DiffDelete  ctermfg=1   guifg=Red
 hi DiffText    ctermfg=4   guifg=Blue
+hi link Removed DiffDelete
+hi link Added   DiffAdd
 
 hi Comment        ctermfg=248 guifg=Grey
 hi link  FoldColumn      Comment
@@ -71,12 +67,13 @@ hi ColorColumn    ctermbg=240 guibg=LightGrey
 hi  Underlined  cterm=bold  gui=bold
 
 hi Error       ctermbg=white   ctermfg=red      cterm=reverse      gui=reverse
-hi Identifier  cterm=bold         gui=bold
 hi Special     cterm=italic       gui=italic
-hi Statement   cterm=bold         gui=bold
-hi Todo        cterm=reverse      gui=reverse
+" hi Identifier  cterm=bold         gui=bold
+" hi Statement   cterm=bold         gui=bold
+" hi Todo        cterm=reverse      gui=reverse
 " hi Type        cterm=bold,italic  gui=bold,italic
 " hi Constant    cterm=bold         
+
 hi Directory   cterm=bold         
 
 hi MatchParen  ctermbg=LightGray guibg=LightGray guifg=Black ctermfg=Black
@@ -91,7 +88,6 @@ hi CurSearch  ctermbg=11 guibg=DarkYellow guifg=Black ctermfg=Black
 hi IncSearch cterm=reverse gui=reverse
 
 
-
 "function! SetTheme()
 "  if &background == 'dark'
 "    hi Pmenu         guibg=LightGray guifg=Black
@@ -100,3 +96,6 @@ hi IncSearch cterm=reverse gui=reverse
 "endfunction
 "autocmd VimEnter * call SetTheme()
 "autocmd OptionSet background call SetTheme()
+
+" Identify group under cursor
+nnoremap <silent> <leader>hi :echo synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR>

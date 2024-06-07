@@ -192,6 +192,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
+function insert_date_time()
+    local date_time = os.date("%d %H:%M")
+    local insert_text = string.format("- **%s** - **", date_time)
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_buf_set_lines(0, row, row, false, { insert_text })
+    vim.api.nvim_win_set_cursor(0, { row + 1, #insert_text - 1 })
+    -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>i', true, false, true), 'n', true)
+end
+vim.api.nvim_create_user_command("InsertDateTime", insert_date_time, {})
+
 -- Reminders for system clipboard register
 vim.api.nvim_set_keymap('v', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
 vim.api.nvim_set_keymap('n', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
