@@ -4,6 +4,7 @@ SLEEP=10
 PRINT=false
 CALCULATE=false
 REDRAW=false
+SILENT=false
 EXIT_ON_ERROR=false
 WATCH=false
 MYSQL_HOST="localhost"
@@ -25,6 +26,7 @@ usage() {
     printf "  -p                Print the current value for each check\n"
     printf "  -P                Print only on same line (also enables -p)\n"
     printf "  -k                C(k)alculate estimation until target\n"
+    printf "  -s                Silent mode, print only minimal info\n"
     printf "  -e                Exit on error\n"
 }
 
@@ -63,6 +65,9 @@ while getopts "H:u:d:c:t:n:l:pPewkh" opt; do
       ;;
     k )
       CALCULATE=true
+      ;;
+    s )
+      SILENT=true
       ;;
     e )
       EXIT_ON_ERROR=true
@@ -147,7 +152,10 @@ while true; do
             tput cr
             tput el
         fi
-        printf "[$(date)]: ${RESULT}"
+        if [ "$SILENT" = false ]; then
+            printf "[$(date)]: "
+        fi
+        printf "${RESULT}"
         if [ "$CALCULATE" = true ]; then
             CHANGE=$(python -c "print(int(abs($RESULT-$LAST)))" 2> /dev/null)
             ELAPSED_TIME=$(($ELAPSED_TIME+$SLEEP))
@@ -193,44 +201,46 @@ while true; do
 
     if [ "$_TARGET_OK" = true ]; then
         if [ "$TARGET_OK" = false ]; then
-            if [ "$PRINT" = true ]; then
-                printf "[$(date)]: Target "
-                tput setaf 2
-                printf "OK  "
-                tput sgr0
-                tput sitm
-                printf "$TARGET "
-                tput ritm
-                printf "$SIGN_OK "
-                tput bold
-                printf "$RESULT\n"
-                tput sgr0
+            if [ "$SILENT" = false ]; then
+                if [ "$PRINT" = true ]; then
+                    printf "[$(date)]: Target "
+                    tput setaf 2
+                    printf "OK  "
+                    tput sgr0
+                    tput sitm
+                    printf "$TARGET "
+                    tput ritm
+                    printf "$SIGN_OK "
+                    tput bold
+                    printf "$RESULT\n"
+                    tput sgr0
+                fi
             fi
             if [ ! "$COMMAND" = "" ]; then
                 sh -c "$COMMAND"
             fi
         fi
-
         TARGET_OK=true
-
 
         if [ "$WATCH" = false ]; then
             break
         fi
     else
         if [ "$TARGET_OK" = true ]; then
-            if [ "$PRINT" = true ]; then
-                printf "[$(date)]: Target "
-                tput setaf 1
-                printf "NOK "
-                tput sgr0
-                tput sitm
-                printf "$TARGET "
-                tput ritm
-                printf "$SIGN_NOK "
-                tput bold
-                printf "$RESULT\n"
-                tput sgr0
+            if [ "$SILENT" = false ]; then
+                if [ "$PRINT" = true ]; then
+                    printf "[$(date)]: Target "
+                    tput setaf 1
+                    printf "NOK "
+                    tput sgr0
+                    tput sitm
+                    printf "$TARGET "
+                    tput ritm
+                    printf "$SIGN_NOK "
+                    tput bold
+                    printf "$RESULT\n"
+                    tput sgr0
+                fi
             fi
             if [ ! "$COMMAND_NOK" = "" ]; then
                 sh -c "$COMMAND_NOK"
