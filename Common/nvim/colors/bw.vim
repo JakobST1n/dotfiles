@@ -45,14 +45,9 @@ hi SpellCap    term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=Da
 hi SpellLocal  term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=Green 
 hi SpellRare   term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=LightCyan 
 
-"hi DiffAdd     ctermfg=2   guifg=White  guibg=DarkGreen
-"hi DiffChange  ctermfg=94  guifg=White  guibg=DarkYellow
-"hi DiffDelete  ctermfg=1   guifg=White  guibg=DarkRed
-"hi DiffText    ctermfg=4   guifg=Blue
-hi DiffAdd     ctermfg=2   guifg=Green
-hi DiffChange  ctermfg=94  guifg=DarkYellow
-hi DiffDelete  ctermfg=1   guifg=Red
-hi DiffText    ctermfg=4   guifg=Blue
+hi  DiffAdd     ctermfg=2   guibg=LightGreen
+hi  DiffDelete  ctermfg=1   guibg=LightRed
+hi  DiffText    ctermbg=94  guibg=LightBlue
 hi link Removed DiffDelete
 hi link Added   DiffAdd
 
@@ -65,14 +60,8 @@ hi link  SpecialComment  Comment
 hi ColorColumn    ctermbg=240 guibg=LightGrey
 
 hi  Underlined  cterm=bold  gui=bold
-
 hi Error       ctermbg=white   ctermfg=red      cterm=reverse      gui=reverse
 hi Special     cterm=italic       gui=italic
-" hi Identifier  cterm=bold         gui=bold
-" hi Statement   cterm=bold         gui=bold
-" hi Todo        cterm=reverse      gui=reverse
-" hi Type        cterm=bold,italic  gui=bold,italic
-" hi Constant    cterm=bold         
 
 hi Directory   cterm=bold         
 

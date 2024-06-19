@@ -30,7 +30,7 @@ usage() {
     printf "  -e                Exit on error\n"
 }
 
-while getopts "H:u:d:c:t:n:l:pPewkh" opt; do
+while getopts "H:u:d:c:t:n:l:pPewkhs" opt; do
   case ${opt} in
     H )
       MYSQL_HOST="$OPTARG"

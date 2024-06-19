@@ -54,28 +54,7 @@ vim.api.nvim_create_user_command('JoinLinesBT', JoinLinesBT, {bang=false, desc='
 -- Strip trailing spaces
 vim.keymap.set('n', '<Leader>wt', [[:%s/\s\+$//e<cr>]])
 
--- Quick json formatting using jq
-function JsonFormat(start_line, end_line)
-    if start_line == nil or end_line == nil then
-        if vim.fn.mode() == 'v' then
-            start_line, _, end_line, _ = unpack(vim.fn.getpos("'<"), 2, 5)
-        else
-            start_line, end_line = 1, vim.api.nvim_buf_line_count(0)
-        end
-    end
-    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-    local json_string = table.concat(lines, "\n")
-    local handle = io.popen("echo '" .. json_string .. "' | jq .", "r")
-    local result = handle:read("*a")
-    handle:close()
-    vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, vim.fn.split(result, "\n"))
-end
-vim.api.nvim_create_user_command('JsonFormat', function(opts)
-    JsonFormat(opts.line1, opts.line2)
-end, {range = true, desc = 'Format JSON'})
-vim.keymap.set('n', '<leader>jq', JsonFormat, { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>jq', ':JsonFormat<CR>', { noremap = true, silent = true })
-
+-- Set spelling languages
 function English()
     vim.opt.spell = true
     vim.opt.spelllang = "en_us"
@@ -86,15 +65,6 @@ function Norsk()
     vim.opt.spelllang = "nb_no"
 end
 vim.api.nvim_create_user_command('Norsk', Norsk, {bang=false, desc='Enables spellchecking for norsk bokmål'})
-
--- enable filetype and such
-function auto()
-    vim.cmd [[
-        filetype plugin on
-        filetype indent on
-    ]]
-end
-vim.api.nvim_create_user_command('A', auto, {bang=false, desc='Enable filetype plugin and indent'})
 
  -- Quick rerun of last command in terminal
  function rerun_last_command_in_any_terminal()
@@ -166,6 +136,58 @@ nnoremap <leader><leader>s :GitHistoryForLine<CR>
 vnoremap <leader><leader>s :'<,'>GitHistoryForLine<CR>
 ]]
 
+-- Compare git to revision
+function GRevisionDiff()
+    local handle = io.popen("git diff --name-only $(git merge-base HEAD master)")
+    local files = handle:read("*a")
+    handle:close()
+
+    files = vim.split(files, "\n")
+    vim.fn.setqflist({})
+    for _, file in ipairs(files) do
+        if file ~= '' then
+            local handle = io.popen("git diff --stat HEAD master " .. file .. " | head -n 1 | awk -F '|' '{print $2}'")
+            local diffstat = handle:read("*a")
+            handle:close()
+            vim.fn.setqflist({}, 'a', {
+                title = 'GRevisionDiff: changed files',
+                items= {{filename = file, text = diffstat}}
+            })
+        end
+    end
+    vim.cmd("copen")
+end
+vim.api.nvim_create_user_command('GRevisionDiff', GRevisionDiff, {bang=false, desc=''})
+
+function close_existing_diff_windows()
+    local windows = vim.api.nvim_list_wins()
+    for _, win in ipairs(windows) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.api.nvim_win_get_option(win, "diff") then
+            vim.api.nvim_win_close(win, true)
+        end
+    end
+end
+
+function GRevisionDiffOpen()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
+    local qf_title = vim.fn.getqflist({title = 0}).title
+    if qf_title == 'GRevisionDiff: changed files' then
+        local filename = vim.fn.expand("<cfile>")
+        close_existing_diff_windows()
+        vim.defer_fn(function()
+            vim.cmd("Gvdiffsplit master ")
+        end, 50)
+    end
+end
+
+vim.cmd [[
+augroup QuickfixGRevisionDiff
+  autocmd!
+  autocmd FileType qf noremap <buffer> <CR> :lua GRevisionDiffOpen()<CR>
+augroup END
+]]
+
 -- Invert timestamp
 function invertNumberUnderCursor()
     local word = vim.fn.expand("<cword>") -- Get the word under the cursor
@@ -192,6 +214,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
+-- Insert a datetime timestamp in md
 function insert_date_time()
     local date_time = os.date("%d %H:%M")
     local insert_text = string.format("- **%s** - **", date_time)
@@ -205,4 +228,3 @@ vim.api.nvim_create_user_command("InsertDateTime", insert_date_time, {})
 -- Reminders for system clipboard register
 vim.api.nvim_set_keymap('v', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
 vim.api.nvim_set_keymap('n', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
-
