@@ -137,8 +137,9 @@ vnoremap <leader><leader>s :'<,'>GitHistoryForLine<CR>
 ]]
 
 -- Compare git to revision
-function GRevisionDiff()
-    local handle = io.popen("git diff --name-only $(git merge-base HEAD master)")
+function GRevisionDiff(args)
+    local branch = args.args ~= "" and args.args or "master"
+    local handle = io.popen("git diff --name-only $(git merge-base HEAD " .. branch .. ")")
     local files = handle:read("*a")
     handle:close()
 
@@ -146,18 +147,18 @@ function GRevisionDiff()
     vim.fn.setqflist({})
     for _, file in ipairs(files) do
         if file ~= '' then
-            local handle = io.popen("git diff --stat HEAD master " .. file .. " | head -n 1 | awk -F '|' '{print $2}'")
+            local handle = io.popen("git diff --stat HEAD " .. branch .. " " .. file .. " | head -n 1 | awk -F '|' '{print $2}'")
             local diffstat = handle:read("*a")
             handle:close()
             vim.fn.setqflist({}, 'a', {
-                title = 'GRevisionDiff: changed files',
+                title = 'GRevisionDiff: with ' .. branch,
                 items= {{filename = file, text = diffstat}}
             })
         end
     end
     vim.cmd("copen")
 end
-vim.api.nvim_create_user_command('GRevisionDiff', GRevisionDiff, {bang=false, desc=''})
+vim.api.nvim_create_user_command('GRevisionDiff', GRevisionDiff, {nargs = "?", desc = 'Show diff of current branch with the specified branch (default: master)'})
 
 function close_existing_diff_windows()
     local windows = vim.api.nvim_list_wins()
@@ -172,11 +173,12 @@ end
 function GRevisionDiffOpen()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
     local qf_title = vim.fn.getqflist({title = 0}).title
-    if qf_title == 'GRevisionDiff: changed files' then
+    if qf_title:match('GRevisionDiff: with') then
         local filename = vim.fn.expand("<cfile>")
+        local branch = qf_title:match('with (.+)$') or "master"
         close_existing_diff_windows()
         vim.defer_fn(function()
-            vim.cmd("Gvdiffsplit master ")
+            vim.cmd("Gvdiffsplit " .. branch)
         end, 50)
     end
 end
