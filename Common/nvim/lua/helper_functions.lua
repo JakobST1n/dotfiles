@@ -158,7 +158,28 @@ function GRevisionDiff(args)
     end
     vim.cmd("copen")
 end
-vim.api.nvim_create_user_command('GRevisionDiff', GRevisionDiff, {nargs = "?", desc = 'Show diff of current branch with the specified branch (default: master)'})
+
+function get_git_branches()
+    local handle = io.popen("git branch --list --format='%(refname:short)'")
+    local result = handle:read("*a")
+    handle:close()
+
+    local branches = {}
+    for branch in result:gmatch("[^\r\n]+") do
+        table.insert(branches, branch)
+    end
+    return branches
+end
+
+function complete_git_branches(arg_lead, cmd_line, cursor_pos)
+    return get_git_branches()
+end
+
+vim.api.nvim_create_user_command('GRevisionDiff', GRevisionDiff, {
+    nargs = "?",
+    desc = 'Show diff of current branch with the specified branch (default: master)',
+    complete = complete_git_branches
+})
 
 function close_existing_diff_windows()
     local windows = vim.api.nvim_list_wins()
