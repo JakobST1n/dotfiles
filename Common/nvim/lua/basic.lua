@@ -32,6 +32,3 @@ vim.cmd [[ colorscheme bw ]]
 vim.opt.background = "light"
 -- No idea why, preview in fzf does at least work extremely porly without this
 vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
-
--- Show colour column
-vim.opt.colorcolumn = '120'

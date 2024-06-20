@@ -77,14 +77,19 @@ hi CurSearch  ctermbg=11 guibg=DarkYellow guifg=Black ctermfg=Black
 hi IncSearch cterm=reverse gui=reverse
 
 
-"function! SetTheme()
-"  if &background == 'dark'
+function! SetTheme()
+  if &background == 'dark'
 "    hi Pmenu         guibg=LightGray guifg=Black
-"  else
-"  endif
-"endfunction
-"autocmd VimEnter * call SetTheme()
-"autocmd OptionSet background call SetTheme()
+    hi  DiffAdd     ctermfg=2   guibg=Green
+    hi  DiffDelete  ctermfg=1   guibg=Red
+    hi  DiffText    ctermbg=94  guibg=Blue
+    hi link Removed DiffDelete
+    hi link Added   DiffAdd
+  else
+  endif
+endfunction
+autocmd VimEnter * call SetTheme()
+autocmd OptionSet background call SetTheme()
 
 " Identify group under cursor
 nnoremap <silent> <leader>hi :echo synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR>
