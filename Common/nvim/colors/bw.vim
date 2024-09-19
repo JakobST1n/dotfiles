@@ -76,6 +76,9 @@ hi link  Substitute  Search
 hi CurSearch  ctermbg=11 guibg=DarkYellow guifg=Black ctermfg=Black
 hi IncSearch cterm=reverse gui=reverse
 
+hi LspReferenceText ctermfg=Blue guifg=Blue
+hi LspReferenceRead ctermfg=Blue guifg=Blue
+hi LspReferenceWrite ctermfg=Brown guifg=Brown
 
 function! SetTheme()
   if &background == 'dark'

@@ -251,3 +251,13 @@ vim.api.nvim_create_user_command("InsertDateTime", insert_date_time, {})
 -- Reminders for system clipboard register
 vim.api.nvim_set_keymap('v', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
 vim.api.nvim_set_keymap('n', '<leader>y', [[:lua vim.api.nvim_echo({{"Use register '+' for system clipboard", "ErrorMsg"}}, false, {})<CR>]], {noremap = true, silent=false})
+
+
+vim.cmd [[
+augroup highlight_current_word
+  autocmd!
+  autocmd CursorHold  * lua vim.lsp.buf.document_highlight()
+  autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved * lua vim.lsp.buf.clear_references()
+augroup END
+]]

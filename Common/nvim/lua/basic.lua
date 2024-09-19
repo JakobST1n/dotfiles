@@ -6,6 +6,7 @@ vim.opt.smartcase = true
 vim.opt.showmatch = true
 vim.opt.swapfile = false
 vim.opt.smartindent = true
+vim.opt.mouse = ""
 
 -- Default to the "modern normal"
 vim.opt.expandtab   = true

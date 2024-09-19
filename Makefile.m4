@@ -219,9 +219,6 @@ m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
 m4_dnl
-m4_ifelse(DT_QTILE, `yes', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
-m4_ifelse(DT_QTILE, `yes', `python3_xcffib xsecurelock',) m4_dnl qtile x11
-m4_ifelse(DT_QTILE, `yes', `wlroots python3-wlroots python3-pywayland python3-xkbcommon xwayland',) m4_dnl qtile wayland
 
 
 install_packages:
@@ -283,13 +280,13 @@ m4_ifelse(DT_QTILE, `yes', `qtile qtile_extras',) m4_dnl qtile core
 install_pip_packages:
 	@missing_packages=""; \
 	for pkg in $(PIP_DEPENDENCIES); do \
-		if [ "$($PIP list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
+		if [ "$(pip list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
 			missing_packages="$$missing_packages $$pkg"; \
 		fi; \
 	done; \
 	if [ -n "$$missing_packages" ]; then \
 		echo "Installing missing packages: $$missing_packages"; \
-		sudo $PIP $PIP_FLAGS install $$missing_packages; \
+		sudo pip $PIP_FLAGS install $$missing_packages; \
 	fi
 
 # Global rust packages

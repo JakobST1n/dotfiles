@@ -57,22 +57,6 @@ return require('packer').startup(function(use)
     'neovim/nvim-lspconfig' ,
   }
 
-  -- Treesitter, quicker highlighting and such
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "cpp", "python", "php", "java", "lua", "vim", "vimdoc", "query", "php", "sql" },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = false,
-        },
-        --ignore_install = { "javascript" },
-      }
-    end
-  }
-
   -- vim-dadbob (run sql directly)
   use {
       'tpope/vim-dadbod',

@@ -1,11 +1,50 @@
 #!/bin/bash
-ARCHIVE="${HOME}/Nextcloud"
+#set -x
+ARCHIVE="${HOME}/_library"
 
 comp() {
     find "${ARCHIVE}" -maxdepth $2 -type d -regextype posix-extended -regex "$1"
 }
 
 _cda() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # Format directory names for completion
+    local formatted_dirs
+    while IFS= read -r dir; do
+        local dir_name=$(basename "$dir")
+        local dir_code="${dir_name%%-*}"
+        local dir_desc="${dir_name#*-}"
+        formatted_dirs+="${dir_code} ${dir_desc}"$'\n'
+    done <<< "$directories"
+
+    # Generate completions based on current input
+    COMPREPLY=($(compgen -W "$formatted_dirs" -- "$cur"))
+}
+
+# Autocomplete function
+_cda() {
+  local current="${COMP_WORDS[COMP_CWORD]}"
+  local target_dir="$HOME/_library"
+  local suggestions=()
+
+  # Collect directories and format them
+  while IFS= read -r dir; do
+    local base_dir=$(basename "$dir")
+    # Append directory code and description
+    suggestions+=("${base_dir%%-*} ${base_dir#*-}")
+  done < <(find "$target_dir" -maxdepth 3 -type d -name "[0-9]*-*")
+
+  # Generate completions matching current input
+  COMPREPLY=($(compgen -W "${suggestions[*]}" -- "$current"))
+}
+
+#complete -F _cda cda
+
+_cda2() {
     if [ ! -z "$2" ]; then
         local cur
         COMPREPLY=()
@@ -13,6 +52,7 @@ _cda() {
 
         if [ "${#2}" = "1" ]; then
             D1=$(comp "${ARCHIVE}/[0-9]-.*" 1)
+            echo "$D1"
             target=$(printf "${D1}" | grep "$2" | xargs basename)
         elif [ "${#2}" = "3" ]; then
             D2=$(comp "${ARCHIVE}/[0-9]+-[^/]+/[0-9]{3}-.*" 2)
@@ -29,4 +69,3 @@ _cda() {
     fi
 }
 
-complete -F _cda cda
