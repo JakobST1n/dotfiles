@@ -176,10 +176,10 @@ $(HOME_DIR)/.config/qtile/config.py: linux/qtile/config/config.py
 m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 /usr/local/bin/nvim:
 	git clone https://github.com/neovim/neovim /tmp/neovim
-	git -C /tmp/neovim checkout tags/v0.9.0
+	git -C /tmp/neovim checkout tags/v0.10.0
 	(cd /tmp/neovim && sudo make install)
 
-$(HOME_DIR)/.config/nvim/: /usr/local/bin/nvim
+$(HOME_DIR)/.config/nvim: /usr/local/bin/nvim
 	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
 
 ')m4_dnl
@@ -218,6 +218,8 @@ m4_ifelse(DT_GREETD_TUIGREET, `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
+m4_ifelse(DT_NEOVIM, `yes', `cmake gettext',) m4_dnl
+m4_ifelse(DT_ALACRITTY, `yes', `libfontconfig1-dev pkg-config',)
 m4_dnl
 
 
@@ -301,8 +303,12 @@ m4_ifelse(DT_ALACRITTY, `yes', `alacritty',)
 install_cargo_packages: DT_HOME_DIRECTORY/.cargo/bin/cargo
 	@missing_packages=""; \
 	for pkg in $(CARGO_DEPENDENCIES); do \
-		if [ "$($$CARGO install --list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
+		echo "$(cargo install --list | grep -sw "$$pkg" | wc -l)"; \
+		echo "$(cargo install --list)"; \
+		if [ "$(cargo install --list | grep -sw "$$pkg" | wc -l)" = "0" ]; then \
 			missing_packages="$$missing_packages $$pkg"; \
+        else \
+            echo "not missing $$pkg"; \
 		fi; \
 	done; \
 	if [ -n "$$missing_packages" ]; then \

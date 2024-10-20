@@ -7,8 +7,8 @@ TERM = "alacritty"
 [font]
 size = 7
 
-[font.normal]
-family = "RobotoMono Nerd Font Mono"
+# [font.normal]
+# family = "RobotoMono Nerd Font Mono"
 
 [[keyboard.bindings]]
 action = "Paste"
