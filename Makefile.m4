@@ -26,7 +26,7 @@ define create_dotfile_symlink
 	$(call create_symlink,${SRC_DIR}/$(1),${HOME_DIR}/$(2))
 endef
 
-all: system.m4 install_packages m4_dnl
+all: system.m4 install_packages $(HOME_DIR)/.config m4_dnl
 m4_ifelse(DT_VIM,            `yes', `$(HOME_DIR)/.vimrc') m4_dnl
 m4_ifelse(DT_ROFI,           `yes', `$(HOME_DIR)/.config/rofi') m4_dnl
 m4_ifelse(DT_DEADD,          `yes', `$(HOME_DIR)/.config/deadd') m4_dnl
@@ -61,6 +61,9 @@ $(M4_SYSFILE): $(CONFIG_FILE)
 
 Makefile: Makefile.m4 $(M4_SYSFILE)
 	$(call M4_EXEC)
+
+$(HOME_DIR)/.config:
+	mkdir $(HOME_DIR)/.config
 
 m4_ifelse(DT_VIM, `yes', `m4_dnl
 $(HOME_DIR)/.vimrc: Common/vimrc
@@ -218,7 +221,7 @@ m4_ifelse(DT_GREETD_TUIGREET, `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
-m4_ifelse(DT_NEOVIM, `yes', `cmake gettext',) m4_dnl
+m4_ifelse(DT_NEOVIM, `yes', `cmake gettext fzf',) m4_dnl
 m4_ifelse(DT_ALACRITTY, `yes', `libfontconfig1-dev pkg-config',)
 m4_dnl
 

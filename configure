@@ -8,6 +8,23 @@ function generate_makefile {
     make Makefile
 }
 
+if ! command -v dialog; then
+    echo '"dialog" not found, please install before continuing"
+    exit 1
+fi
+if ! command -v m4; then
+    echo 'm4" not found, please install before continuing"
+    exit 1
+fi
+if ! command -v make; then
+    echo 'make" not found, please install before continuing"
+    exit 1
+fi
+if ! command -v awk; then
+    echo 'awk" not found, please install before continuing"
+    exit 1
+fi
+
 if [ -f "${CONFIG_FILE}" ]; then
     dialog \
         --keep-tite \
