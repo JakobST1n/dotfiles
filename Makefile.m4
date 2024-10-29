@@ -182,7 +182,10 @@ m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 	git -C /tmp/neovim checkout tags/v0.10.0
 	(cd /tmp/neovim && sudo make install)
 
-$(HOME_DIR)/.config/nvim: /usr/local/bin/nvim
+Common/nvim/lua/basic.lua: Common/nvim/lua/basic.lua.m4 ${M4_COMMON_DEPS}
+	$(call M4_EXEC)
+
+$(HOME_DIR)/.config/nvim: Common/nvim/lua/basic.lua /usr/local/bin/nvim
 	$(call create_symlink,$(SRC_DIR)/Common/nvim,$(HOME_DIR)/.config/nvim)
 
 ')m4_dnl
@@ -221,7 +224,7 @@ m4_ifelse(DT_GREETD_TUIGREET, `yes', `greetd',) m4_dnl
 m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
-m4_ifelse(DT_NEOVIM, `yes', `cmake gettext fzf',) m4_dnl
+m4_ifelse(DT_NEOVIM, `yes', `cmake gettext',) m4_dnl
 m4_ifelse(DT_ALACRITTY, `yes', `libfontconfig1-dev pkg-config',)
 m4_dnl
 

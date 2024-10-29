@@ -79,6 +79,7 @@ system.m4
 # Generated
 Common/zshrc
 Common/bashrc
+Common/nvim/lua/basic.lua
 linux/tmux.conf
 linux/qtile/config/config.py
 linux/sway/config

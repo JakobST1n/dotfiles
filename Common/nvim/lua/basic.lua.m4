@@ -33,3 +33,6 @@ vim.cmd [[ colorscheme bw ]]
 vim.opt.background = "light"
 -- No idea why, preview in fzf does at least work extremely porly without this
 vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
+m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
+vim.opt.termguicolors = true
+')m4_dnl
