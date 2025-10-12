@@ -76,6 +76,7 @@ fi
 : "${DT_BSPWM:=no}"
 : "${DT_INPUTRC:=yes}"
 : "${DT_VIM:=yes}"
+: "${DT_I3:=yes}"
 
 radiolist_on() {
     local value="$1"
@@ -207,7 +208,8 @@ FEATURES="$(dialog --stdout \
     23 "Sxhkd" $(checklist_on "${DT_SXHKD}") \
     24 "Bspwm" $(checklist_on "${DT_BSPWM}") \
     25 "Inputrc (usefull for bash, less, read etc)" $(checklist_on "${DT_INPUTRC}") \
-    26 "Vim" $(checklist_on "${DT_VIM}"))"
+    26 "Vim" $(checklist_on "${DT_VIM}") \
+    27 "i3wm" $(checklist_on "${DT_I3}"))"
 if [ "$?" -eq 1 ]; then exit 0; fi
 
 DT_TOOLS=no
@@ -235,6 +237,7 @@ DT_SXHKD=no
 DT_BSPWM=no
 DT_INPUTRC=no
 DT_VIM=no
+DT_I3=no
 
 for choice in ${FEATURES}; do
     case $choice in
@@ -263,6 +266,7 @@ for choice in ${FEATURES}; do
       24) DT_BSPWM=yes;;
       25) DT_INPUTRC=yes;;
       26) DT_VIM=yes;;
+      27) DT_I3=yes;;
     esac
 done
 
