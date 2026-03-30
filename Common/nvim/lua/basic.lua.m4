@@ -17,22 +17,14 @@ vim.opt.softtabstop = 4
 -- Disable highlight when <leader><cr> is pressed
 vim.api.nvim_set_keymap('n', '<leader><cr>', ':noh<cr>', { noremap = true, silent = true })
 
--- Tab commands
-vim.api.nvim_set_keymap('n', '<leader>tp', ':tabprevious<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<cr>',     { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tc', ':tabnew<cr>',      { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tx', ':tabclose<cr>',    { noremap = true, silent = true })
-
 -- Return to last edit position when opening files
 vim.cmd [[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]]
 
 -- Colorscheme
-vim.cmd [[ colorscheme bw ]]
 vim.opt.background = "light"
--- No idea why, preview in fzf does at least work extremely porly without this
-vim.cmd [[ let $BAT_THEME = 'gruvbox-light' ]]
 m4_ifelse(DT_DOTFILES_TYPE, `remote', `m4_dnl
 vim.opt.termguicolors = true
 ')m4_dnl
+vim.cmd.colorscheme("bw")

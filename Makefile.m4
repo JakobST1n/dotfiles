@@ -185,7 +185,7 @@ $(HOME_DIR)/.config/qtile/config.py: linux/qtile/config/config.py
 m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 /usr/local/bin/nvim:
 	git clone https://github.com/neovim/neovim /tmp/neovim
-	git -C /tmp/neovim checkout tags/v0.10.0
+	git -C /tmp/neovim checkout tags/v0.12.0
 	(cd /tmp/neovim && sudo make install)
 
 Common/nvim/lua/basic.lua: Common/nvim/lua/basic.lua.m4 ${M4_COMMON_DEPS}
