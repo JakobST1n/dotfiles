@@ -231,8 +231,9 @@ m4_ifelse(DT_TLP, `yes', `tlp',) m4_dnl
 m4_dnl
 m4_ifelse(DT_SWAY, `yes', `sway swayidle physlock blueman network-manager-gnome wob wlogout wofi brightnessctl clipman xwayland seahorse fcitx5',) m4_dnl
 m4_ifelse(DT_NEOVIM, `yes', `cmake gettext',) m4_dnl
-m4_ifelse(DT_ALACRITTY, `yes', `libfontconfig1-dev pkg-config',)
-m4_dnl
+m4_ifelse(DT_ALACRITTY, `yes', `libfontconfig1-dev pkg-config',) m4_dnl
+m4_ifelse(DT_I3,    `yes', `i3 xorg pulseaudio pulseaudio-utils pavucontrol pasystray network-manager-applet firefox-esr brightnessctl',) m4_dnl
+m4_ifelse(DT_ALACRITTY, `yes', `alacritty',)
 
 
 install_packages:
@@ -266,6 +267,7 @@ m4_dnl
 m4_ifelse(DT_QTILE, `yes', `python3-cffi python3-cairocffi pango pango-devel python3-dbus-next',) m4_dnl qtile core
 m4_ifelse(DT_QTILE, `yes', `python3-xcffib xsecurelock',) m4_dnl qtile x11
 m4_ifelse(DT_QTILE, `yes', `wlroots python3-pywayland python3-xkbcommon',) m4_dnl qtile wayland
+m4_ifelse(DT_I3,    `yes', `i3 xorg pulseaudio pulseaudio-utils pavucontrol pasystray network-manager-applet firefox-esr brightnessctl',) m4_dnl
 
 
 install_packages:
