@@ -45,8 +45,8 @@ hi SpellCap    term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=Da
 hi SpellLocal  term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=Green 
 hi SpellRare   term=undercurl  cterm=undercurl  ctermfg=5 gui=undercurl guisp=LightCyan 
 
-hi  DiffAdd     ctermfg=2   guibg=LightGreen
-hi  DiffDelete  ctermfg=1   guibg=LightRed
+hi  DiffAdd     ctermfg=9   guibg=LightCyan
+hi  DiffDelete  ctermfg=1   guibg=LightMagenta
 hi  DiffText    ctermbg=94  guibg=LightBlue
 hi link Removed DiffDelete
 hi link Added   DiffAdd
