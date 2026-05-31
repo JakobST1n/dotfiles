@@ -102,3 +102,6 @@ Common/newsboat/urls
 bin/pingme
 bin/autoclean.sh
 bin/devcontainer.sh
+
+Common/devcontainer/Dockerfile*
+!Common/devcontainer/Dockerfile*.m4
