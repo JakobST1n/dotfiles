@@ -51,6 +51,7 @@ m4_ifelse(DT_MYCLI,          `yes', `$(HOME_DIR)/.myclirc') m4_dnl
 m4_ifelse(DT_NEWSBOAT,       `yes', `$(HOME_DIR)/.newsboat') m4_dnl
 m4_ifelse(DT_ALACRITTY,      `yes', `$(HOME_DIR)/.config/alacritty') m4_dnl
 m4_ifelse(DT_I3,             `yes', `$(HOME_DIR)/.config/i3') m4_dnl
+m4_ifelse(DT_REGOLITH,       `yes', `$(HOME_DIR)/.config/regolith3') m4_dnl
 
 
 $(M4_SYSFILE): $(CONFIG_FILE)
@@ -94,6 +95,11 @@ $(HOME_DIR)/.config/foot: linux/foot
 m4_ifelse(DT_I3, `yes', `m4_dnl
 $(HOME_DIR)/.config/i3: linux/i3
 	$(call create_dotfile_symlink,linux/i3,.config/i3)
+
+')m4_dnl
+m4_ifelse(DT_REGOLITH, `yes', `m4_dnl
+$(HOME_DIR)/.config/regolith3: linux/regolith3
+	$(call create_dotfile_symlink,linux/regolith3,.config/regolith3)
 
 ')m4_dnl
 m4_ifelse(DT_POWERLINE, `yes', `m4_dnl
