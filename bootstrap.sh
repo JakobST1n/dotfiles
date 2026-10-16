@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 echo "Initializing repo"
 
 PKGS=(m4 make git)
@@ -57,4 +59,14 @@ EOF
 
 cd $HOME/.config/coderv2/dotfiles
 m4 -P Makefile.m4 > Makefile
+
+echo "Waiting a bit to ensure any lock file is created"
+sleep 5
+LOCK_FILE="$HOME/.startup-script-lock"
+while [[ -e "$LOCK_FILE" ]]; do
+    echo "Waiting for ${LOCK_FILE} to be released"
+    sleep 5
+done
+
 make
+
