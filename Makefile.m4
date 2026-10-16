@@ -190,9 +190,10 @@ $(HOME_DIR)/.config/qtile/config.py: linux/qtile/config/config.py
 ')m4_dnl
 m4_ifelse(DT_NEOVIM, `yes', `m4_dnl
 /usr/local/bin/nvim:
-	git clone https://github.com/neovim/neovim /tmp/neovim
-	git -C /tmp/neovim checkout tags/v0.12.0
-	(cd /tmp/neovim && sudo make install)
+	curl -L https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-linux-x86_64.tar.gz -o /tmp/nvim-linux-x86_64.tar.gz
+	sudo tar xzf /tmp/nvim-linux-x86_64.tar.gz -C /opt
+	sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+	rm -f /tmp/nvim-linux-x86_64.tar.gz
 
 Common/nvim/lua/basic.lua: Common/nvim/lua/basic.lua.m4 ${M4_COMMON_DEPS}
 	$(call M4_EXEC)
